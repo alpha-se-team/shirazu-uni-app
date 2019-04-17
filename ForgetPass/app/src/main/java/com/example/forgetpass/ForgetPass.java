@@ -14,12 +14,6 @@ public class ForgetPass extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_passw);
-        test =findViewById(R.id.goback);
-        test.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(ForgetPass.this, "heyyy bitch",Toast.LENGTH_LONG).show();
-            }
-        });
+    
     }
 }
