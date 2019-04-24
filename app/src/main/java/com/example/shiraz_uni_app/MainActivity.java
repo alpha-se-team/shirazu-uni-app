@@ -3,8 +3,11 @@ package com.example.shiraz_uni_app;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+
 import com.androidnetworking.AndroidNetworking;
 import com.orhanobut.hawk.Hawk;
 
@@ -14,10 +17,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        AndroidNetworking.initialize(getApplicationContext());
-
-        Hawk.init(MainActivity.this).build();
 
     }
 
@@ -33,4 +32,5 @@ public class MainActivity extends AppCompatActivity {
 
         return connected;
     }
+
 }

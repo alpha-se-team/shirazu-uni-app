@@ -1,6 +1,7 @@
 package com.example.shiraz_uni_app.Login;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.ColorSpace;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.androidnetworking.AndroidNetworking;
+import com.example.shiraz_uni_app.ForgetPassword.ForgetPassword;
 import com.example.shiraz_uni_app.MainActivity;
 import com.example.shiraz_uni_app.R;
 import com.orhanobut.hawk.Hawk;
@@ -25,6 +27,7 @@ public class LoginActivity extends AppCompatActivity implements Observer, View.O
     private EditText mUsername;
     private EditText mPassword;
     private Button mLoginButton;
+    private TextView mForgetPassword;
 
     private boolean mConnectionStatus;
 
@@ -41,21 +44,22 @@ public class LoginActivity extends AppCompatActivity implements Observer, View.O
 
         mUsername = findViewById(R.id.username);
         mPassword = findViewById(R.id.password);
-        mLoginButton = findViewById(R.id.login_button);
+        mLoginButton = findViewById(R.id.login);
+        mForgetPassword = findViewById(R.id.forgetPassword);
 
+        mForgetPassword.setClickable(true);
+        mForgetPassword.setOnClickListener(this);
         mLoginButton.setOnClickListener(this);
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        
         if (mModel.isValidLogin()){
             // TODO: 2019-04-17 : create an intent
             Hawk.put("token" ,mModel.getToken());
         } else {
             // TODO: 2019-04-17 : unsuccessful login with wrong username or password
         }
-
     }
 
     @Override
@@ -63,14 +67,18 @@ public class LoginActivity extends AppCompatActivity implements Observer, View.O
         Log.i("amirerfan", "onClick: log in button has been clicked");
 
         switch (v.getId()){
-            case (R.id.login_button):
+            case (R.id.login):
                 mConnectionStatus = MainActivity.checkInternetConnection(this);
 
                 if(mConnectionStatus)
                     mModel.login(mUsername.getText().toString(), mPassword.getText().toString());
                 else
                     // TODO: 2019-04-17 : show no internet dialog
-
+                break;
+            case (R.id.forgetPassword):
+                Intent intent = new Intent(LoginActivity.this , ForgetPassword.class);
+                finish();
+                startActivity(intent);
                 break;
         }
 
