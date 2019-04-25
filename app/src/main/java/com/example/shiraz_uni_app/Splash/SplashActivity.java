@@ -1,18 +1,19 @@
 package com.example.shiraz_uni_app.Splash;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
-import android.widget.Toast;
-
+import android.view.View;
+import android.widget.TextView;
 import com.androidnetworking.AndroidNetworking;
 import com.example.shiraz_uni_app.Login.LoginActivity;
 import com.example.shiraz_uni_app.MainActivity;
 import com.example.shiraz_uni_app.R;
 import com.orhanobut.hawk.Hawk;
-
 import java.util.Observable;
 import java.util.Observer;
 
@@ -32,16 +33,18 @@ public class SplashActivity extends Activity implements Observer {
         mSplashModel.addObserver(this);
 
         AndroidNetworking.initialize(getApplicationContext());
-
         Hawk.init(SplashActivity.this).build();
 
+        tryToInter();
+    }
+
+    private void tryToInter() {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
                 getState();
             }
         }, 2500);
-
     }
 
     @Override
@@ -58,7 +61,6 @@ public class SplashActivity extends Activity implements Observer {
 
     private void getState(){
 
-        Toast.makeText(SplashActivity.this, "2.5", Toast.LENGTH_SHORT).show();
         mConnectionStatus = MainActivity.checkInternetConnection(this);
         token = Hawk.get("token");
 
@@ -71,9 +73,23 @@ public class SplashActivity extends Activity implements Observer {
                 startActivity(intent);
             }
         }else{
-            Toast.makeText(SplashActivity.this, "no internet", Toast.LENGTH_SHORT).show();
-            // TODO: 2019-04-20 pop up no internet
+
+            final AlertDialog.Builder builder = new AlertDialog.Builder(SplashActivity.this); //the current class
+            View dialogView = getLayoutInflater().inflate(R.layout.no_internet_connection_dialog,null);
+            TextView close = dialogView.findViewById(R.id.close);
+            builder.setView(dialogView) ;
+            final AlertDialog dialog = builder.create();
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.show();
+            close.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.cancel();
+                    tryToInter();
+                }
+            });
+
+            dialog.setCanceledOnTouchOutside(false);
         }
     }
-
 }

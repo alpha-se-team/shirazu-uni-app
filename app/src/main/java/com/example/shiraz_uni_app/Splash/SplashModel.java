@@ -35,18 +35,14 @@ public class SplashModel extends Observable {
             .getAsJSONObject(new JSONObjectRequestListener() {
                 @Override
                 public void onResponse(JSONObject response) {
-                    Log.d("shirin", "on response");
                     try {
                         setmSuccess(response.getBoolean("success")) ;
-
-                        Log.d("shirin", mSuccess + "");
 
                         setChanged();
                         notifyObservers();
 
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        Log.d("shirin", "on response exception");
                     }
                 }
 
@@ -56,7 +52,6 @@ public class SplashModel extends Observable {
                     if (error.getErrorCode() == 404) {
                         Log.i("amirerfan", "onError: 404");
                     }
-                    //dialog.cancel();
                 }
             });
     }
