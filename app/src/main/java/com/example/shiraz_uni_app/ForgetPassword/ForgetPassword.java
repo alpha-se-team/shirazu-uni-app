@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,8 +20,9 @@ public class ForgetPassword extends AppCompatActivity implements View.OnClickLis
 
     private EditText mEditTextEmil;
     private EditText mEditTextPhoneNumber;
-    private TextView back;
+    private TextView mBack;
     private Button mConfirm;
+    private ImageButton mBackButton;
     private  ForgetPasswordModel mForgetPasswordModel;
     String mEmail;
     String mPhoneNumber;
@@ -32,8 +34,12 @@ public class ForgetPassword extends AppCompatActivity implements View.OnClickLis
 
         mEditTextEmil = findViewById(R.id.email);
         mEditTextPhoneNumber = findViewById(R.id.phone);
-        back = findViewById(R.id.goToStart);
+        mBack = findViewById(R.id.goToStart);
+        mBack.setOnClickListener(this);
         mConfirm = findViewById(R.id.send);
+        mConfirm.setOnClickListener(this);
+        mBackButton = findViewById(R.id.goback);
+        mBackButton.setOnClickListener(this);
 
         mForgetPasswordModel = new ForgetPasswordModel();
         mForgetPasswordModel.addObserver(this);
@@ -49,10 +55,12 @@ public class ForgetPassword extends AppCompatActivity implements View.OnClickLis
                 mPhoneNumber = mEditTextPhoneNumber.getText().toString();
 
                 if (mEmail.length() == 0 && mPhoneNumber.length() != 0){
-                    mForgetPasswordModel.forgetPasswordEmail(mEmail);
+                    mForgetPasswordModel.forgetPasswordEmail(mPhoneNumber);
+                    Toast.makeText(this, "text massage has been sent", Toast.LENGTH_SHORT).show();
                 }
                 else if (mEmail.length() != 0 && mPhoneNumber.length() == 0){
-                    mForgetPasswordModel.forgetPasswordPhoneNumber(mPhoneNumber);
+                    mForgetPasswordModel.forgetPasswordPhoneNumber(mEmail);
+                    Toast.makeText(this, "email has been sent", Toast.LENGTH_SHORT).show();
                 }
 
                 else if (mEmail.length() != 0 && mPhoneNumber.length() != 0){
@@ -65,9 +73,11 @@ public class ForgetPassword extends AppCompatActivity implements View.OnClickLis
 
                 break;
             case (R.id.goToStart):
-                Intent intent = new Intent(ForgetPassword.this , LoginActivity.class);
                 finish();
-                startActivity(intent);
+                break;
+
+            case (R.id.goback):
+                finish();
                 break;
         }
     }
