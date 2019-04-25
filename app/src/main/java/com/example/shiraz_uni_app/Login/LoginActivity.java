@@ -80,7 +80,6 @@ public class LoginActivity extends AppCompatActivity implements Observer, View.O
                 if(mConnectionStatus)
                     mModel.login(mUsername.getText().toString(), mPassword.getText().toString());
                 else {
-                    // TODO: 2019-04-17 : show no internet dialog
                     final AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this); //the current class
                     View dialogView = getLayoutInflater().inflate(R.layout.no_internet_connection_dialog, null);
                     TextView close = dialogView.findViewById(R.id.close);
@@ -98,7 +97,6 @@ public class LoginActivity extends AppCompatActivity implements Observer, View.O
                 break;
             case (R.id.forgetPassword):
                 Intent intent = new Intent(LoginActivity.this , ForgetPassword.class);
-                finish();
                 startActivity(intent);
                 break;
         }
