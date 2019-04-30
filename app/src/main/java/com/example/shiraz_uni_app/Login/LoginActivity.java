@@ -1,5 +1,6 @@
 package com.example.shiraz_uni_app.Login;
 
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,6 +21,7 @@ import com.example.shiraz_uni_app.ForgetPassword.ForgetPassword;
 import com.example.shiraz_uni_app.MainActivity;
 import com.example.shiraz_uni_app.R;
 import com.example.shiraz_uni_app.Splash.SplashActivity;
+
 import com.orhanobut.hawk.Hawk;
 
 import java.util.Observable;
@@ -32,6 +34,7 @@ public class LoginActivity extends AppCompatActivity implements Observer, View.O
     private EditText mUsername;
     private EditText mPassword;
     private Button mLoginButton;
+
     private TextView mForgetPassword;
 
     private boolean mConnectionStatus;
@@ -75,6 +78,7 @@ public class LoginActivity extends AppCompatActivity implements Observer, View.O
 
         switch (v.getId()){
             case (R.id.login):
+
                 mConnectionStatus = MainActivity.checkInternetConnection(this);
 
                 if(mConnectionStatus)
