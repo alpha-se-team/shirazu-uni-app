@@ -21,13 +21,13 @@
             />
 
         <TextView
-            android:id="@+id/InternetAccessTextView"
+            android:id="@+id/internet_access_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:gravity="center"
             android:text="Internet Access System"
-            android:textColor="@color/darkBlue"
+            android:textColor="@color/dark_blue"
             android:textSize="20sp"
             android:textStyle="bold"
             android:typeface="normal" />
@@ -48,8 +48,8 @@
             android:hint="نام کاربر"
             android:inputType="text"
             android:textAlignment="center"
-            android:textColor="@color/darkGrey"
-            android:textColorHint="@color/darkGrey"
+            android:textColor="@color/dark_grey"
+            android:textColorHint="@color/dark_grey"
             android:textSize="18sp"
             tools:layout_editor_absoluteX="40dp"
             tools:layout_editor_absoluteY="27dp" />
@@ -70,8 +70,8 @@
             android:hint="رمز عبور"
             android:inputType="text"
             android:textAlignment="center"
-            android:textColor="@color/darkGrey"
-            android:textColorHint="@color/darkGrey"
+            android:textColor="@color/dark_grey"
+            android:textColorHint="@color/dark_grey"
             android:textSize="18sp"
             tools:layout_editor_absoluteX="40dp"
             tools:layout_editor_absoluteY="104dp" />
@@ -106,7 +106,7 @@
                 android:background="@android:color/transparent"
                 android:gravity="center"
                 android:text="فراموشی رمز عبور"
-                android:textColor="@color/darkGrey" />
+                android:textColor="@color/dark_grey" />
 
         </LinearLayout>
 
@@ -121,7 +121,7 @@
             app:cardBackgroundColor="@color/cardview_light_background">
 
             <RelativeLayout
-                android:id="@+id/goToCalendar"
+                android:id="@+id/go_to_calendar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
@@ -130,7 +130,7 @@
 
 
                 <ImageView
-                    android:id="@+id/goToCalendarImageView"
+                    android:id="@+id/go_to_calendar_image_view"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:background="@drawable/round_button"
@@ -138,14 +138,14 @@
                     app:srcCompat="@drawable/calendar_logo" />
 
                 <TextView
-                    android:id="@+id/goToCalendarTextView"
+                    android:id="@+id/go_to_calendar_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="20dp"
                     android:text="تقویم وقایع دانشگاه"
-                    android:textColor="@color/darkBlue"
+                    android:textColor="@color/dark_blue"
                     android:textSize="20sp" />
 
 
