@@ -21,13 +21,13 @@
             />
 
         <TextView
-            android:id="@+id/InternetAccessTextView"
+            android:id="@+id/internet_access_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:gravity="center"
             android:text="Internet Access System"
-            android:textColor="@color/darkBlue"
+            android:textColor="@color/dark_blue"
             android:textSize="20sp"
             android:textStyle="bold"
             android:typeface="normal" />
@@ -106,7 +106,7 @@
                 android:background="@android:color/transparent"
                 android:gravity="center"
                 android:text="فراموشی رمز عبور"
-                android:textColor="@color/darkGrey" />
+                android:textColor="@color/dark_grey" />
 
         </LinearLayout>
 
@@ -170,7 +170,5 @@
                 </RelativeLayout>
             </android.support.v7.widget.CardView>
         </android.support.constraint.ConstraintLayout>
-
     </LinearLayout>
-
 </android.support.constraint.ConstraintLayout>
