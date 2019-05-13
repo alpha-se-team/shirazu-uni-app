@@ -22,7 +22,7 @@
             app:srcCompat="@drawable/university_logo" />
 
         <TextView
-            android:id="@+id/versionView"
+            android:id="@+id/version_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
