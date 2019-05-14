@@ -1,4 +1,4 @@
-package com.example.shiraz_uni_app;
+package com.example.shiraz_uni_app.Event;
 
 public class Example {
 

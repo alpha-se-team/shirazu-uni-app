@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".AllEvents"></activity>
+        <activity android:name=".Event.AllEvents"></activity>
         <activity android:name=".ForgetPassword.ForgetPassword"></activity>
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".Login.LoginActivity"></activity>

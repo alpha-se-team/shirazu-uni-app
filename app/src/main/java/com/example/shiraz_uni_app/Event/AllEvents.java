@@ -1,10 +1,13 @@
-package com.example.shiraz_uni_app;
+package com.example.shiraz_uni_app.Event;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
+
+import com.example.shiraz_uni_app.R;
+
 import java.util.ArrayList;
 
 
