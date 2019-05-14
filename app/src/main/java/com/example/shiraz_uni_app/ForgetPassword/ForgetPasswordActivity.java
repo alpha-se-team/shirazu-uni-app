@@ -1,6 +1,5 @@
 package com.example.shiraz_uni_app.ForgetPassword;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,13 +9,12 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.shiraz_uni_app.Login.LoginActivity;
 import com.example.shiraz_uni_app.R;
 
 import java.util.Observable;
 import java.util.Observer;
 
-public class ForgetPassword extends AppCompatActivity implements View.OnClickListener , Observer {
+public class ForgetPasswordActivity extends AppCompatActivity implements View.OnClickListener , Observer {
 
     private EditText mEditTextEmil;
     private EditText mEditTextPhoneNumber;
@@ -68,7 +66,7 @@ public class ForgetPassword extends AppCompatActivity implements View.OnClickLis
                 }
 
                 else {
-                    Toast.makeText(ForgetPassword.this, "please enter your email or your phone number", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ForgetPasswordActivity.this, "please enter your email or your phone number", Toast.LENGTH_SHORT).show();
                 }
 
                 break;
@@ -85,7 +83,7 @@ public class ForgetPassword extends AppCompatActivity implements View.OnClickLis
     @Override
     public void update(Observable o, Object arg) {
         if (mForgetPasswordModel.ismSuccess()){
-            Toast.makeText(ForgetPassword.this,
+            Toast.makeText(ForgetPasswordActivity.this,
                     "your password has been send to the" + mForgetPasswordModel.getmEmailOrPhoneNumber()
                     + "you been entered", Toast.LENGTH_SHORT).show();
         }

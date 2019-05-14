@@ -2,10 +2,8 @@ package com.example.shiraz_uni_app.Login;
 
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.ColorSpace;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,10 +15,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
-import com.example.shiraz_uni_app.ForgetPassword.ForgetPassword;
+import com.example.shiraz_uni_app.ForgetPassword.ForgetPasswordActivity;
 import com.example.shiraz_uni_app.MainActivity;
 import com.example.shiraz_uni_app.R;
-import com.example.shiraz_uni_app.Splash.SplashActivity;
 
 import com.orhanobut.hawk.Hawk;
 
@@ -99,10 +96,13 @@ public class LoginActivity extends AppCompatActivity implements Observer, View.O
                     });
                 }
                 break;
+
             case (R.id.forget_password):
-                Intent intent = new Intent(LoginActivity.this , ForgetPassword.class);
+                Intent intent = new Intent(LoginActivity.this , ForgetPasswordActivity.class);
                 startActivity(intent);
                 break;
+
+
         }
 
     }
