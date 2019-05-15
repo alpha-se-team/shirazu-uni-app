@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public static boolean checkInternetConnection(@org.jetbrains.annotations.NotNull Context context) {
+    public static boolean checkInternetConnection(Context context) {
 
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
