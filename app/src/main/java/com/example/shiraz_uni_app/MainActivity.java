@@ -21,17 +21,16 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public static boolean checkInternetConnection(Context context) {
-        boolean connected;
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(context.CONNECTIVITY_SERVICE);
-        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
-            //we are connected to a network
-            connected = true;
-        } else
-            connected = false;
+    public static boolean checkInternetConnection(@org.jetbrains.annotations.NotNull Context context) {
 
-        return connected;
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        if (activeNetwork != null) {
+            if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
+                return true;
+            } else return activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE;
+        } else {
+            return false;
+        }
     }
-
 }
