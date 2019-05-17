@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity implements Observer, View.O
         mUsername = findViewById(R.id.username);
         mPassword = findViewById(R.id.password);
         mLoginButton = findViewById(R.id.login);
-        mForgetPassword = findViewById(R.id.forgetPassword);
+        mForgetPassword = findViewById(R.id.forget_password);
 
         mForgetPassword.setClickable(true);
         mForgetPassword.setOnClickListener(this);
@@ -99,7 +99,7 @@ public class LoginActivity extends AppCompatActivity implements Observer, View.O
                     });
                 }
                 break;
-            case (R.id.forgetPassword):
+            case (R.id.forget_password):
                 Intent intent = new Intent(LoginActivity.this , ForgetPassword.class);
                 startActivity(intent);
                 break;
