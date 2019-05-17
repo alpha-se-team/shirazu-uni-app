@@ -13,6 +13,9 @@
         android:background="@color/dark_blue"
         android:orientation="horizontal"
         android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
 
 
@@ -20,7 +23,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:padding="15dp"
-            app:srcCompat="@drawable/left_arrow" />
+            tools:src="@drawable/left_arrow" />
 
         <TextView
             android:id="@+id/event_title"
@@ -44,10 +47,9 @@
         app:layout_constraintTop_toBottomOf="@id/header"
         tools:ignore="MissingConstraints">
 
-        <LinearLayout
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/event_text"
@@ -58,20 +60,22 @@
                 android:text="توضیحات رویداد"
                 android:textColor="@android:color/black"
                 android:textSize="14sp"
-                android:visibility="gone" />
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:id="@+id/event"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="25dp"
-                android:layout_marginRight="25dp"
-                android:layout_marginBottom="25dp"
+                android:padding="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@+id/event_text">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -92,9 +96,10 @@
                     <ImageView
                         android:id="@+id/event_pic"
                         android:layout_width="wrap_content"
-                        android:layout_height="500dp"
+                        android:layout_height="wrap_content"
                         android:background="@drawable/margin_blue"
-                        app:srcCompat="@drawable/event_pic" />
+                        android:scaleType="fitXY"
+                        android:src="@drawable/event_pic" />
 
                     <TextView
                         android:id="@+id/event_date"
@@ -111,7 +116,7 @@
 
             </FrameLayout>
 
-        </LinearLayout>
+        </android.support.constraint.ConstraintLayout>
     </ScrollView>
 
 </android.support.constraint.ConstraintLayout>
