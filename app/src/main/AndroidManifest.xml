@@ -16,7 +16,7 @@
         <activity android:name=".Event.AllEvents"></activity>
         <activity android:name=".ForgetPassword.ForgetPassword"></activity>
         <activity android:name=".MainActivity"></activity>
-        <activity android:name=".Login.LoginActivity"></activity>
+        <activity android:name=".Login.LoginActivity" android:windowSoftInputMode="adjustPan"></activity>
         <activity android:name=".Splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
