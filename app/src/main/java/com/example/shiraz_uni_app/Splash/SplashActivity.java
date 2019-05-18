@@ -7,7 +7,9 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
+import android.widget.Space;
 import android.widget.TextView;
 import com.androidnetworking.AndroidNetworking;
 import com.example.shiraz_uni_app.Login.LoginActivity;
@@ -67,11 +69,18 @@ public class SplashActivity extends Activity implements Observer {
         if(mConnectionStatus){
             if(token != null){
                 mSplashModel.checkToken(token);
+                if (mSplashModel.ismSuccess()){
+                    //Todo : bayad bere to safe account
+                    intent = new Intent(SplashActivity.this , MainActivity.class);
+                }else {
+                    intent = new Intent(SplashActivity.this , LoginActivity.class);
+                }
             }else{
                 intent = new Intent(SplashActivity.this, LoginActivity.class);
-                finish();
-                startActivity(intent);
+
             }
+            finish();
+            startActivity(intent);
         }else{
 
             final AlertDialog.Builder builder = new AlertDialog.Builder(SplashActivity.this); //the current class

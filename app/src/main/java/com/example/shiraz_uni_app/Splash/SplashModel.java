@@ -5,8 +5,10 @@ import android.util.Log;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONArrayRequestListener;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -16,7 +18,7 @@ public class SplashModel extends Observable {
 
    private boolean mSuccess;
 
-    public void checkToken(String token) {
+    public void checkToken2(String token) {
 
         Log.d("Amirerfan", "login called");
         JSONObject jsonObject = new JSONObject();
@@ -54,6 +56,32 @@ public class SplashModel extends Observable {
                     }
                 }
             });
+    }
+
+    public void checkToken(String token){
+
+        AndroidNetworking.get("https://young-castle-19921.herokuapp.com/apiv1/user/")
+                .addPathParameter("pageNumber", "0")
+                .addQueryParameter("limit", "3")
+                .addHeaders("token", token)
+                .setTag("test")
+                .setPriority(Priority.LOW)
+                .build()
+                .getAsJSONArray(new JSONArrayRequestListener() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        //yani successful bode
+                        setmSuccess(true);
+                    }
+                    @Override
+                    public void onError(ANError error) {
+                        setmSuccess(false);
+                        // handle error
+                    }
+                });
+
+        setChanged();
+        notifyObservers();
     }
 
 
