@@ -18,22 +18,27 @@ public class LoginModel extends Observable{
 
     public void login(String mUsername, String mPassword) {
 
-        Log.d("Amirerfan", "login called");
+        Log.d("shirin", "login called" + mUsername + mPassword);
         JSONObject jsonObject = new JSONObject();
+        JSONObject jsonObjectUser = new JSONObject();
         try {
             jsonObject.put("username", mUsername);
             jsonObject.put("password", mPassword);
+
+            jsonObjectUser.put("user" , jsonObject);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        loginApiCall(jsonObject);
+        loginApiCall(jsonObjectUser);
 
     }
 
     private void loginApiCall(JSONObject jsonObject) {
+        Log.i("shirin" , "api called");
+        Log.i("shirin" , jsonObject.toString());
 
-        AndroidNetworking.post("")
+        AndroidNetworking.post("https://young-castle-19921.herokuapp.com/apiv1/users/login/")
             .addJSONObjectBody(jsonObject) // posting json
             .setTag("test")
             .setPriority(Priority.MEDIUM)
@@ -41,15 +46,13 @@ public class LoginModel extends Observable{
             .getAsJSONObject(new JSONObjectRequestListener() {
                 @Override
                 public void onResponse(JSONObject response) {
-                    Log.d("shirin", "on response");
+                    Log.d("shirin", "on response" + response.toString());
+                    mValidLogin= true;
                     try {
-                        mSuccess = response.getBoolean("success");
-                        setValidLogin(mSuccess);
-                        Log.d("shirin", mSuccess + "");
 
-                        if (mSuccess) {
-                            setToken(response.getString("token"));
-                        }
+                        JSONObject user = response.getJSONObject("user");
+                        setToken(user.getString("token"));
+                        Log.i("shirin" , mToken);
 
                         setChanged();
                         notifyObservers();
@@ -62,9 +65,9 @@ public class LoginModel extends Observable{
 
                 @Override
                 public void onError(ANError error) {
-
+                    Log.i("shirin" , error.getErrorCode()+"  error");
                     if (error.getErrorCode() == 404) {
-                        Log.i("amirerfan", "onError: 404");
+                        Log.i("shirin", "onError: 404");
                     }
                     //dialog.cancel();
                 }

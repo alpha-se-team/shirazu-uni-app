@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Space;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.androidnetworking.AndroidNetworking;
 import com.example.shiraz_uni_app.Login.LoginActivity;
 import com.example.shiraz_uni_app.MainActivity;
@@ -65,13 +67,15 @@ public class SplashActivity extends Activity implements Observer {
 
         mConnectionStatus = MainActivity.checkInternetConnection(this);
         token = Hawk.get("token");
-
+        Log.i("shirin" , "get state called");
         if(mConnectionStatus){
             if(token != null){
+                Log.i("shirin" , "token not null  " + token);
                 mSplashModel.checkToken(token);
                 if (mSplashModel.ismSuccess()){
                     //Todo : bayad bere to safe account
-                    intent = new Intent(SplashActivity.this , MainActivity.class);
+                    Toast.makeText(this, "account page", Toast.LENGTH_SHORT).show();
+                    //intent = new Intent(SplashActivity.this , MainActivity.class);
                 }else {
                     intent = new Intent(SplashActivity.this , LoginActivity.class);
                 }

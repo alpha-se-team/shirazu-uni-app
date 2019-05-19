@@ -29,7 +29,7 @@ public class SplashModel extends Observable {
             e.printStackTrace();
         }
 
-        AndroidNetworking.post("")
+        AndroidNetworking.post("https://young-castle-19921.herokuapp.com/apiv1/user/")
             .addJSONObjectBody(jsonObject) // posting json
             .setTag("test")
             .setPriority(Priority.MEDIUM)
@@ -59,23 +59,26 @@ public class SplashModel extends Observable {
     }
 
     public void checkToken(String token){
-
+        Log.i("shirin" , "check token api");
         AndroidNetworking.get("https://young-castle-19921.herokuapp.com/apiv1/user/")
                 .addPathParameter("pageNumber", "0")
                 .addQueryParameter("limit", "3")
-                .addHeaders("token", token)
+                .addHeaders("Authorization", "Bearer "+ token)
                 .setTag("test")
                 .setPriority(Priority.LOW)
                 .build()
                 .getAsJSONArray(new JSONArrayRequestListener() {
                     @Override
                     public void onResponse(JSONArray response) {
+                        Log.i("shirin" , "response");
                         //yani successful bode
-                        setmSuccess(true);
+                        //Log.i("shirin" , response.toString());
+                        //setmSuccess(true);
                     }
                     @Override
                     public void onError(ANError error) {
                         setmSuccess(false);
+                        Log.i("shirin" , "on error " + error.getErrorDetail());
                         // handle error
                     }
                 });
