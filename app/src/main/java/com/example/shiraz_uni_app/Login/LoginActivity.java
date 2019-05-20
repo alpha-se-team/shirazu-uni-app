@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +29,6 @@ import java.util.Observer;
 public class LoginActivity extends AppCompatActivity implements Observer, View.OnClickListener {
 
     private LoginModel mModel;
-
     private EditText mUsername;
     private EditText mPassword;
     private Button mLoginButton;
@@ -114,7 +112,6 @@ public class LoginActivity extends AppCompatActivity implements Observer, View.O
                 Intent mEventIntent = new Intent(LoginActivity.this, EventsActivity.class);
                 startActivity(mEventIntent);
                 break;
-
 
             case (R.id.go_to_events_text_view):
                 Intent mEventIntent2 = new Intent(LoginActivity.this, EventsActivity.class);
