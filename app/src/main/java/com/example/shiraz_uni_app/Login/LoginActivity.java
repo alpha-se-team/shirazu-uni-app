@@ -105,6 +105,7 @@ public class LoginActivity extends AppCompatActivity implements Observer, View.O
 
             case (R.id.forget_password):
                 Intent intent = new Intent(LoginActivity.this, ForgetPasswordActivity.class);
+
                 startActivity(intent);
                 break;
 
