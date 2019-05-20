@@ -54,9 +54,12 @@ public class SplashActivity extends Activity implements Observer {
     @Override
     public void update(Observable o, Object arg) {
 
+        Log.i("shirin" , "update called");
         if (mSplashModel.ismSuccess()) {
+            Log.i("shirin" , "update1");
             intent = new Intent(SplashActivity.this, MainActivity.class);
         } else {
+            Log.i("shirin" , "update2");
             intent = new Intent(SplashActivity.this, LoginActivity.class);
         }
         finish();
@@ -72,19 +75,13 @@ public class SplashActivity extends Activity implements Observer {
             if(token != null){
                 Log.i("shirin" , "token not null  " + token);
                 mSplashModel.checkToken(token);
-                if (mSplashModel.ismSuccess()){
-                    //Todo : bayad bere to safe account
-                    Toast.makeText(this, "account page", Toast.LENGTH_SHORT).show();
-                    //intent = new Intent(SplashActivity.this , MainActivity.class);
-                }else {
-                    intent = new Intent(SplashActivity.this , LoginActivity.class);
-                }
             }else{
+                Log.i("shirin" , "else");
                 intent = new Intent(SplashActivity.this, LoginActivity.class);
+                finish();
+                startActivity(intent);
 
             }
-            finish();
-            startActivity(intent);
         }else{
 
             final AlertDialog.Builder builder = new AlertDialog.Builder(SplashActivity.this); //the current class

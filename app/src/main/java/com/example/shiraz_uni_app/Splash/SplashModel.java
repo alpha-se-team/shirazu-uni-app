@@ -7,6 +7,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONArrayRequestListener;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.androidnetworking.interfaces.OkHttpResponseListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,67 +15,29 @@ import org.json.JSONObject;
 
 import java.util.Observable;
 
+import okhttp3.Response;
+
 public class SplashModel extends Observable {
 
    private boolean mSuccess;
 
-    public void checkToken2(String token) {
-
-        Log.d("Amirerfan", "login called");
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("token", token);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        AndroidNetworking.post("https://young-castle-19921.herokuapp.com/apiv1/user/")
-            .addJSONObjectBody(jsonObject) // posting json
-            .setTag("test")
-            .setPriority(Priority.MEDIUM)
-            .build()
-            .getAsJSONObject(new JSONObjectRequestListener() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    try {
-                        setmSuccess(response.getBoolean("success")) ;
-
-                        setChanged();
-                        notifyObservers();
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onError(ANError error) {
-
-                    if (error.getErrorCode() == 404) {
-                        Log.i("amirerfan", "onError: 404");
-                    }
-                }
-            });
-    }
-
     public void checkToken(String token){
         Log.i("shirin" , "check token api");
         AndroidNetworking.get("https://young-castle-19921.herokuapp.com/apiv1/user/")
-                .addPathParameter("pageNumber", "0")
-                .addQueryParameter("limit", "3")
                 .addHeaders("Authorization", "Bearer "+ token)
                 .setTag("test")
                 .setPriority(Priority.LOW)
                 .build()
-                .getAsJSONArray(new JSONArrayRequestListener() {
+                .getAsOkHttpResponse(new OkHttpResponseListener() {
+
                     @Override
-                    public void onResponse(JSONArray response) {
-                        Log.i("shirin" , "response");
-                        //yani successful bode
-                        //Log.i("shirin" , response.toString());
-                        //setmSuccess(true);
+                    public void onResponse(Response response) {
+                        Log.i("shirin" , "response ");
+                        setmSuccess(true);
+                        setChanged();
+                        notifyObservers();
                     }
+
                     @Override
                     public void onError(ANError error) {
                         setmSuccess(false);
@@ -82,9 +45,6 @@ public class SplashModel extends Observable {
                         // handle error
                     }
                 });
-
-        setChanged();
-        notifyObservers();
     }
 
 
