@@ -11,10 +11,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
+import com.example.shiraz_uni_app.Event.EventsActivity;
 import com.example.shiraz_uni_app.ForgetPassword.ForgetPasswordActivity;
 import com.example.shiraz_uni_app.MainActivity;
 import com.example.shiraz_uni_app.R;
@@ -31,8 +34,9 @@ public class LoginActivity extends AppCompatActivity implements Observer, View.O
     private EditText mUsername;
     private EditText mPassword;
     private Button mLoginButton;
-
+    private TextView mEventsText;
     private TextView mForgetPassword;
+    private ImageView mEventsImage;
 
     private boolean mConnectionStatus;
 
@@ -51,10 +55,14 @@ public class LoginActivity extends AppCompatActivity implements Observer, View.O
         mPassword = findViewById(R.id.password);
         mLoginButton = findViewById(R.id.login);
         mForgetPassword = findViewById(R.id.forget_password);
+        mEventsText = findViewById(R.id.go_to_events_text_view);
+        mEventsImage = findViewById(R.id.go_to_events_image_view);
 
         mForgetPassword.setClickable(true);
         mForgetPassword.setOnClickListener(this);
         mLoginButton.setOnClickListener(this);
+        mEventsText.setOnClickListener(this);
+        mEventsImage.setOnClickListener(this);
     }
 
     @Override
@@ -98,11 +106,20 @@ public class LoginActivity extends AppCompatActivity implements Observer, View.O
                 break;
 
             case (R.id.forget_password):
-                Intent intent = new Intent(LoginActivity.this , ForgetPasswordActivity.class);
+                Intent intent = new Intent(LoginActivity.this, ForgetPasswordActivity.class);
                 startActivity(intent);
                 break;
 
+            case (R.id.go_to_events_image_view):
+                Intent mEventIntent = new Intent(LoginActivity.this, EventsActivity.class);
+                startActivity(mEventIntent);
+                break;
 
+
+            case (R.id.go_to_events_text_view):
+                Intent mEventIntent2 = new Intent(LoginActivity.this, EventsActivity.class);
+                startActivity(mEventIntent2);
+                break;
         }
 
     }
