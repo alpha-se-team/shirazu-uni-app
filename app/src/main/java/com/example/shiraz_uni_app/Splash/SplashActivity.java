@@ -7,8 +7,12 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
+import android.widget.Space;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.androidnetworking.AndroidNetworking;
 import com.example.shiraz_uni_app.Login.LoginActivity;
 import com.example.shiraz_uni_app.MainActivity;
@@ -50,9 +54,12 @@ public class SplashActivity extends Activity implements Observer {
     @Override
     public void update(Observable o, Object arg) {
 
+        Log.i("shirin" , "update called");
         if (mSplashModel.ismSuccess()) {
+            Log.i("shirin" , "update1");
             intent = new Intent(SplashActivity.this, MainActivity.class);
         } else {
+            Log.i("shirin" , "update2");
             intent = new Intent(SplashActivity.this, LoginActivity.class);
         }
         finish();
@@ -63,14 +70,17 @@ public class SplashActivity extends Activity implements Observer {
 
         mConnectionStatus = MainActivity.checkInternetConnection(this);
         token = Hawk.get("token");
-
+        Log.i("shirin" , "get state called");
         if(mConnectionStatus){
             if(token != null){
+                Log.i("shirin" , "token not null  " + token);
                 mSplashModel.checkToken(token);
             }else{
+                Log.i("shirin" , "else");
                 intent = new Intent(SplashActivity.this, LoginActivity.class);
                 finish();
                 startActivity(intent);
+
             }
         }else{
 
