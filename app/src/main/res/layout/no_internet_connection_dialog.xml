@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backdialog"
+    android:background="@drawable/back_dialog"
     >
 
     <ImageView
@@ -45,7 +45,7 @@
         android:id="@+id/close"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/backdialogblue"
+        android:background="@drawable/back_dialog_blue"
         android:paddingTop="15dp"
         android:paddingBottom="15dp"
         android:text="بستن"
