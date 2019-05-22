@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity implements Observer, View.O
         mUsername = findViewById(R.id.username);
         mPassword = findViewById(R.id.password);
         mLoginButton = findViewById(R.id.login);
-        mForgetPassword = findViewById(R.id.forgetPassword);
+        mForgetPassword = findViewById(R.id.forget_password);
 
         mForgetPassword.setClickable(true);
         mForgetPassword.setOnClickListener(this);
@@ -62,6 +62,7 @@ public class LoginActivity extends AppCompatActivity implements Observer, View.O
 
     @Override
     public void update(Observable o, Object arg) {
+        Log.i("shirin" , mModel.isValidLogin() + " valid login");
         if (mModel.isValidLogin()){
             // TODO: 2019-04-17 : create an intent
             Toast.makeText(this, "Internet account page", Toast.LENGTH_SHORT).show();
@@ -78,6 +79,7 @@ public class LoginActivity extends AppCompatActivity implements Observer, View.O
 
         switch (v.getId()){
             case (R.id.login):
+                Log.i("shirin" , "login clicked");
 
                 mConnectionStatus = MainActivity.checkInternetConnection(this);
 
@@ -99,7 +101,7 @@ public class LoginActivity extends AppCompatActivity implements Observer, View.O
                     });
                 }
                 break;
-            case (R.id.forgetPassword):
+            case (R.id.forget_password):
                 Intent intent = new Intent(LoginActivity.this , ForgetPassword.class);
                 startActivity(intent);
                 break;

@@ -45,6 +45,34 @@
             android:clickable="true"/>
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/dark_blue"
+        android:orientation="horizontal"
+        android:paddingBottom="16dp"
+        android:paddingTop="16dp"
+        android:paddingRight="62dp">
+
+        <Button
+            android:id="@+id/back"
+            android:layout_width="30dp"
+            android:layout_height="35dp"
+            android:background="@drawable/back"
+            android:layout_marginLeft="32dp"/>
+
+        <TextView
+            android:id="@+id/events"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:text="رویدادها"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="18sp"/>
+
+
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
@@ -53,7 +81,6 @@
         android:layout_height="match_parent"
         android:scrollbars="vertical"
 
-        >
 
     </android.support.v7.widget.RecyclerView>
 
