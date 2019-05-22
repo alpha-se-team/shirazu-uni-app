@@ -34,11 +34,11 @@ public class ForgetPassword extends AppCompatActivity implements View.OnClickLis
 
         mEditTextEmil = findViewById(R.id.email);
         mEditTextPhoneNumber = findViewById(R.id.phone);
-        mBack = findViewById(R.id.goToStart);
+        mBack = findViewById(R.id.back_textview);
         mBack.setOnClickListener(this);
         mConfirm = findViewById(R.id.send);
         mConfirm.setOnClickListener(this);
-        mBackButton = findViewById(R.id.goback);
+        mBackButton = findViewById(R.id.back_button);
         mBackButton.setOnClickListener(this);
 
         mForgetPasswordModel = new ForgetPasswordModel();
@@ -72,11 +72,11 @@ public class ForgetPassword extends AppCompatActivity implements View.OnClickLis
                 }
 
                 break;
-            case (R.id.goToStart):
+            case (R.id.back_textview):
                 finish();
                 break;
 
-            case (R.id.goback):
+            case (R.id.back_button):
                 finish();
                 break;
         }
