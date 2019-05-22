@@ -46,7 +46,7 @@
         android:layout_gravity="center|center_vertical"
         android:layout_marginTop="200dp"
         android:text="رویدادی وجود ندارد"
-        android:textColor="@color/darkGrey"
+        android:textColor="@color/dark_grey"
         android:textSize="25sp"
         android:textStyle="bold" />
 

@@ -30,12 +30,12 @@ public class AllEvents extends AppCompatActivity {
         mSavedEvents = findViewById(R.id.saved_events_image_button);
         View myLayout = LayoutInflater.from(this).inflate(R.layout.activity_event_item,null);
         add_remove =myLayout.findViewById(R.id.event_add_image_button);
-        ArrayList<Example> examples = new ArrayList<>();
-        examples.add(new Example("this is line 1 \nthis is line 2" ,"تاریخ برگزاری:1397/2/4" ) ) ;
-        examples.add(new Example("this is line 1 \nthis is line 2" ,"تاریخ برگزاری:1397/2/4" ) ) ;
-        examples.add(new Example("this is line 1 \nthis is line 2" ,"تاریخ برگزاری:1397/2/4" ) ) ;
-        examples.add(new Example("this is line 1 \nthis is line 2" ,"تاریخ برگزاری:1397/2/4" ) ) ;
-        examples.add(new Example("this is line 1 \nthis is line 2" ,"تاریخ برگزاری:1397/2/4" ) ) ;
+        ArrayList<com.example.shiraz_uni_app.Event.Example> examples = new ArrayList<>();
+        examples.add(new com.example.shiraz_uni_app.Event.Example("this is line 1 \nthis is line 2" ,"تاریخ برگزاری:1397/2/4" ) ) ;
+        examples.add(new com.example.shiraz_uni_app.Event.Example("this is line 1 \nthis is line 2" ,"تاریخ برگزاری:1397/2/4" ) ) ;
+        examples.add(new com.example.shiraz_uni_app.Event.Example("this is line 1 \nthis is line 2" ,"تاریخ برگزاری:1397/2/4" ) ) ;
+        examples.add(new com.example.shiraz_uni_app.Event.Example("this is line 1 \nthis is line 2" ,"تاریخ برگزاری:1397/2/4" ) ) ;
+        examples.add(new com.example.shiraz_uni_app.Event.Example("this is line 1 \nthis is line 2" ,"تاریخ برگزاری:1397/2/4" ) ) ;
 
         recyclerView = findViewById(R.id.all_events);
         recyclerView.setHasFixedSize(true);

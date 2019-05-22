@@ -26,7 +26,7 @@
         android:maxLines="2"
         android:text="this is line 1 \n this is line 2"
         android:textAlignment="center"
-        android:textColor="@color/darkBlue"
+        android:textColor="@color/dark_blue"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

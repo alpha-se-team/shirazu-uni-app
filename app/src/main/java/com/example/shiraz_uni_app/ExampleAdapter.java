@@ -9,7 +9,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleViewHolder> {
-    private ArrayList<Example> mExample ;
+    private ArrayList<com.example.shiraz_uni_app.Event.Example> mExample ;
     public static class ExampleViewHolder extends RecyclerView.ViewHolder{
         public TextView mycontext ;
         public TextView mydate ;
@@ -20,7 +20,7 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
 
         }
     }
-    public ExampleAdapter (ArrayList<Example> exampleList){
+    public ExampleAdapter (ArrayList<com.example.shiraz_uni_app.Event.Example> exampleList){
         mExample = exampleList ;
     }
 
@@ -34,7 +34,7 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
 
     @Override
     public void onBindViewHolder(@NonNull ExampleViewHolder exampleViewHolder, int i) {
-        Example currentItem = mExample.get(i);
+        com.example.shiraz_uni_app.Event.Example currentItem = mExample.get(i);
         exampleViewHolder.mycontext.setText(currentItem.getContext());
         exampleViewHolder.mydate.setText(currentItem.getDate());
     }
