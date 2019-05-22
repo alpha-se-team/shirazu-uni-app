@@ -15,8 +15,8 @@ public class ExampleAdapter extends RecyclerView.Adapter<ExampleAdapter.ExampleV
         public TextView mydate ;
         public ExampleViewHolder(@NonNull View itemView) {
             super(itemView);
-            mycontext = itemView.findViewById(R.id.context);
-            mydate = itemView.findViewById(R.id.date);
+            mycontext = itemView.findViewById(R.id.event_context);
+            mydate = itemView.findViewById(R.id.event_date);
 
         }
     }
