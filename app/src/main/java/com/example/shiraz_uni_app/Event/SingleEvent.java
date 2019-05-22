@@ -1,7 +1,6 @@
 package com.example.shiraz_uni_app.Event;
 
 import android.graphics.drawable.AnimatedVectorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -34,12 +33,12 @@ public class SingleEvent extends AppCompatActivity {
     public void addFavorite(View view){
         if(!add_state){
             add_state = !add_state;
-            add_remove.setImageResource(R.drawable.add_anim);
+            add_remove.setImageResource(R.drawable.add_animation);
             ((AnimatedVectorDrawable) add_remove.getDrawable()).start();
         }
         else if (add_state) {
             add_state = !add_state;
-            add_remove.setImageResource(R.drawable.remove_anim);
+            add_remove.setImageResource(R.drawable.remove_animation);
             ((AnimatedVectorDrawable) add_remove.getDrawable()).start();
         }
     }
