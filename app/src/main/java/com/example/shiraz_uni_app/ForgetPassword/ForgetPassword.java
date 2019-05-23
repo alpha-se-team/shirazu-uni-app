@@ -123,9 +123,9 @@ public class ForgetPassword extends AppCompatActivity implements View.OnClickLis
                     "your password has been send to the" + mForgetPasswordModel.getmEmailOrPhoneNumber()
                     + "you been entered", Toast.LENGTH_LONG).show();
 
-            intent = new Intent(ForgetPassword.this , LoginActivity.class);
+            //intent = new Intent(ForgetPassword.this , LoginActivity.class);
             finish();
-            startActivity(intent);
+            //startActivity(intent);
 
         }else {
             Toast.makeText(ForgetPassword.this, "ooops , try again!", Toast.LENGTH_LONG).show();
