@@ -16,8 +16,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
+
 import com.example.shiraz_uni_app.Event.EventsActivity;
 import com.example.shiraz_uni_app.ForgetPassword.ForgetPasswordActivity;
+
+import com.example.shiraz_uni_app.Internet.AccountActivity;
 import com.example.shiraz_uni_app.MainActivity;
 import com.example.shiraz_uni_app.R;
 
@@ -65,11 +68,12 @@ public class LoginActivity extends AppCompatActivity implements Observer, View.O
 
     @Override
     public void update(Observable o, Object arg) {
-        Log.i("shirin" , mModel.isValidLogin() + " valid login");
         if (mModel.isValidLogin()){
-            // TODO: 2019-04-17 : create an intent
-            Toast.makeText(this, "Internet account page", Toast.LENGTH_SHORT).show();
+
+            Intent mAccount = new Intent(LoginActivity.this , AccountActivity.class);
             Hawk.put("token" ,mModel.getToken());
+            finish();
+            startActivity(mAccount);
         } else {
             // TODO: 2019-04-17 : unsuccessful login with wrong username or password
 
@@ -78,11 +82,9 @@ public class LoginActivity extends AppCompatActivity implements Observer, View.O
 
     @Override
     public void onClick(View v) {
-        Log.i("amirerfan", "onClick: log in button has been clicked");
 
         switch (v.getId()){
             case (R.id.login):
-                Log.i("shirin" , "login clicked");
 
                 mConnectionStatus = MainActivity.checkInternetConnection(this);
 
