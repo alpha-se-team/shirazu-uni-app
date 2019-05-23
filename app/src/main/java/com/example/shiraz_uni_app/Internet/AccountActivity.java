@@ -32,6 +32,13 @@ public class AccountActivity extends AppCompatActivity implements Observer {
     com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar mRemainingDaysProgressBar;
     TextView mRemainingTrafficTextView;
     int mRemainingTraffic;
+    TextView mChargeAmountPerMonthTextView;
+    int mChargeAmountPerMonth;
+    TextView mRechargeDateTextView;
+    String mRechargeDate;
+    TextView mExpirationDateTextView;
+    String mExpirationDate;
+
     com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar mRemainingTrafficProgressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +54,11 @@ public class AccountActivity extends AppCompatActivity implements Observer {
         mRemainingDaysProgressBar = findViewById(R.id.remaining_days_progress_bar);
         mRemainingTrafficTextView = findViewById(R.id.remaining_traffic_text_view);
         mRemainingTrafficProgressBar = findViewById(R.id.remaining_traffic_progress_bar);
+        mChargeAmountPerMonthTextView = findViewById(R.id.charge_amount_per_month);
+        mRechargeDateTextView = findViewById(R.id.recharge_date);
+        mExpirationDateTextView = findViewById(R.id.expiration_date);
+
+
 
         mToken = Hawk.get("token");
         if (mToken != null){
@@ -95,20 +107,27 @@ public class AccountActivity extends AppCompatActivity implements Observer {
         mRemainingDaysProgressBar.setProgress(mRemainingDays);
 
         mRemainingTrafficTextView.setText(mRemainingTraffic + " گیگابایت ");
-        mRemainingTrafficProgressBar.setMax(12);
+        mRemainingTrafficProgressBar.setMax(mModel.getmChargeAmountPerMonth());
         mRemainingTrafficProgressBar.setProgress(mRemainingTraffic);
+
+        mExpirationDateTextView.setText(mExpirationDate);
+        mRechargeDateTextView.setText(mRechargeDate);
+        mChargeAmountPerMonthTextView.setText(mChargeAmountPerMonth + " گیگابایت ");
 
         mSetCurrentDate();
     }
     public void mGetData(){
         mRemainingTraffic = mModel.getmTraffic();
         mRemainingDays = mModel.getmDays();
+        mExpirationDate = mModel.getmExpirationDate();
+        mRechargeDate = mModel.getmRechargeDate();
+        mChargeAmountPerMonth = mModel.getmChargeAmountPerMonth();
         mSetData();
 
     }
 
     public void mSetCurrentDate(){
-        //todo : date ro hesab kon
+
         date = mModel.setDate();
         mDateTextView.setText(date);
 

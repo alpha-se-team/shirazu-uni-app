@@ -1,6 +1,7 @@
 package com.example.shiraz_uni_app.Internet;
 
 import android.util.Log;
+import android.widget.TextView;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
@@ -19,17 +20,46 @@ public class AccountModel extends Observable {
 
     private int mTraffic;
     private int mDays;
+    private int mChargeAmountPerMonth;
+    private String mRechargeDate;
+    private String mExpirationDate;
+
+
+    public void setmRechargeDate(String mRechargeDate) {
+        this.mRechargeDate = mRechargeDate;
+    }
+
+    public String getmRechargeDate() {
+        return mRechargeDate;
+    }
+
+    public void setmExpirationDate(String mExpirationDate) {
+        this.mExpirationDate = mExpirationDate;
+    }
+
+    public String getmExpirationDate() {
+        return mExpirationDate;
+    }
+
+    public void setmChargeAmountPerMonth(int mChargeAmountPerMonth) {
+        this.mChargeAmountPerMonth = mChargeAmountPerMonth;
+    }
+
+    public int getmChargeAmountPerMonth() {
+        return mChargeAmountPerMonth;
+    }
+
 
     public int getmTraffic() {
         return mTraffic;
     }
 
-    public int getmDays() {
-        return mDays;
-    }
-
     public void setmTraffic(int mTraffic) {
         this.mTraffic = mTraffic;
+    }
+
+    public int getmDays() {
+        return mDays;
     }
 
     public void setmDays(int mDays) {
@@ -47,6 +77,8 @@ public class AccountModel extends Observable {
             e.printStackTrace();
         }
 
+        Log.i("shirin" , jsonObjectUser.toString());
+
 
         AndroidNetworking.post("") //TODO : server ok kone
                 .addJSONObjectBody(jsonObjectUser) // posting json
@@ -63,7 +95,9 @@ public class AccountModel extends Observable {
 
                             setmTraffic(user.getInt("traffic"));
                             setmDays(user.getInt("day"));
-
+                            setmChargeAmountPerMonth(user.getInt("chargeAmount"));
+                            setmExpirationDate(user.getString("expirationDate"));
+                            setmRechargeDate(user.getString("rechargeDate"));
                             setChanged();
                             notifyObservers();
 
@@ -78,6 +112,9 @@ public class AccountModel extends Observable {
 
                         setmTraffic(9);
                         setmDays(2);
+                        setmRechargeDate("1/2/3");
+                        setmExpirationDate("01/01/00");
+                        setmChargeAmountPerMonth(15);
 
                         Log.i("shirin" , mDays + " " + mTraffic);
                         setChanged();
