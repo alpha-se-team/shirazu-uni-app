@@ -9,10 +9,11 @@
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="70dp"
         android:background="@color/dark_blue"
         android:orientation="horizontal"
         android:visibility="visible"
+        android:weightSum="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -20,22 +21,32 @@
 
 
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:id="@+id/go_back_buttun"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_weight="0.1"
             android:padding="15dp"
             tools:src="@drawable/left_arrow" />
 
         <TextView
             android:id="@+id/event_title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="60dp"
+            android:layout_weight="0.8"
             android:gravity="center"
             android:text="عنوان رویداد"
             android:textColor="@color/white"
             android:textSize="18sp" />
+
+        <ImageButton
+            android:id="@+id/add_remove"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_weight="0.1"
+            android:background="@android:color/transparent"
+            android:padding="15dp"
+            android:src="@drawable/add_animation" />
     </LinearLayout>
 
     <ScrollView
@@ -86,7 +97,7 @@
                         android:id="@+id/event_pic_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/top_round_veiw"
+                        android:background="@drawable/top_round_view"
                         android:gravity="center"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
@@ -105,7 +116,7 @@
                         android:id="@+id/event_date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/bottom_round_veiw"
+                        android:background="@drawable/bottom_round_view"
                         android:gravity="center"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
