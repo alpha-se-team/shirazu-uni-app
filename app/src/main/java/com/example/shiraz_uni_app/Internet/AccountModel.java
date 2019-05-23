@@ -10,7 +10,10 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Date;
 import java.util.Observable;
+
+import saman.zamani.persiandate.PersianDate;
 
 public class AccountModel extends Observable {
 
@@ -73,12 +76,26 @@ public class AccountModel extends Observable {
                     @Override
                     public void onError(ANError error) {
 
+                        setmTraffic(9);
+                        setmDays(2);
 
+                        Log.i("shirin" , mDays + " " + mTraffic);
                         setChanged();
                         notifyObservers();
 
                     }
                 });
+    }
+
+    public String setDate(){
+        String res = "";
+        Date date = new Date();
+        PersianDate persianDate = new PersianDate(date);
+        res += persianDate.dayName() + " ";
+        res += persianDate.getShDay() + " ";
+        res += persianDate.monthName() + " ";
+        res += persianDate.getShYear() + " ";
+        return res;
     }
 
 }
