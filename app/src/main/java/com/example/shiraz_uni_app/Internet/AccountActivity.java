@@ -53,6 +53,7 @@ public class AccountActivity extends AppCompatActivity implements Observer {
 
             if (MainActivity.checkInternetConnection(AccountActivity.this) ){
                 mModel.getDataApi(mToken);
+                mSetCurrentDate();
             }
 
             else{
@@ -89,13 +90,15 @@ public class AccountActivity extends AppCompatActivity implements Observer {
     }
 
     public void mSetData(){
-        mRemainingDaysTextView.setText(mRemainingDays);
+        mRemainingDaysTextView.setText(mRemainingDays + " روز ");
         mRemainingDaysProgressBar.setMax(30);
         mRemainingDaysProgressBar.setProgress(mRemainingDays);
 
-        mRemainingTrafficTextView.setText(mRemainingTraffic);
+        mRemainingTrafficTextView.setText(mRemainingTraffic + " گیگابایت ");
         mRemainingTrafficProgressBar.setMax(12);
         mRemainingTrafficProgressBar.setProgress(mRemainingTraffic);
+
+        mSetCurrentDate();
     }
     public void mGetData(){
         mRemainingTraffic = mModel.getmTraffic();
@@ -106,7 +109,7 @@ public class AccountActivity extends AppCompatActivity implements Observer {
 
     public void mSetCurrentDate(){
         //todo : date ro hesab kon
-        //date = mModel.getDate();
+        date = mModel.setDate();
         mDateTextView.setText(date);
 
     }
