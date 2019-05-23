@@ -40,23 +40,20 @@
         android:background="@drawable/date_background">
 
         <ImageButton
-            android:id="@+id/event_alarm_image_Button"
+            android:id="@+id/saved_events_alarm_image_button"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginLeft="30dp"
             android:background="@drawable/alarm"
-            android:clickable="true"
-            />
+            android:clickable="true"/>
 
         <ImageButton
-            android:id="@+id/event_add_image_button"
+            android:id="@+id/saved_events_remove_image_button"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_marginLeft="12dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/add_animation"
-            android:clickable="true"
-            />
+            android:background="@drawable/remove"
+            android:clickable="true"/>
 
         <TextView
             android:id="@+id/event_date"
