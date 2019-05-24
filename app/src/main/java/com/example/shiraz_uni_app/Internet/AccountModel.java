@@ -1,7 +1,6 @@
 package com.example.shiraz_uni_app.Internet;
 
 import android.util.Log;
-import android.widget.TextView;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
