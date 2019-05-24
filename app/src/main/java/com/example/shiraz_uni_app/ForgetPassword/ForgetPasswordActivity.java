@@ -11,24 +11,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.shiraz_uni_app.Login.LoginActivity;
 import com.example.shiraz_uni_app.MainActivity;
 import com.example.shiraz_uni_app.R;
-import com.example.shiraz_uni_app.Splash.SplashActivity;
 
 import java.util.Observable;
 import java.util.Observer;
 
-public class ForgetPassword extends AppCompatActivity implements View.OnClickListener , Observer {
+public class ForgetPasswordActivity extends AppCompatActivity implements View.OnClickListener , Observer {
 
     private EditText mEditTextEmil;
     private EditText mEditTextPhoneNumber;
     private TextView mBack;
     private Button mConfirm;
-    private ImageButton mBackButton;
+    private ImageView mBackButton;
     private  ForgetPasswordModel mForgetPasswordModel;
     String mEmail;
     String mPhoneNumber;
@@ -41,11 +41,11 @@ public class ForgetPassword extends AppCompatActivity implements View.OnClickLis
 
         mEditTextEmil = findViewById(R.id.email);
         mEditTextPhoneNumber = findViewById(R.id.phone);
-        mBack = findViewById(R.id.back_textview);
+        mBack = findViewById(R.id.go_to_login_text_view);
         mBack.setOnClickListener(this);
         mConfirm = findViewById(R.id.send);
         mConfirm.setOnClickListener(this);
-        mBackButton = findViewById(R.id.back_button);
+        mBackButton = findViewById(R.id.go_to_login_image_view);
         mBackButton.setOnClickListener(this);
 
         mForgetPasswordModel = new ForgetPasswordModel();
@@ -56,7 +56,7 @@ public class ForgetPassword extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
 
-        mConnectionStatus = MainActivity.checkInternetConnection(ForgetPassword.this);
+        mConnectionStatus = MainActivity.checkInternetConnection(ForgetPasswordActivity.this);
         switch (v.getId()){
             case (R.id.send):
                 if (mConnectionStatus){
@@ -81,11 +81,11 @@ public class ForgetPassword extends AppCompatActivity implements View.OnClickLis
                     }
 
                     else {
-                        Toast.makeText(ForgetPassword.this, "please enter your email or your phone number", Toast.LENGTH_LONG).show();
+                        Toast.makeText(ForgetPasswordActivity.this, "please enter your email or your phone number", Toast.LENGTH_LONG).show();
                     }
                 }else{
 
-                    final AlertDialog.Builder builder = new AlertDialog.Builder(ForgetPassword.this); //the current class
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(ForgetPasswordActivity.this); //the current class
                     View dialogView = getLayoutInflater().inflate(R.layout.no_internet_connection_dialog,null);
                     TextView close = dialogView.findViewById(R.id.close);
                     builder.setView(dialogView) ;
@@ -102,13 +102,12 @@ public class ForgetPassword extends AppCompatActivity implements View.OnClickLis
                     dialog.setCanceledOnTouchOutside(false);
                 }
 
-
                 break;
-            case (R.id.back_textview):
+            case (R.id.go_to_login_text_view):
                 finish();
                 break;
 
-            case (R.id.back_button):
+            case (R.id.go_to_login_image_view):
                 finish();
                 break;
         }
@@ -119,16 +118,16 @@ public class ForgetPassword extends AppCompatActivity implements View.OnClickLis
         Intent intent;
 
         if (mForgetPasswordModel.ismSuccess()){
-            Toast.makeText(ForgetPassword.this,
+            Toast.makeText(ForgetPasswordActivity.this,
                     "your password has been send to the" + mForgetPasswordModel.getmEmailOrPhoneNumber()
                     + "you been entered", Toast.LENGTH_LONG).show();
 
-            intent = new Intent(ForgetPassword.this , LoginActivity.class);
+            intent = new Intent(ForgetPasswordActivity.this , LoginActivity.class);
             finish();
             startActivity(intent);
 
         }else {
-            Toast.makeText(ForgetPassword.this, "ooops , try again!", Toast.LENGTH_LONG).show();
+            Toast.makeText(ForgetPasswordActivity.this, "ooops , try again!", Toast.LENGTH_LONG).show();
         }
     }
 }

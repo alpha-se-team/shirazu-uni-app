@@ -3,6 +3,7 @@ package com.example.shiraz_uni_app.Event;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -10,8 +11,12 @@ import android.widget.ImageView;
 import com.ablanco.zoomy.Zoomy;
 import com.example.shiraz_uni_app.R;
 
-public class SingleEvent extends AppCompatActivity {
+public class SingleEventActivity extends AppCompatActivity {
 
+    private int mId = 0;
+    private String mContext = "";
+    private String mDate = "";
+    private String mImageAddress = "";
     boolean add_state = false; // add or remove event from favorites ... default= not added yet
     ImageButton add_remove;
 
@@ -20,6 +25,16 @@ public class SingleEvent extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_single_event);
 
+        Bundle extras = getIntent().getExtras();
+
+        if (extras != null){
+            mId = extras.getInt("id");
+            mContext = extras.getString("context");
+            mDate = extras.getString("date");
+            mImageAddress =  extras.getString("image_address");
+        }
+
+        Log.i("id", "id: " + Integer.toString(mId) + "\ncontext: " + mContext);
         add_remove = (ImageButton) findViewById(R.id.add_remove);
 
         /*Zoom Feature*/

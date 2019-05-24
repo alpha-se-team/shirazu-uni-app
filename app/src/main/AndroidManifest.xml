@@ -12,10 +12,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SavedEventsActivity"></activity>
-        <activity android:name=".Event.AllEvents"></activity>
-        <activity android:name=".ForgetPassword.ForgetPassword"></activity>
+
+        <activity android:name=".Event.EventsActivity"></activity>
+        <activity android:name=".ForgetPassword.ForgetPasswordActivity"></activity>
+        <activity android:name=".Event.SavedEventsActivity"></activity>
         <activity android:name=".MainActivity"></activity>
+        <activity android:name=".Event.SingleEventActivity"></activity>
         <activity android:name=".Login.LoginActivity" android:windowSoftInputMode="adjustPan"></activity>
         <activity android:name=".Splash.SplashActivity">
             <intent-filter>

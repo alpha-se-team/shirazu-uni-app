@@ -1,65 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
-    tools:context="Events.AllEvents">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:background="@color/dark_blue"
-        android:orientation="horizontal"
-        android:gravity="center">
-
-        <Button
-            android:id="@+id/events_back_button"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginLeft="15dp"
-            android:background="@drawable/left_arrow"
-            android:foregroundGravity="center_vertical"
-            android:padding="20dp" />
-
-        <TextView
-            android:id="@+id/events"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|clip_vertical"
-            android:layout_weight="1"
-            android:text="رویدادها"
-            android:gravity="center"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:layout_marginLeft="5dp"
-            android:textSize="18sp" />
-
-        <ImageButton
-            android:id="@+id/saved_events_image_button"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginRight="15dp"
-            android:background="@drawable/archive"
-            android:clickable="true"/>
-
+    tools:context=".Event.EventsActivity"
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/dark_blue"
         android:orientation="horizontal"
-        android:paddingBottom="16dp"
         android:paddingTop="16dp"
-        android:paddingRight="62dp">
+        android:paddingRight="62dp"
+        android:paddingBottom="16dp">
 
         <Button
             android:id="@+id/back"
             android:layout_width="30dp"
             android:layout_height="35dp"
-            android:background="@drawable/back"
-            android:layout_marginLeft="32dp"/>
+            android:layout_marginLeft="32dp"
+            android:background="@drawable/back" />
 
         <TextView
             android:id="@+id/events"
@@ -70,7 +32,7 @@
             android:text="رویدادها"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="18sp"/>
+            android:textSize="18sp" />
 
 
     </LinearLayout>
@@ -79,7 +41,7 @@
         android:id="@+id/all_events"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical"
+        android:scrollbars="vertical">
 
 
     </android.support.v7.widget.RecyclerView>

@@ -21,7 +21,7 @@
 
     <TextView
         android:id="@+id/internet_access_text_view"
-        android:layout_width="395dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -116,7 +116,7 @@
         app:layout_constraintTop_toBottomOf="@+id/password" />
 
     <FrameLayout
-        android:id="@+id/go_to_calendar"
+        android:id="@+id/go_to_events"
         android:layout_width="230dp"
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
@@ -130,7 +130,7 @@
         app:layout_constraintVertical_bias="1.0">
 
         <ImageView
-            android:id="@+id/go_to_calendar_image_view"
+            android:id="@+id/go_to_events_image_view"
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:background="@drawable/round_button"
@@ -138,7 +138,7 @@
             android:src="@drawable/calendar_logo" />
 
         <TextView
-            android:id="@+id/go_to_calendar_text_view"
+            android:id="@+id/go_to_events_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

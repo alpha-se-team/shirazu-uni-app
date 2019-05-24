@@ -54,9 +54,8 @@
             android:layout_height="20dp"
             android:layout_marginLeft="12dp"
             android:background="@android:color/transparent"
-            android:src="@drawable/add_animation"
             android:clickable="true"
-            />
+            android:src="@drawable/add_animation" />
 
         <TextView
             android:id="@+id/event_date"
