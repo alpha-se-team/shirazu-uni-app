@@ -6,13 +6,18 @@ public class Event {
     private String mDate ;
     private int mId;
     private String mImageAddress;
+    private boolean mSaved;
 
     public Event(String context, String date, int id) {
         this.mId = id;
         this.mContext = context;
         this.mDate = date;
+        this.mSaved = false;
     }
 
+    public boolean ismSaved() { return mSaved; }
+
+    public void setmSaved(boolean mSaved) { this.mSaved = mSaved; }
 
     public String getmImageAddress() {
         return mImageAddress;
@@ -26,9 +31,7 @@ public class Event {
         return mId;
     }
 
-    public void setmId(int mId) {
-        this.mId = mId;
-    }
+    public void setmId(int mId) { this.mId = mId; }
 
     public String getContext() {
         return mContext;

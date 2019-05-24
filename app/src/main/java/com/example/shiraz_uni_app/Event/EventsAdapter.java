@@ -1,28 +1,35 @@
 package com.example.shiraz_uni_app.Event;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
-
 import com.example.shiraz_uni_app.R;
-
 import java.util.ArrayList;
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewHolder> {
     private ArrayList<Event> mEvents ;
 
-    public static class EventViewHolder extends RecyclerView.ViewHolder{
-        public TextView mContext ;
-        public TextView mDate ;
+    public class EventViewHolder extends RecyclerView.ViewHolder{
+        public TextView mContext;
+        public TextView mDate;
+        public ImageButton mSaved;
+
         public EventViewHolder(View itemView) {
             super(itemView);
-            mContext = itemView.findViewById(R.id.context);
-            mDate = itemView.findViewById(R.id.date);
+            mContext = itemView.findViewById(R.id.event_context);
+            mDate = itemView.findViewById(R.id.event_date);
+            mSaved = itemView.findViewById(R.id.event_add_image_button);
+
+            mSaved.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // TODO: 2019-05-24 set on click listener
+                }
+            });
 
         }
     }
@@ -46,7 +53,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         eventViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mEventIntent = new Intent(v.getContext(), SingleEvent.class);
+                Intent mEventIntent = new Intent(v.getContext(), SingleEventActivity.class);
                 mEventIntent.putExtra("id", mEvents.get(i).getmId());
                 mEventIntent.putExtra("context", mEvents.get(i).getContext());
                 mEventIntent.putExtra("date", mEvents.get(i).getDate());
@@ -54,8 +61,6 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
                 v.getContext().startActivity(mEventIntent);
             }
         });
-
-
     }
 
     @Override

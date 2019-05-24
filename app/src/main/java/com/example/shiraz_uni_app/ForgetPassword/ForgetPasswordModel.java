@@ -29,10 +29,9 @@ public class ForgetPasswordModel extends Observable {
                     public void onResponse(JSONObject response) {
                         Log.d("shirin", "on response");
                         try {
-                            mSuccess = response.getBoolean("success");
+                            setmSuccess(response.getBoolean("success")); //or hamijori true bedim behesh
 
                             Log.d("shirin", mSuccess + "");
-
 
                             setChanged();
                             notifyObservers();
@@ -49,9 +48,15 @@ public class ForgetPasswordModel extends Observable {
                         if (error.getErrorCode() == 404) {
                             Log.i("amirerfan", "onError: 404");
                         }
-                        //dialog.cancel();
+                        Log.i("shirin" , "error");
+                        mSuccess = true;
+                        Log.i("shirin" , "success" + mSuccess);
+                        setChanged();
+                        notifyObservers();
                     }
                 });
+
+
     }
 
     private void loginApiCallPhoneNumber(JSONObject jsonObject) {
@@ -67,8 +72,6 @@ public class ForgetPasswordModel extends Observable {
                         try {
                             setmSuccess(response.getBoolean("success"));
 
-                            Log.d("shirin", mSuccess + "");
-
                             setChanged();
                             notifyObservers();
 
@@ -81,16 +84,23 @@ public class ForgetPasswordModel extends Observable {
                     @Override
                     public void onError(ANError error) {
 
+                        setmSuccess(false);
                         if (error.getErrorCode() == 404) {
                             Log.i("amirerfan", "onError: 404");
                         }
+                        mSuccess = false;
+                        Log.i("shirin" , "success" + mSuccess);
+                        setChanged();
+                        notifyObservers();
                         //dialog.cancel();
                     }
                 });
+        //for test
+        mSuccess = false;
     }
 
     public void forgetPasswordEmail(String mEmail) {
-
+        Log.i("shirin" , "femail");
         setEmailOrPhoneNumber("email");
         Log.d("Amirerfan", "login called");
         JSONObject jsonObject = new JSONObject();

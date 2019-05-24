@@ -5,55 +5,46 @@ import android.util.Log;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONArrayRequestListener;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.androidnetworking.interfaces.OkHttpResponseListener;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Observable;
 
+import okhttp3.Response;
+
 public class SplashModel extends Observable {
 
    private boolean mSuccess;
 
-    public void checkToken(String token) {
+    public void checkToken(String token){
+        Log.i("shirin" , "check token api");
+        AndroidNetworking.get("https://young-castle-19921.herokuapp.com/apiv1/user/")
+                .addHeaders("Authorization", "Bearer "+ token)
+                .setTag("test")
+                .setPriority(Priority.LOW)
+                .build()
+                .getAsOkHttpResponse(new OkHttpResponseListener() {
 
-        Log.d("Amirerfan", "login called");
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("token", token);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        AndroidNetworking.post("")
-            .addJSONObjectBody(jsonObject) // posting json
-            .setTag("test")
-            .setPriority(Priority.MEDIUM)
-            .build()
-            .getAsJSONObject(new JSONObjectRequestListener() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    try {
-                        setmSuccess(response.getBoolean("success")) ;
-
+                    @Override
+                    public void onResponse(Response response) {
+                        Log.i("shirin" , "response ");
+                        setmSuccess(true);
                         setChanged();
                         notifyObservers();
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
-                }
 
-                @Override
-                public void onError(ANError error) {
-
-                    if (error.getErrorCode() == 404) {
-                        Log.i("amirerfan", "onError: 404");
+                    @Override
+                    public void onError(ANError error) {
+                        setmSuccess(false);
+                        Log.i("shirin" , "on error " + error.getErrorDetail());
+                        // handle error
                     }
-                }
-            });
+                });
     }
 
 
