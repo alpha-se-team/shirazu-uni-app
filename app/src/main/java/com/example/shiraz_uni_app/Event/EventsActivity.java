@@ -14,9 +14,15 @@ import android.widget.ImageView;
 
 import com.example.shiraz_uni_app.R;
 
-import java.util.ArrayList;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-public class EventsActivity extends AppCompatActivity implements View.OnClickListener {
+import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
+
+public class EventsActivity extends AppCompatActivity implements View.OnClickListener, Observer {
     private RecyclerView mRecyclerView ;
     private RecyclerView.Adapter mAdapter ;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -24,24 +30,22 @@ public class EventsActivity extends AppCompatActivity implements View.OnClickLis
     private ImageView mSavedEvents;
     private ImageButton mAddOrRemove;
     private boolean favorite_state = false;
+    private EventsModel mModel = new EventsModel();
 
-    private ArrayList<Event> mEvents = new ArrayList<>();
+    private static ArrayList<Event> mEvents = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_events);
-
         View myLayout = LayoutInflater.from(this).inflate(R.layout.activity_event_item,null);
 
-        mBack = findViewById(R.id.event_back);
-        mAddOrRemove = findViewById(R.id.event_add_image_button);
+        mModel.addObserver(this);
+        mModel.getEvents();
 
-        mEvents.add(new Event("111111\nthis is line 1 \nthis is line 2" ,"تاریخ برگزاری:1397/2/4", 1 ) ) ;
-        mEvents.add(new Event("222222\nthis is line 1 \nthis is line 2" ,"تاریخ برگزاری:1397/2/4", 2 ) ) ;
-        mEvents.add(new Event("333333\nthis is line 1 \nthis is line 2" ,"تاریخ برگزاری:1397/2/4", 3 ) ) ;
-        mEvents.add(new Event("444444\nthis is line 1 \nthis is line 2" ,"تاریخ برگزاری:1397/2/4", 4 ) ) ;
-        mEvents.add(new Event("555555\nthis is line 1 \nthis is line 2" ,"تاریخ برگزاری:1397/2/4", 5 ) ) ;
+        mBack = findViewById(R.id.event_back);
+        mBack.setOnClickListener(this);
+        mAddOrRemove = findViewById(R.id.event_add_image_button);
 
         mRecyclerView = findViewById(R.id.all_events);
         mRecyclerView.setHasFixedSize(true);
@@ -54,12 +58,16 @@ public class EventsActivity extends AppCompatActivity implements View.OnClickLis
 
     }
 
-    public ArrayList<Event> getmEvents() {
+    public ArrayList<Event> getEvents() {
         return mEvents;
     }
 
-    public void setmEvents(ArrayList<Event> mEvents) {
-        this.mEvents = mEvents;
+    public static void addEvent(Event mEvent) {
+        mEvents.add(mEvent);
+    }
+
+    public static void clearEvent(){
+        mEvents.clear();
     }
 
     @Override
@@ -68,6 +76,10 @@ public class EventsActivity extends AppCompatActivity implements View.OnClickLis
             case (R.id.saved_event):
                 Intent mSavedEventIntent = new Intent(EventsActivity.this , SavedEventsActivity.class);
                 startActivity(mSavedEventIntent);
+                break;
+
+            case (R.id.event_back):
+                finish();
                 break;
         }
     }
@@ -83,4 +95,11 @@ public class EventsActivity extends AppCompatActivity implements View.OnClickLis
             ((AnimatedVectorDrawable) mAddOrRemove.getDrawable()).start();
         }
     }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        mAdapter.notifyDataSetChanged();
+    }
+
 }
+
