@@ -123,8 +123,9 @@ public class ForgetPasswordActivity extends AppCompatActivity implements View.On
                     + "you been entered", Toast.LENGTH_LONG).show();
 
             intent = new Intent(ForgetPasswordActivity.this , LoginActivity.class);
+
             finish();
-            startActivity(intent);
+            //startActivity(intent);
 
         }else {
             Toast.makeText(ForgetPasswordActivity.this, "ooops , try again!", Toast.LENGTH_LONG).show();

@@ -13,8 +13,6 @@ public class LoginModel extends Observable{
 
     private String mToken;
     private boolean mValidLogin;
-    private boolean mSuccess;
-    private boolean mConnectionStatus;
 
     public void login(String mUsername, String mPassword) {
 
@@ -47,7 +45,7 @@ public class LoginModel extends Observable{
                 @Override
                 public void onResponse(JSONObject response) {
                     Log.d("shirin", "on response" + response.toString());
-                    mValidLogin= true;
+                    setValidLogin(true);
                     try {
 
                         JSONObject user = response.getJSONObject("user");
@@ -65,11 +63,17 @@ public class LoginModel extends Observable{
 
                 @Override
                 public void onError(ANError error) {
+
+                    setValidLogin(false);
+
+                    setChanged();
+                    notifyObservers();
+
                     Log.i("shirin" , error.getErrorCode()+"  error");
                     if (error.getErrorCode() == 404) {
                         Log.i("shirin", "onError: 404");
                     }
-                    //dialog.cancel();
+
                 }
             });
     }

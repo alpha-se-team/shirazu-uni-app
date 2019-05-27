@@ -94,6 +94,7 @@
         app:rcRadius="100dp"
         app:rcReverse="true" />
 
+
     <TextView
         android:id="@+id/remaining_credit_text_view"
         android:layout_width="wrap_content"
