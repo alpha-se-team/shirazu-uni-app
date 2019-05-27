@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.example.shiraz_uni_app.R;
 
@@ -19,8 +20,8 @@ public class EventsActivity extends AppCompatActivity implements View.OnClickLis
     private RecyclerView mRecyclerView ;
     private RecyclerView.Adapter mAdapter ;
     private RecyclerView.LayoutManager mLayoutManager;
-    private Button mBack;
-    private ImageButton mSavedEvents;
+    private ImageView mBack;
+    private ImageView mSavedEvents;
     private ImageButton mAddOrRemove;
     private boolean favorite_state = false;
 
@@ -33,7 +34,7 @@ public class EventsActivity extends AppCompatActivity implements View.OnClickLis
 
         View myLayout = LayoutInflater.from(this).inflate(R.layout.activity_event_item,null);
 
-        mBack = findViewById(R.id.back);
+        mBack = findViewById(R.id.event_back);
         mAddOrRemove = findViewById(R.id.event_add_image_button);
 
         mEvents.add(new Event("111111\nthis is line 1 \nthis is line 2" ,"تاریخ برگزاری:1397/2/4", 1 ) ) ;

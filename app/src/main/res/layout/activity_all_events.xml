@@ -9,19 +9,19 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:background="@color/dark_blue"
         android:orientation="horizontal"
-        android:paddingTop="16dp"
-        android:paddingRight="62dp"
-        android:paddingBottom="16dp">
+        android:gravity="center">
 
-        <Button
-            android:id="@+id/back"
-            android:layout_width="30dp"
-            android:layout_height="35dp"
-            android:layout_marginLeft="32dp"
-            android:background="@drawable/back" />
+        <ImageView
+            android:id="@+id/event_back"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/left_arrow"
+            android:foregroundGravity="center_vertical"
+            android:padding="20dp"
+            />
 
         <TextView
             android:id="@+id/events"
@@ -33,6 +33,14 @@
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/saved_events_image_view"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:padding="20dp"
+            android:src="@drawable/archive"
+            android:clickable="true"/>
 
 
     </LinearLayout>
