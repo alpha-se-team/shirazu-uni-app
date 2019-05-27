@@ -5,11 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.shiraz_uni_app.R;
 
 public class SavedEventsActivity extends AppCompatActivity implements View.OnClickListener {
-    private Button mback ;
+    private ImageView mback ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
