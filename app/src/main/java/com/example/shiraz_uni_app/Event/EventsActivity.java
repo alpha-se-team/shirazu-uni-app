@@ -28,10 +28,7 @@ public class EventsActivity extends AppCompatActivity implements View.OnClickLis
     private RecyclerView.LayoutManager mLayoutManager;
     private ImageView mBack;
     private ImageView mSavedEvents;
-    private ImageButton mAddOrRemove;
-    private boolean favorite_state = false;
     private EventsModel mModel = new EventsModel();
-
     private static ArrayList<Event> mEvents = new ArrayList<>();
 
     @Override
@@ -45,7 +42,6 @@ public class EventsActivity extends AppCompatActivity implements View.OnClickLis
 
         mBack = findViewById(R.id.event_back);
         mBack.setOnClickListener(this);
-        mAddOrRemove = findViewById(R.id.event_add_image_button);
 
         mRecyclerView = findViewById(R.id.all_events);
         mRecyclerView.setHasFixedSize(true);
@@ -53,8 +49,8 @@ public class EventsActivity extends AppCompatActivity implements View.OnClickLis
         mAdapter = new EventsAdapter(mEvents);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
-        //mSavedEvents = findViewById(R.id.saved_event);
-        //mSavedEvents.setOnClickListener(this);
+        mSavedEvents = findViewById(R.id.saved_events_image_view);
+        mSavedEvents.setOnClickListener(this);
 
     }
 
@@ -81,19 +77,18 @@ public class EventsActivity extends AppCompatActivity implements View.OnClickLis
             case (R.id.event_back):
                 finish();
                 break;
+
+            case (R.id.saved_events_image_view):
+                Intent mSavedEvents = new Intent(EventsActivity.this, SavedEventsActivity.class);
+                startActivity(mSavedEvents);
+                break;
         }
     }
-    public void addFavorite(View view){
-        if(!favorite_state){
-            favorite_state = !favorite_state;
-            mAddOrRemove.setImageResource(R.drawable.add_animation);
-            ((AnimatedVectorDrawable) mAddOrRemove.getDrawable()).start();
-        }
-        else if (favorite_state) {
-            favorite_state = !favorite_state;
-            mAddOrRemove.setImageResource(R.drawable.remove_animation);
-            ((AnimatedVectorDrawable) mAddOrRemove.getDrawable()).start();
-        }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override

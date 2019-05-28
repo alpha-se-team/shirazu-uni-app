@@ -1,31 +1,24 @@
 package com.example.shiraz_uni_app.Login;
 
-
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.androidnetworking.AndroidNetworking;
-
 import com.example.shiraz_uni_app.Event.EventsActivity;
 import com.example.shiraz_uni_app.ForgetPassword.ForgetPasswordActivity;
-
 import com.example.shiraz_uni_app.Internet.AccountActivity;
 import com.example.shiraz_uni_app.MainActivity;
 import com.example.shiraz_uni_app.R;
-
 import com.orhanobut.hawk.Hawk;
-
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -48,6 +41,13 @@ public class LoginActivity extends AppCompatActivity implements Observer, View.O
 
         AndroidNetworking.initialize(getApplicationContext());
         Hawk.init(LoginActivity.this).build();
+
+        try {
+            Hawk.put("Saved", Hawk.get("Saved"));
+        }catch (Exception e) {
+            Hawk.put("Saved", new ArrayList<Integer>());
+        }
+
 
         mModel = new LoginModel();
         mModel.addObserver(this);

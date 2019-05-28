@@ -16,15 +16,15 @@ import com.google.gson.Gson;
 import com.orhanobut.hawk.Hawk;
 import java.util.ArrayList;
 
-public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewHolder> {
-    private ArrayList<Event> mEvents ;
+public class SavedEventsAdapter extends RecyclerView.Adapter<SavedEventsAdapter.EventViewHolder> {
+    public static ArrayList<Event> mEvents;
     private int lastPosition = -1;
     private boolean favorite_state;
     private ImageButton mAddOrRemove;
     private ArrayList<Integer> mSavedEventsId = new ArrayList<>();
+    private TextView mNoEvent;
 
-
-    public class EventViewHolder extends RecyclerView.ViewHolder{
+    public class EventViewHolder extends RecyclerView.ViewHolder {
         public TextView mContext;
         public TextView mDate;
         public ImageButton mSaveButton;
@@ -34,37 +34,36 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
             mContext = itemView.findViewById(R.id.event_context);
             mDate = itemView.findViewById(R.id.event_date);
             mSaveButton = itemView.findViewById(R.id.event_add_image_button);
-
         }
     }
-    public EventsAdapter(ArrayList<Event> eventList){
-        mEvents = eventList ;
+
+    public SavedEventsAdapter(ArrayList<Event> eventList) {
+        mEvents = eventList;
     }
 
     @Override
-    public EventViewHolder onCreateViewHolder(ViewGroup parent, int i) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_event_item, parent,false);
-        EventViewHolder evh = new EventViewHolder(v);
+    public SavedEventsAdapter.EventViewHolder onCreateViewHolder(ViewGroup parent, int i) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_event_item, parent, false);
+        SavedEventsAdapter.EventViewHolder evh = new SavedEventsAdapter.EventViewHolder(v);
         return evh;
     }
 
     @Override
-    public void onBindViewHolder(EventViewHolder eventViewHolder, final int i) {
-
+    public void onBindViewHolder(SavedEventsAdapter.EventViewHolder savedEventViewHolder, final int i) {
         mSavedEventsId = Hawk.get("Saved");
 
         Event currentItem = mEvents.get(i);
-        eventViewHolder.mContext.setText(currentItem.getContext());
+        savedEventViewHolder.mContext.setText(currentItem.getContext());
         System.out.println(JalaliCalendar.gregorianToJalali(new JalaliCalendar.YearMonthDate(currentItem.getDate().getYear(),
-                                                                                                currentItem.getDate().getMonth(),
-                                                                                                    currentItem.getDate().getDay())));
+                currentItem.getDate().getMonth(),
+                currentItem.getDate().getDay())));
 
-        eventViewHolder.mDate.setText(currentItem.getDate().toString());
-        eventViewHolder.mSaveButton.setImageResource(mSavedEventsId.contains(mEvents.get(i).getmId()) ?
-                                                                            R.drawable.remove_animation :
-                                                                                R.drawable.add_animation);
+        savedEventViewHolder.mDate.setText(currentItem.getDate().toString());
+        savedEventViewHolder.mSaveButton.setImageResource(mSavedEventsId.contains(mEvents.get(i).getmId()) ?
+                R.drawable.remove_animation :
+                R.drawable.add_animation);
 
-        eventViewHolder.mSaveButton.setOnClickListener(new View.OnClickListener() {
+        savedEventViewHolder.mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mEvents.get(i).setmSaved(!mEvents.get(i).ismSaved());
@@ -72,7 +71,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
             }
         });
 
-        eventViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+        savedEventViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent mEventIntent = new Intent(v.getContext(), SingleEventActivity.class);
@@ -80,13 +79,11 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
                 v.getContext().startActivity(mEventIntent);
             }
         });
-        setAnimation(eventViewHolder.itemView, i);
-
+        setAnimation(savedEventViewHolder.itemView, i);
     }
 
     private void setAnimation(View viewToAnimate, int position) {
-        if (position > lastPosition)
-        {
+        if (position > lastPosition) {
             Animation animation = AnimationUtils.loadAnimation(viewToAnimate.getContext(), android.R.anim.slide_in_left);
             viewToAnimate.startAnimation(animation);
             lastPosition = position;
@@ -110,18 +107,17 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         favorite_state = mSavedEventsId.contains(event.getmId());
 
         if(!favorite_state){
-            System.out.println("add");
             mSavedEventsId.add(event.getmId());
-            Hawk.put("Saved", mSavedEventsId);
             mAddOrRemove.setImageResource(R.drawable.add_animation);
             ((AnimatedVectorDrawable) mAddOrRemove.getDrawable()).start();
         }
         else {
             mSavedEventsId.remove(mSavedEventsId.indexOf(event.getmId()));
-            Hawk.put("Saved", mSavedEventsId);
-            System.out.println("remove");
+            mEvents.remove(mEvents.indexOf(event));
             mAddOrRemove.setImageResource(R.drawable.remove_animation);
             ((AnimatedVectorDrawable) mAddOrRemove.getDrawable()).start();
         }
+        Hawk.put("Saved", mSavedEventsId);
+        notifyDataSetChanged();
     }
 }
