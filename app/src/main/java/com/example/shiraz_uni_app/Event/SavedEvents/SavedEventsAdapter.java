@@ -1,4 +1,4 @@
-package com.example.shiraz_uni_app.Event;
+package com.example.shiraz_uni_app.Event.SavedEvents;
 
 import android.content.Intent;
 import android.graphics.drawable.AnimatedVectorDrawable;
@@ -10,6 +10,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.example.shiraz_uni_app.Event.Event;
+import com.example.shiraz_uni_app.Event.SingleEvent.SingleEventActivity;
 import com.example.shiraz_uni_app.R;
 import com.example.shiraz_uni_app.Utility.JalaliCalendar;
 import com.google.gson.Gson;

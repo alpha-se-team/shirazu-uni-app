@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.androidnetworking.AndroidNetworking;
-import com.example.shiraz_uni_app.Event.EventsActivity;
+import com.example.shiraz_uni_app.Event.AllEvents.EventsActivity;
 import com.example.shiraz_uni_app.ForgetPassword.ForgetPasswordActivity;
 import com.example.shiraz_uni_app.Internet.AccountActivity;
 import com.example.shiraz_uni_app.MainActivity;
@@ -47,7 +47,6 @@ public class LoginActivity extends AppCompatActivity implements Observer, View.O
         }catch (Exception e) {
             Hawk.put("Saved", new ArrayList<Integer>());
         }
-
 
         mModel = new LoginModel();
         mModel.addObserver(this);

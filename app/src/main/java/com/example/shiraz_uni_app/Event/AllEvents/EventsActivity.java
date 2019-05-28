@@ -1,22 +1,17 @@
-package com.example.shiraz_uni_app.Event;
+package com.example.shiraz_uni_app.Event.AllEvents;
 
 import android.content.Intent;
-import android.graphics.drawable.AnimatedVectorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.example.shiraz_uni_app.Event.Event;
+import com.example.shiraz_uni_app.Event.SavedEvents.SavedEventsActivity;
 import com.example.shiraz_uni_app.R;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Observable;

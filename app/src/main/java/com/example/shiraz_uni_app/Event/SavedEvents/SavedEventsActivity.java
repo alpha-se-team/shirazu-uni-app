@@ -1,15 +1,14 @@
-package com.example.shiraz_uni_app.Event;
+package com.example.shiraz_uni_app.Event.SavedEvents;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.shiraz_uni_app.Event.Event;
 import com.example.shiraz_uni_app.R;
 import com.orhanobut.hawk.Hawk;
 

@@ -1,9 +1,11 @@
-package com.example.shiraz_uni_app.Event;
+package com.example.shiraz_uni_app.Event.AllEvents;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.example.shiraz_uni_app.Event.AllEvents.EventsActivity;
+import com.example.shiraz_uni_app.Event.Event;
 
 import org.json.JSONArray;
 import org.json.JSONException;

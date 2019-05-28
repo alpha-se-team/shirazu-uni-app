@@ -1,4 +1,4 @@
-package com.example.shiraz_uni_app.Event;
+package com.example.shiraz_uni_app.Event.SingleEvent;
 
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.os.Bundle;
@@ -8,6 +8,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.ablanco.zoomy.Zoomy;
+import com.example.shiraz_uni_app.Event.Event;
 import com.example.shiraz_uni_app.R;
 import com.google.gson.Gson;
 import com.orhanobut.hawk.Hawk;
