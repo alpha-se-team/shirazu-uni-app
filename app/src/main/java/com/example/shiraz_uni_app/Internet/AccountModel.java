@@ -6,14 +6,18 @@ import android.widget.TextView;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONArrayRequestListener;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.androidnetworking.interfaces.OkHttpResponseListener;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Date;
 import java.util.Observable;
 
+import okhttp3.Response;
 import saman.zamani.persiandate.PersianDate;
 
 public class AccountModel extends Observable {
@@ -66,7 +70,44 @@ public class AccountModel extends Observable {
         this.mDays = mDays;
     }
 
-    public void getDataApi(String mToken) {
+    public void getDataApi(String token){
+        Log.i("shirin" , "get data api");
+        AndroidNetworking.get("") //todo get url from server
+                .addHeaders("Authorization", "Bearer "+ token)
+                .setTag("test")
+                .setPriority(Priority.LOW)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.i("shirin" , "response ");
+                        try {
+                            JSONObject user = response.getJSONObject("account");
+
+                            setmTraffic(user.getInt("traffic"));
+                            setmDays(user.getInt("day"));
+                            setmChargeAmountPerMonth(user.getInt("chargeAmount"));
+                            setmExpirationDate(user.getString("expirationDate"));
+                            setmRechargeDate(user.getString("rechargeDate"));
+                            setChanged();
+                            notifyObservers();
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.d("shirin", "on response exception");
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError error) {
+                        Log.i("shirin" , "on error " + error.getErrorDetail());
+
+                    }
+                });
+    }
+
+
+    public void getDataApi2(String mToken) {
 
         JSONObject jsonObject = new JSONObject();
         JSONObject jsonObjectUser = new JSONObject();
@@ -80,7 +121,7 @@ public class AccountModel extends Observable {
         Log.i("shirin" , jsonObjectUser.toString());
 
 
-        AndroidNetworking.post("") //TODO : server ok kone
+        AndroidNetworking.post("") //TODO : change to get
                 .addJSONObjectBody(jsonObjectUser) // posting json
                 .setTag("test")
                 .setPriority(Priority.MEDIUM)
@@ -91,7 +132,7 @@ public class AccountModel extends Observable {
 
                         try {
 
-                            JSONObject user = response.getJSONObject("user");
+                            JSONObject user = response.getJSONObject("account");
 
                             setmTraffic(user.getInt("traffic"));
                             setmDays(user.getInt("day"));
@@ -110,6 +151,7 @@ public class AccountModel extends Observable {
                     @Override
                     public void onError(ANError error) {
 
+                        //for test
                         setmTraffic(9);
                         setmDays(2);
                         setmRechargeDate("1/2/3");
