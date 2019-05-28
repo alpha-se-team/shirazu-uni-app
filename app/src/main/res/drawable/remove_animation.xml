@@ -10,7 +10,7 @@
             android:viewportHeight="24">
             <path
                 android:name="path"
-                android:pathData="M 12 3 L 12 21 M 3 12 L 21 12"
+                android:pathData="M 21 21 L 3 3 M 3 21 L 21 3"
                 android:strokeColor="#FFFFFF"
                 android:strokeWidth="3"
                 android:strokeLineCap="round"/>
@@ -22,8 +22,8 @@
                 <objectAnimator
                     android:propertyName="pathData"
                     android:duration="500"
-                    android:valueFrom="M 21 12 L 3 12 M 12 3 L 12 21"
-                    android:valueTo="M 21 21 L 3 3 M 3 21 L 21 3"
+                    android:valueFrom="M 21 21 L 3 3 M 3 21 L 21 3"
+                    android:valueTo="M 21 12 L 3 12 M 12 3 L 12 21"
                     android:valueType="pathType"
                     android:interpolator="@android:interpolator/fast_out_slow_in"/>
             </set>
