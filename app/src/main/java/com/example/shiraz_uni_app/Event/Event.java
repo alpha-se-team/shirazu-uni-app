@@ -1,18 +1,30 @@
 package com.example.shiraz_uni_app.Event;
 
+import java.util.Date;
+
 public class Event {
 
     private String mContext ;
-    private String mDate ;
+    private Date mDate ;
     private int mId;
     private String mImageAddress;
     private boolean mSaved;
+    private String mTitle;
 
-    public Event(String context, String date, int id) {
+    public Event(String context, Date date, int id, String title) {
         this.mId = id;
         this.mContext = context;
         this.mDate = date;
         this.mSaved = false;
+        this.mTitle = title;
+    }
+
+    public String getmTitle() {
+        return mTitle;
+    }
+
+    public void setmTitle(String mTitle) {
+        this.mTitle = mTitle;
     }
 
     public boolean ismSaved() { return mSaved; }
@@ -41,11 +53,11 @@ public class Event {
         this.mContext = context;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return mDate;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.mDate = date;
     }
 }
