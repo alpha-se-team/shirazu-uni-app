@@ -20,30 +20,30 @@
         >
 
         <ImageView
-            android:id="@+id/no_wifi"
+            android:id="@+id/success"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="32dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="16dp"
-            android:background="@drawable/no_wifi"
+            android:background="@drawable/success"
             android:foregroundGravity="center_vertical|center_horizontal" />
 
         <TextView
-            android:id="@+id/no_internet_text_view"
+            android:id="@+id/success_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="32dp"
-            android:text="دسترسی به اینترنت مقدور نمی باشد"
+            android:text=""
             android:textColor="@color/dark_blue"
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/close"
+            android:id="@+id/close_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/back_dialog_blue"
