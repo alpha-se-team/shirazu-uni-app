@@ -48,6 +48,39 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+
+        >
+
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="100dp"
+            android:indeterminate="true"
+            android:indeterminateDrawable="@drawable/progress_bar" />
+
+        <TextView
+            android:id="@+id/no_events"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_horizontal"
+            android:layout_marginTop="20dp"
+            android:gravity="center_vertical"
+            android:text="صفحه در حال بارگذاری می باشد"
+            android:textColor="@color/dark_grey"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/all_events"
         android:layout_width="match_parent"
