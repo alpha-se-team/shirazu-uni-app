@@ -2,6 +2,7 @@ package com.example.shiraz_uni_app.Event.AllEvents;
 
 import android.content.Intent;
 import android.graphics.drawable.AnimatedVectorDrawable;
+import android.provider.CalendarContract;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,10 @@ import com.example.shiraz_uni_app.Utility.JalaliCalendar;
 import com.google.gson.Gson;
 import com.orhanobut.hawk.Hawk;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+
+import saman.zamani.persiandate.PersianDate;
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewHolder> {
     private ArrayList<Event> mEvents ;
@@ -31,12 +36,15 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         public TextView mContext;
         public TextView mDate;
         public ImageButton mSaveButton;
+        public ImageButton mAlarmButton;
 
         public EventViewHolder(final View itemView) {
             super(itemView);
             mContext = itemView.findViewById(R.id.event_context);
             mDate = itemView.findViewById(R.id.event_date);
             mSaveButton = itemView.findViewById(R.id.event_add_image_button);
+            mAlarmButton = itemView.findViewById(R.id.event_alarm_image_Button);
+
 
         }
     }
@@ -72,6 +80,35 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
             public void onClick(View v) {
                 mEvents.get(i).setmSaved(!mEvents.get(i).ismSaved());
                 addFavorite(v, mEvents.get(i));
+            }
+        });
+
+        eventViewHolder.mAlarmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //todo : az server begiri
+                int mShamsiDay = 11;
+                int mShamsiMonth = 3;
+                int mShamsiYear = 1398;
+
+                Date date = new Date();
+                PersianDate persianDate = new PersianDate(date);
+                persianDate.setShDay(mShamsiDay);
+                persianDate.setShMonth(mShamsiMonth);
+                persianDate.setShYear(mShamsiYear);
+
+                Calendar startTime = Calendar.getInstance();
+                startTime.set(persianDate.getGrgYear(), persianDate.getGrgMonth() - 1, persianDate.getGrgDay(), persianDate.getHour(), persianDate.getMinute());
+                Intent intent = new Intent(Intent.ACTION_EDIT);
+                intent.setType("vnd.android.cursor.item/event");
+                intent.putExtra("beginTime",  startTime.getTimeInMillis());
+                intent.putExtra("endTime",  startTime.getTimeInMillis() + 60 * 60 * 1000);
+                intent.putExtra("title", "Sample Event");
+                intent.putExtra("allDay", false);
+                intent.putExtra("method" , 1);
+                intent.putExtra(CalendarContract.Events.HAS_ALARM, 1);
+                view.getContext().startActivity(intent); //todo : az amirerfan bepors
+
             }
         });
 

@@ -1,5 +1,6 @@
 package com.example.shiraz_uni_app.Event.AllEvents;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -89,6 +90,10 @@ public class EventsActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void update(Observable o, Object arg) {
         mAdapter.notifyDataSetChanged();
+    }
+
+    public  void startIntentActivity(Intent intent , Context context){
+        context.startActivity(intent);
     }
 
 }
