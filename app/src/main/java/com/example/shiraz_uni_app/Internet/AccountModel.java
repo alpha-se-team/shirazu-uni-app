@@ -71,6 +71,7 @@ public class AccountModel extends Observable {
     }
 
     public void getDataApi(String token){
+
         Log.i("shirin" , "get data api");
         AndroidNetworking.get("") //todo get url from server
                 .addHeaders("Authorization", "Bearer "+ token)
@@ -101,6 +102,7 @@ public class AccountModel extends Observable {
                     @Override
                     public void onError(ANError error) {
                         Log.i("shirin" , "on error " + error.getErrorDetail());
+
                         //for test
                         setmTraffic(9);
                         setmDays(2);
@@ -112,12 +114,11 @@ public class AccountModel extends Observable {
                         setChanged();
                         notifyObservers();
 
+
                     }
                 });
     }
-
-
-
+    
     public String setDate(){
         String res = "";
         Date date = new Date();
