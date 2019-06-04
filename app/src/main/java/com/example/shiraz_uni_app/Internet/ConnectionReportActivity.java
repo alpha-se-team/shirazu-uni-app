@@ -1,4 +1,4 @@
-package com.example.shiraz_uni_app;
+package com.example.shiraz_uni_app.Internet;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +15,7 @@ import com.anychart.enums.Anchor;
 import com.anychart.enums.MarkerType;
 import com.anychart.enums.TooltipPositionMode;
 import com.anychart.data.Set;
+import com.example.shiraz_uni_app.R;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
 import java.util.ArrayList;
