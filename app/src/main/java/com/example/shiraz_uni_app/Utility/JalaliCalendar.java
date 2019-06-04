@@ -284,6 +284,15 @@ public class JalaliCalendar extends Calendar {
 
     }
 
+    public static int monthOfYear(String month){
+        System.out.println(month);
+        switch (month){
+            case ("May"):
+                return 4;
+        }
+        return 0;
+    }
+
     public static int weekOfYear(int dayOfYear, int year) {
         switch (dayOfWeek(JalaliCalendar.jalaliToGregorian(new YearMonthDate(year, 0, 1)))) {
             case 2:
