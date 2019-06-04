@@ -70,7 +70,13 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
                                                                                                 currentItem.getDate().getMonth(),
                                                                                                     currentItem.getDate().getDay())));
 
-        eventViewHolder.mDate.setText(currentItem.getDate().toString());
+        JalaliCalendar.YearMonthDate yearMonthDate = JalaliCalendar.gregorianToJalali(new JalaliCalendar.YearMonthDate(
+                currentItem.getDate().getYear(),
+                currentItem.getDate().getMonth(),
+                currentItem.getDate().getDay()
+        ));
+
+        eventViewHolder.mDate.setText("تاریخ برگزاری: " + yearMonthDate.toString());
         eventViewHolder.mSaveButton.setImageResource(mSavedEventsId.contains(mEvents.get(i).getmId()) ?
                                                                             R.drawable.remove_animation :
                                                                                 R.drawable.add_animation);

@@ -38,6 +38,8 @@ public class EventsActivity extends AppCompatActivity implements View.OnClickLis
 
         mBack = findViewById(R.id.event_back);
         mBack.setOnClickListener(this);
+        mSavedEvents = findViewById(R.id.saved_events_image_view);
+        mSavedEvents.setOnClickListener(this);
 
         mRecyclerView = findViewById(R.id.all_events);
         mRecyclerView.setHasFixedSize(true);
@@ -45,8 +47,6 @@ public class EventsActivity extends AppCompatActivity implements View.OnClickLis
         mAdapter = new EventsAdapter(mEvents);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
-        mSavedEvents = findViewById(R.id.saved_events_image_view);
-        mSavedEvents.setOnClickListener(this);
 
     }
 

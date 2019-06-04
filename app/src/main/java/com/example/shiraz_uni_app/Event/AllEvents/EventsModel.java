@@ -6,6 +6,7 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.example.shiraz_uni_app.Event.AllEvents.EventsActivity;
 import com.example.shiraz_uni_app.Event.Event;
+import com.example.shiraz_uni_app.Utility.JalaliCalendar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,12 +43,16 @@ public class EventsModel extends Observable {
 
                             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
-                            System.out.println(simpleDateFormat.parse("2019-05-26T16:41:18.244169Z").getMonth());
                             for(int i=0; i<mEventsJsonArray.length(); i++) {
                                 JSONObject mEachEvent = mEventsJsonArray.getJSONObject(i);
-                                Date date = new Date(simpleDateFormat.parse(mEachEvent.getString("created_at")).getYear(),
-                                                        simpleDateFormat.parse(mEachEvent.getString("created_at")).getMonth(),
-                                                            simpleDateFormat.parse(mEachEvent.getString("created_at")).getDay());
+
+                                System.out.println(response);
+
+                                int year = Integer.valueOf(simpleDateFormat.parse(mEachEvent.getString("created_at")).toString().split(" ")[5]);
+                                int month = JalaliCalendar.monthOfYear(simpleDateFormat.parse(mEachEvent.getString("created_at")).toString().split(" ")[1]);
+                                int day = Integer.valueOf(simpleDateFormat.parse(mEachEvent.getString("created_at")).toString().split(" ")[2]);
+
+                                Date date = new Date(year, month, day);
 
                                 EventsActivity.addEvent( new Event( mEachEvent.getString("text"),
                                                                     date,
