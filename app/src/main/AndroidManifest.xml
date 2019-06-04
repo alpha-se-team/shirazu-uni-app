@@ -17,6 +17,7 @@
         <activity android:name=".Event.SavedEvents.SavedEventsActivity"></activity>
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".Event.SingleEvent.SingleEventActivity"></activity>
+        <activity android:name=".Internet.AccountActivity"></activity>
         <activity android:name=".Login.LoginActivity" android:windowSoftInputMode="adjustPan"></activity>
 
         <activity android:name=".Splash.SplashActivity">
