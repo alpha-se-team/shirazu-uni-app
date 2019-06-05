@@ -65,7 +65,9 @@
             android:paddingTop="12dp"
             android:paddingBottom="12dp"
             android:text="تاریخ برگزاری"
+            android:maxLines="1"
             android:textAlignment="gravity"
+            android:gravity="right"
             android:textColor="@color/white"
             android:textSize="14sp" />
 
