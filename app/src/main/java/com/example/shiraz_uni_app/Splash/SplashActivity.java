@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidnetworking.AndroidNetworking;
+import com.example.shiraz_uni_app.Event.AllEvents.EventsActivity;
 import com.example.shiraz_uni_app.Internet.AccountActivity;
 import com.example.shiraz_uni_app.Login.LoginActivity;
 import com.example.shiraz_uni_app.MainActivity;
