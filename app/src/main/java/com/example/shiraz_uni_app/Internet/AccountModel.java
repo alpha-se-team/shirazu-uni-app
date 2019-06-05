@@ -118,7 +118,7 @@ public class AccountModel extends Observable {
                     }
                 });
     }
-    
+
     public String setDate(){
         String res = "";
         Date date = new Date();
