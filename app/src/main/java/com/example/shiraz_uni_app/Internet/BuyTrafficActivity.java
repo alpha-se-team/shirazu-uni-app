@@ -1,4 +1,4 @@
-package com.example.shiraz_uni_app;
+package com.example.shiraz_uni_app.Internet;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.example.shiraz_uni_app.R;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
 public class BuyTrafficActivity extends Activity {

@@ -58,7 +58,7 @@ public class SplashActivity extends Activity implements Observer {
         Log.i("shirin" , "update called");
         if (mSplashModel.ismSuccess()) {
             Log.i("shirin" , "update1");
-            intent = new Intent(SplashActivity.this, AccountActivity.class);
+            intent = new Intent(SplashActivity.this, LoginActivity.class);
         } else {
             Log.i("shirin" , "update2");
             intent = new Intent(SplashActivity.this, LoginActivity.class);

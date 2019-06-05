@@ -1,10 +1,12 @@
-package com.example.shiraz_uni_app;
+package com.example.shiraz_uni_app.Internet;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
+
+import com.example.shiraz_uni_app.R;
 
 public class ShowDialog {
 

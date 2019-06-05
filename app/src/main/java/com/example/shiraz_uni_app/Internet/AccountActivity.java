@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.example.shiraz_uni_app.Login.LoginActivity;
 import com.example.shiraz_uni_app.MainActivity;
 import com.example.shiraz_uni_app.R;
@@ -22,22 +23,22 @@ import java.util.Observer;
 
 public class AccountActivity extends AppCompatActivity implements Observer {
 
-    String mToken;
-    AccountModel mModel;
-    ImageView mMenuImageView;
-    TextView mDateTextView;
-    String date;
-    TextView mRemainingDaysTextView;
-    int mRemainingDays;
-    com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar mRemainingDaysProgressBar;
-    TextView mRemainingTrafficTextView;
-    int mRemainingTraffic;
-    TextView mChargeAmountPerMonthTextView;
-    int mChargeAmountPerMonth;
-    TextView mRechargeDateTextView;
-    String mRechargeDate;
-    TextView mExpirationDateTextView;
-    String mExpirationDate;
+    private String mToken;
+    private AccountModel mModel;
+    private ImageView mMenuImageView;
+    private TextView mDateTextView;
+    private String date;
+    private TextView mRemainingDaysTextView;
+    private int mRemainingDays;
+    private RoundCornerProgressBar mRemainingDaysProgressBar;
+    private TextView mRemainingTrafficTextView;
+    private int mRemainingTraffic;
+    private TextView mChargeAmountPerMonthTextView;
+    private int mChargeAmountPerMonth;
+    private TextView mRechargeDateTextView;
+    private String mRechargeDate;
+    private TextView mExpirationDateTextView;
+    private String mExpirationDate;
 
     com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar mRemainingTrafficProgressBar;
     @Override

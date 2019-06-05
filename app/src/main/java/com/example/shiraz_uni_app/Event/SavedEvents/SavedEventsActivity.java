@@ -17,16 +17,14 @@ import java.util.Observable;
 import java.util.Observer;
 
 public class SavedEventsActivity extends AppCompatActivity implements View.OnClickListener, Observer {
-    private ImageView mback ;
     private RecyclerView mRecyclerView ;
-    private RecyclerView.Adapter mAdapter ;
+    private static RecyclerView.Adapter mAdapter ;
     private RecyclerView.LayoutManager mLayoutManager;
     private ImageView mBack;
-    private ImageView mSavedEvents;
-    private TextView mNoEventText;
+    private static TextView mNoEventText;
+    private Boolean mThereIsSavedEvents;
     private SavedEventsModel mModel = new SavedEventsModel();
     private static ArrayList<Event> mEvents = new ArrayList<>();
-    private Boolean mThereIsSavedEvents;
     private ArrayList<Integer> mSavedEventsId = new ArrayList<>();
 
     @Override
@@ -34,20 +32,10 @@ public class SavedEventsActivity extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved_events);
 
-        mback = findViewById(R.id.back_button);
-        mback.setOnClickListener(this);
-        mNoEventText = findViewById(R.id.no_events);
-
-        mSavedEventsId = Hawk.get("Saved");
-        mThereIsSavedEvents = mSavedEventsId.size() > 0 ? true : false;
-        if(mThereIsSavedEvents){
-            mNoEventText.setText("در حال بارگزاری");
-        }else{
-            mNoEventText.setText("رویدادی وجود ندارد");
-        }
+        mBack = findViewById(R.id.back_button);
+        mBack.setOnClickListener(this);
 
         mModel.addObserver(this);
-        mModel.getEvents();
 
         mRecyclerView = findViewById(R.id.saved_event);
         mRecyclerView.setHasFixedSize(true);
@@ -70,9 +58,20 @@ public class SavedEventsActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onResume() {
         super.onResume();
-        System.out.println("resume");
         mModel.getEvents();
         mAdapter.notifyDataSetChanged();
+
+        mNoEventText = findViewById(R.id.no_events);
+        mNoEventText.setVisibility(View.VISIBLE);
+
+        mSavedEventsId = Hawk.get("Saved");
+        mThereIsSavedEvents = mSavedEventsId.size() > 0 ? true : false;
+        if(mThereIsSavedEvents){
+            mNoEventText.setText("در حال بارگزاری");
+        }else{
+            mNoEventText.setText("رویدادی وجود ندارد");
+        }
+
     }
 
     @Override
@@ -82,14 +81,24 @@ public class SavedEventsActivity extends AppCompatActivity implements View.OnCli
         }else{
             mNoEventText.setVisibility(View.VISIBLE);
         }
+
         mAdapter.notifyDataSetChanged();
     }
 
-    public static void addEvent(Event mEvent) {
+    public static void addEvent(Event mEvent){
         mEvents.add(mEvent);
     }
 
     public static void clearEvent(){
         mEvents.clear();
+    }
+
+    public static void noEvent() {
+        mNoEventText.setVisibility(View.VISIBLE);
+        mNoEventText.setText("رویدادی وجود ندارد");
+    }
+
+    public static void changeDataSet() {
+        mAdapter.notifyDataSetChanged();
     }
 }

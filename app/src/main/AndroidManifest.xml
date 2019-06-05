@@ -12,6 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Internet.BuyTrafficActivity"></activity>
+        <activity android:name=".Internet.ConnectionReportActivity"></activity>
         <activity android:name=".Event.AllEvents.EventsActivity"></activity>
         <activity android:name=".ForgetPassword.ForgetPasswordActivity"></activity>
         <activity android:name=".Event.SavedEvents.SavedEventsActivity"></activity>
@@ -19,7 +21,6 @@
         <activity android:name=".Event.SingleEvent.SingleEventActivity"></activity>
         <activity android:name=".Internet.AccountActivity"></activity>
         <activity android:name=".Login.LoginActivity" android:windowSoftInputMode="adjustPan"></activity>
-
         <activity android:name=".Splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

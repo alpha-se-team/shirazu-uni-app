@@ -25,7 +25,6 @@ public class SavedEventsAdapter extends RecyclerView.Adapter<SavedEventsAdapter.
     private boolean favorite_state;
     private ImageButton mAddOrRemove;
     private ArrayList<Integer> mSavedEventsId = new ArrayList<>();
-    private TextView mNoEvent;
 
     public class EventViewHolder extends RecyclerView.ViewHolder {
         public TextView mContext;
@@ -57,11 +56,15 @@ public class SavedEventsAdapter extends RecyclerView.Adapter<SavedEventsAdapter.
 
         Event currentItem = mEvents.get(i);
         savedEventViewHolder.mContext.setText(currentItem.getContext());
-        System.out.println(JalaliCalendar.gregorianToJalali(new JalaliCalendar.YearMonthDate(currentItem.getDate().getYear(),
-                currentItem.getDate().getMonth(),
-                currentItem.getDate().getDay())));
 
-        savedEventViewHolder.mDate.setText(currentItem.getDate().toString());
+        JalaliCalendar.YearMonthDate yearMonthDate = JalaliCalendar.gregorianToJalali(new JalaliCalendar.YearMonthDate(
+                currentItem.getDate().getYear(),
+                currentItem.getDate().getMonth(),
+                currentItem.getDate().getDay()
+        ));
+
+        savedEventViewHolder.mDate.setText("تاریخ برگزاری: " + yearMonthDate.toString());
+
         savedEventViewHolder.mSaveButton.setImageResource(mSavedEventsId.contains(mEvents.get(i).getmId()) ?
                 R.drawable.remove_animation :
                 R.drawable.add_animation);
@@ -121,6 +124,11 @@ public class SavedEventsAdapter extends RecyclerView.Adapter<SavedEventsAdapter.
             ((AnimatedVectorDrawable) mAddOrRemove.getDrawable()).start();
         }
         Hawk.put("Saved", mSavedEventsId);
-        notifyDataSetChanged();
+        if(mSavedEventsId.size() == 0) {
+            SavedEventsActivity.noEvent();
+        }
+        else {
+            SavedEventsActivity.changeDataSet();
+        }
     }
 }

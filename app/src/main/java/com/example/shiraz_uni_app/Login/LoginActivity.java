@@ -31,6 +31,7 @@ public class LoginActivity extends AppCompatActivity implements Observer, View.O
     private TextView mEventsText;
     private TextView mForgetPassword;
     private ImageView mEventsImage;
+    private TextView mValidLogin;
 
     private boolean mConnectionStatus;
 
@@ -57,6 +58,7 @@ public class LoginActivity extends AppCompatActivity implements Observer, View.O
         mForgetPassword = findViewById(R.id.forget_password);
         mEventsText = findViewById(R.id.go_to_events_text_view);
         mEventsImage = findViewById(R.id.go_to_events_image_view);
+        mValidLogin = findViewById(R.id.failed_attempt_dialog);
 
         mForgetPassword.setClickable(true);
         mForgetPassword.setOnClickListener(this);
@@ -74,8 +76,7 @@ public class LoginActivity extends AppCompatActivity implements Observer, View.O
             finish();
             startActivity(mAccount);
         } else {
-            // TODO: 2019-04-17 : unsuccessful login with wrong username or password
-
+            mValidLogin.setVisibility(View.VISIBLE);
         }
     }
 
