@@ -10,7 +10,7 @@
     android:orientation="horizontal">
 
     <ImageView
-        android:id="@+id/profile_picture"
+        android:id="@+id/profile_picture_image_view"
         android:layout_width="130dp"
         android:layout_height="130dp"
         app:srcCompat="@color/dark_grey" />
@@ -23,6 +23,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/name_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -33,7 +34,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/student_number"
+            android:id="@+id/student_number_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"

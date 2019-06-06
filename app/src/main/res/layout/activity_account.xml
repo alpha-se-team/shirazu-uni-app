@@ -10,9 +10,9 @@
 
 
     <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
         android:gravity="end"
         android:layoutDirection="rtl"
-        android:id="@+id/nav_view"
         android:layout_width="320dp"
         android:layout_height="match_parent"
         android:layout_gravity="end"
@@ -25,12 +25,14 @@
 
         >
         <LinearLayout
+            android:id="@+id/logout_layout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="bottom"
             android:background="@color/red">
 
             <ImageView
+                android:id="@+id/logout_image_view"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:padding="10dp"
