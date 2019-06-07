@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_gravity="end"
+    android:gravity="end"
+    android:layoutDirection="rtl"
+    >
+
+    <group
+        android:layout_gravity="end"
+        android:checkableBehavior="single"
+        android:gravity="end">
+        <item
+            android:id="@+id/nav_buy_trafic"
+            android:layout_gravity="end"
+            android:gravity="end"
+            android:icon="@drawable/buy"
+            android:iconTint="@color/dark_blue"
+            android:textColor="@color/dark_blue"
+            android:title="خرید ترافیک"></item>
+
+        <item
+            android:id="@+id/nav_change_password"
+            android:layout_gravity="end"
+            android:gravity="end"
+            android:icon="@drawable/change"
+            android:iconTint="@color/dark_blue"
+            android:textColor="@color/dark_blue"
+            android:title="تغییر رمز عبور"></item>
+
+        <item
+            android:id="@+id/nav_disconnect"
+            android:layout_gravity="end"
+            android:gravity="end"
+            android:icon="@drawable/disconnect"
+            android:iconTint="@color/dark_blue"
+            android:textColor="@color/dark_blue"
+            android:title="قطع ارتباط"></item>
+
+        <item
+            android:id="@+id/nav_connections"
+            android:layout_gravity="end"
+            android:gravity="end"
+            android:icon="@drawable/chart"
+            android:iconTint="@color/dark_blue"
+            android:textColor="@color/dark_blue"
+            android:title="گزارش اتصالات"></item>
+    </group>
+
+
+</menu>

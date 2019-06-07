@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,7 +41,7 @@ public class AccountActivity extends AppCompatActivity implements Observer {
     private String mRechargeDate;
     private TextView mExpirationDateTextView;
     private String mExpirationDate;
-
+    private DrawerLayout mAccountInfoDrawerLayout;
     com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar mRemainingTrafficProgressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,15 @@ public class AccountActivity extends AppCompatActivity implements Observer {
         mChargeAmountPerMonthTextView = findViewById(R.id.charge_amount_per_month);
         mRechargeDateTextView = findViewById(R.id.recharge_date);
         mExpirationDateTextView = findViewById(R.id.expiration_date);
+        mAccountInfoDrawerLayout = findViewById(R.id.drawer_layout);
+        /*mMenuImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mAccountInfoDrawerLayout.openDrawer(GravityCompat.END);
+                // we use the attribute GravityCompat.END to open the navigation bar from right to left
+
+            }
+        }); */
 
 
 
