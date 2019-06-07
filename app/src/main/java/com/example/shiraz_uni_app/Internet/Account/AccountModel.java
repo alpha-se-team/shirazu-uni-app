@@ -1,4 +1,4 @@
-package com.example.shiraz_uni_app.Internet;
+package com.example.shiraz_uni_app.Internet.Account;
 
 import android.util.Log;
 import android.widget.TextView;
