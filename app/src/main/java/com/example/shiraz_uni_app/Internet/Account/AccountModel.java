@@ -1,4 +1,4 @@
-package com.example.shiraz_uni_app.Internet;
+package com.example.shiraz_uni_app.Internet.Account;
 
 import android.util.Log;
 import android.widget.TextView;
@@ -102,6 +102,18 @@ public class AccountModel extends Observable {
                     @Override
                     public void onError(ANError error) {
                         Log.i("shirin" , "on error " + error.getErrorDetail());
+
+                        //for test
+                        setmTraffic(9);
+                        setmDays(2);
+                        setmRechargeDate("1/2/3");
+                        setmExpirationDate("01/01/00");
+                        setmChargeAmountPerMonth(15);
+
+                        Log.i("shirin" , mDays + " " + mTraffic);
+                        setChanged();
+                        notifyObservers();
+
 
                     }
                 });

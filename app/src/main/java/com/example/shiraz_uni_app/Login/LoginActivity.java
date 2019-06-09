@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.androidnetworking.AndroidNetworking;
 import com.example.shiraz_uni_app.Event.AllEvents.EventsActivity;
 import com.example.shiraz_uni_app.ForgetPassword.ForgetPasswordActivity;
-import com.example.shiraz_uni_app.Internet.AccountActivity;
+import com.example.shiraz_uni_app.Internet.Account.AccountActivity;
 import com.example.shiraz_uni_app.MainActivity;
 import com.example.shiraz_uni_app.R;
 import com.orhanobut.hawk.Hawk;
