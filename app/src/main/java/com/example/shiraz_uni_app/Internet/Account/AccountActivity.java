@@ -4,10 +4,12 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Handler;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,7 +26,7 @@ import java.util.Observer;
 
 public class AccountActivity extends AppCompatActivity implements Observer {
 
-    private String mToken;
+    private String mUserName;
     private AccountModel mModel;
     private ImageView mMenuImageView;
     private TextView mDateTextView;
@@ -41,6 +43,7 @@ public class AccountActivity extends AppCompatActivity implements Observer {
     private TextView mExpirationDateTextView;
     private String mExpirationDate;
     private DrawerLayout mAccountInfoDrawerLayout;
+    Thread thread;
     com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar mRemainingTrafficProgressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +63,7 @@ public class AccountActivity extends AppCompatActivity implements Observer {
         mRechargeDateTextView = findViewById(R.id.recharge_date);
         mExpirationDateTextView = findViewById(R.id.expiration_date);
         mAccountInfoDrawerLayout = findViewById(R.id.drawer_layout);
+
         /*mMenuImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,12 +75,12 @@ public class AccountActivity extends AppCompatActivity implements Observer {
 
 
 
-        mToken = Hawk.get("token");
-        if (mToken != null){
+        mUserName = Hawk.get("user_name");
+
+        if (mUserName != null){
 
             if (MainActivity.checkInternetConnection(AccountActivity.this) ){
-                mModel.getDataApi(mToken);
-                mSetCurrentDate();
+                mModel.mProfileReadApi(mUserName);
             }
 
             else{
@@ -96,55 +100,77 @@ public class AccountActivity extends AppCompatActivity implements Observer {
             }
         }
 
-        else { //token paride , bayad az aval login kone
+        else { //username paride , bayad az aval login kone
             Intent intent = new Intent(AccountActivity.this , LoginActivity.class);
             Toast.makeText(this, "error , plz login again", Toast.LENGTH_SHORT).show();
             startActivity(intent);
             finish();
         }
 
+        updateData();
 
+    }
 
+    private void updateData() {
+
+        thread = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    while (!thread.isInterrupted()) {
+                        Thread.sleep(60000);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (MainActivity.checkInternetConnection(AccountActivity.this)){
+                                    mModel.mProfileReadApi(mUserName);
+                                }
+                            }
+                        });
+                    }
+                } catch (InterruptedException e) {
+                }
+            }
+        };
+
+        thread.start();
     }
 
     @Override
     public void update(Observable o, Object arg) {
+        Log.i("shirintest" , "update");
         mGetData();
     }
 
     public void mSetData(){
+        Log.i("shirintest" , "set");
+        mDateTextView.setText(date);
+
         mRemainingDaysTextView.setText(mRemainingDays + " روز ");
-        mRemainingDaysProgressBar.setMax(30);
+        mRemainingDaysProgressBar.setMax(mModel.mSetMonthLength());
         mRemainingDaysProgressBar.setProgress(mRemainingDays);
 
         mRemainingTrafficTextView.setText(mRemainingTraffic + " گیگابایت ");
-        mRemainingTrafficProgressBar.setMax(mModel.getmChargeAmountPerMonth());
+        mRemainingTrafficProgressBar.setMax(mChargeAmountPerMonth);
         mRemainingTrafficProgressBar.setProgress(mRemainingTraffic);
 
         mExpirationDateTextView.setText(mExpirationDate);
         mRechargeDateTextView.setText(mRechargeDate);
         mChargeAmountPerMonthTextView.setText(mChargeAmountPerMonth + " گیگابایت ");
 
-        mSetCurrentDate();
+
     }
     public void mGetData(){
-        mRemainingTraffic = mModel.getmTraffic();
-        mRemainingDays = mModel.getmDays();
+        Log.i("shirintest" , "get");
+        mRemainingTraffic = mModel.getmPlanTotalBW() - mModel.getmAmountConsumed();
+        mRemainingDays = mModel.setRemainingTime();
         mExpirationDate = mModel.getmExpirationDate();
         mRechargeDate = mModel.getmRechargeDate();
-        mChargeAmountPerMonth = mModel.getmChargeAmountPerMonth();
+        mChargeAmountPerMonth = mModel.getmPlanTotalBW();
+        date = mModel.getDate();
+
         mSetData();
 
     }
-
-    public void mSetCurrentDate(){
-
-        date = mModel.setDate();
-        mDateTextView.setText(date);
-
-    }
-
-
-
 
 }
