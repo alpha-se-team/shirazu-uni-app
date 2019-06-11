@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_gravity="end"
     android:gravity="end"
-    android:layoutDirection="rtl"
-    >
+    android:layoutDirection="rtl">
 
     <group
         android:layout_gravity="end"
@@ -29,9 +28,6 @@
             android:title="تغییر رمز عبور"></item>
 
 
-        
-
-
         <item
             android:id="@+id/nav_connections"
             android:layout_gravity="end"
@@ -41,7 +37,6 @@
             android:textColor="@color/dark_blue"
             android:title="گزارش اتصالات"></item>
     </group>
-
 
 
 </menu>

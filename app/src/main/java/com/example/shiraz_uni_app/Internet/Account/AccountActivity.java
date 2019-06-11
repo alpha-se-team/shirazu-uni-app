@@ -65,10 +65,7 @@ public class AccountActivity extends AppCompatActivity implements Observer {
             public void onClick(View view) {
                 mAccountInfoDrawerLayout.openDrawer(GravityCompat.END);
                 // we use the attribute GravityCompat.END to open the navigation bar from right to left
-<<<<<<< HEAD:app/src/main/java/com/example/shiraz_uni_app/Internet/Account/AccountActivity.java
 
-=======
->>>>>>> 9da961503c482343ab100240c1e0c9cb0c53e861:app/src/main/java/com/example/shiraz_uni_app/Internet/AccountActivity.java
             }
         }); */
 
