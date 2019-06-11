@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.example.shiraz_uni_app.Event.Event;
 import com.example.shiraz_uni_app.Event.SavedEvents.SavedEventsActivity;
@@ -89,6 +90,8 @@ public class EventsActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void update(Observable o, Object arg) {
+        LinearLayout linearLayout = findViewById(R.id.progress_bar_layout);
+        linearLayout.setVisibility(View.GONE);
         mAdapter.notifyDataSetChanged();
     }
 

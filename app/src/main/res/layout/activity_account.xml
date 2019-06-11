@@ -18,7 +18,7 @@
         android:layout_gravity="end"
         android:background="@color/white"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_acoount_info"
+        app:headerLayout="@layout/nav_header_account_info"
         app:menu="@menu/account_info"
         app:itemTextColor="@color/dark_blue"
         android:theme="@style/NavigationView"
