@@ -87,7 +87,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements Observe
         if (mModel.ismSuccess()){
             Toast.makeText(this, "successful", Toast.LENGTH_SHORT).show();
         }
-        
+
         else {
             Toast.makeText(this, "unsuccessful , plz try again", Toast.LENGTH_SHORT).show();
         }
