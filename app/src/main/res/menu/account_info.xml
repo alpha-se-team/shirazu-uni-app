@@ -28,7 +28,16 @@
             android:textColor="@color/dark_blue"
             android:title="تغییر رمز عبور"></item>
 
-      
+
+        <item
+            android:id="@+id/nav_disconnect"
+            android:layout_gravity="end"
+            android:gravity="end"
+            android:icon="@drawable/disconnect"
+            android:iconTint="@color/dark_blue"
+            android:textColor="@color/dark_blue"
+            android:title="قطع ارتباط"></item>
+
 
         <item
             android:id="@+id/nav_connections"
@@ -41,4 +50,6 @@
     </group>
 
 
+
 </menu>
+
