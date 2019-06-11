@@ -13,7 +13,7 @@
         android:id="@+id/nav_view"
         android:gravity="end"
         android:layoutDirection="rtl"
-        android:layout_width="290dp"
+        android:layout_width="320dp"
         android:layout_height="match_parent"
         android:layout_gravity="end"
         android:background="@color/white"
@@ -25,6 +25,7 @@
 
         >
         <LinearLayout
+
             android:id="@+id/logout_layout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -32,6 +33,7 @@
             android:background="@color/red">
 
             <ImageView
+
                 android:id="@+id/logout_image_view"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
