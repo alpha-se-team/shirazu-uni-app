@@ -46,8 +46,6 @@ public class EventsModel extends Observable {
                             for(int i=0; i<mEventsJsonArray.length(); i++) {
                                 JSONObject mEachEvent = mEventsJsonArray.getJSONObject(i);
 
-                                System.out.println(response);
-
                                 int year = Integer.valueOf(simpleDateFormat.parse(mEachEvent.getString("created_at")).toString().split(" ")[5]);
                                 int month = JalaliCalendar.monthOfYear(simpleDateFormat.parse(mEachEvent.getString("created_at")).toString().split(" ")[1]);
                                 int day = Integer.valueOf(simpleDateFormat.parse(mEachEvent.getString("created_at")).toString().split(" ")[2]);

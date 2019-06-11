@@ -92,7 +92,6 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         eventViewHolder.mAlarmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //todo : az server begiri
                 int mShamsiDay = 11;
                 int mShamsiMonth = 3;
                 int mShamsiYear = 1398;
@@ -156,7 +155,6 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         favorite_state = mSavedEventsId.contains(event.getmId());
 
         if(!favorite_state){
-            System.out.println("add");
             mSavedEventsId.add(event.getmId());
             Hawk.put("Saved", mSavedEventsId);
             mAddOrRemove.setImageResource(R.drawable.add_animation);
@@ -165,7 +163,6 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
         else {
             mSavedEventsId.remove(mSavedEventsId.indexOf(event.getmId()));
             Hawk.put("Saved", mSavedEventsId);
-            System.out.println("remove");
             mAddOrRemove.setImageResource(R.drawable.remove_animation);
             ((AnimatedVectorDrawable) mAddOrRemove.getDrawable()).start();
         }
