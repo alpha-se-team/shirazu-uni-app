@@ -18,7 +18,7 @@
         android:layout_gravity="end"
         android:background="@color/white"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_acoount_info"
+        app:headerLayout="@layout/nav_header_account_info"
         app:menu="@menu/account_info"
         app:itemTextColor="@color/dark_blue"
         android:theme="@style/NavigationView"
@@ -315,7 +315,7 @@
                     android:layout_weight="0.2"
                     android:background="@drawable/bottom_round_view_2"
                     android:gravity="center"
-                    android:text="بروزرسانی در 3 ثانیه"
+                    android:text="بروزرسانی در 1 دقیقه"
                     android:textColor="@color/dark_blue" />
             </LinearLayout>
 

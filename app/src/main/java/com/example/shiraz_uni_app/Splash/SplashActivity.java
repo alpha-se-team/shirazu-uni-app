@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.androidnetworking.AndroidNetworking;
+import com.example.shiraz_uni_app.Internet.Account.AccountActivity;
 import com.example.shiraz_uni_app.Login.LoginActivity;
 import com.example.shiraz_uni_app.MainActivity;
 import com.example.shiraz_uni_app.R;
@@ -25,6 +26,7 @@ public class SplashActivity extends Activity implements Observer {
     private SplashModel mSplashModel;
     private String token;
     private Intent intent;
+    Thread thread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,17 +38,21 @@ public class SplashActivity extends Activity implements Observer {
 
         AndroidNetworking.initialize(getApplicationContext());
         Hawk.init(SplashActivity.this).build();
+        //getState();
 
         tryToInter();
     }
+
+
 
     private void tryToInter() {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
+                Log.i("shirintest2" , "sag");
                 getState();
             }
-        }, 2500);
+        }, 5000);
     }
 
     @Override
@@ -56,7 +62,7 @@ public class SplashActivity extends Activity implements Observer {
         if (mSplashModel.ismSuccess()) {
             Log.i("shirin" , "update1");
 
-            intent = new Intent(SplashActivity.this, LoginActivity.class);
+            intent = new Intent(SplashActivity.this, AccountActivity.class);
 
         } else {
             Log.i("shirin" , "update2");
