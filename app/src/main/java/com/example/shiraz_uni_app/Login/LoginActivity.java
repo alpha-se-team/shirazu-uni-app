@@ -1,6 +1,7 @@
 package com.example.shiraz_uni_app.Login;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -15,6 +16,7 @@ import com.androidnetworking.AndroidNetworking;
 import com.example.shiraz_uni_app.Event.AllEvents.EventsActivity;
 import com.example.shiraz_uni_app.ForgetPassword.ForgetPasswordActivity;
 import com.example.shiraz_uni_app.Internet.Account.AccountActivity;
+import com.example.shiraz_uni_app.Internet.ChangePassword.ChangePasswordActivity;
 import com.example.shiraz_uni_app.MainActivity;
 import com.example.shiraz_uni_app.R;
 import com.orhanobut.hawk.Hawk;
@@ -32,7 +34,7 @@ public class LoginActivity extends AppCompatActivity implements Observer, View.O
     private TextView mForgetPassword;
     private ImageView mEventsImage;
     private TextView mValidLogin;
-
+    private ProgressDialog progressDialog;
     private boolean mConnectionStatus;
 
     @Override
@@ -69,8 +71,9 @@ public class LoginActivity extends AppCompatActivity implements Observer, View.O
 
     @Override
     public void update(Observable o, Object arg) {
+        progressDialog.cancel();
+        
         if (mModel.isValidLogin()){
-
             Intent mAccount = new Intent(LoginActivity.this , AccountActivity.class);
             Hawk.put("token" ,mModel.getToken());
             Hawk.put("user_name" , mUsername.getText().toString());
@@ -90,8 +93,13 @@ public class LoginActivity extends AppCompatActivity implements Observer, View.O
 
                 mConnectionStatus = MainActivity.checkInternetConnection(this);
 
-                if(mConnectionStatus)
+                if(mConnectionStatus){
+                    progressDialog = new ProgressDialog(LoginActivity.this , R.style.MyAlertDialogStyle);
+                    progressDialog.setMessage("Please wait ...");
+                    progressDialog.show();
                     mModel.login(mUsername.getText().toString(), mPassword.getText().toString());
+                }
+
                 else {
                     final AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this); //the current class
                     View dialogView = getLayoutInflater().inflate(R.layout.no_internet_connection_dialog, null);
