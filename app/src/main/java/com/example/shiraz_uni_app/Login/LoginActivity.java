@@ -74,6 +74,7 @@ public class LoginActivity extends AppCompatActivity implements Observer, View.O
             Intent mAccount = new Intent(LoginActivity.this , AccountActivity.class);
             Hawk.put("token" ,mModel.getToken());
             Hawk.put("user_name" , mUsername.getText().toString());
+            Hawk.put("password" , mPassword.getText().toString());
             finish();
             startActivity(mAccount);
         } else {

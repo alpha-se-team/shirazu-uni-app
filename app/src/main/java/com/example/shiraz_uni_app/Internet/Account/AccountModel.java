@@ -78,7 +78,7 @@ public class AccountModel extends Observable {
 
     public void mProfileReadApi(String mUserName){
         Log.i("shirintest2" , mUserName);
-        Log.i("shirin" , "get data api");
+        Log.i("test" , "get data api");
         AndroidNetworking.get("https://young-castle-19921.herokuapp.com/apiv1/profile/" + mUserName + "/")
                 .addHeaders("")
                 .setTag("test")
@@ -103,14 +103,14 @@ public class AccountModel extends Observable {
 
                     @Override
                     public void onError(ANError error) {
-                        Log.i("shirin" , "on error " + error.getErrorDetail());
+                        Log.i("test" , "on error1 " + error.getErrorCode());
 
                     }
                 });
     }
 
     private void mPlanReadApi() {
-        Log.i("shirintest" , getmPlanId() + "");
+        Log.i("test" , getmPlanId() + "");
         Log.i("shirin" , "get data api");
         AndroidNetworking.get("https://young-castle-19921.herokuapp.com/apiv1/plan/" + getmPlanId() + "/")
                 .addHeaders("")
@@ -133,13 +133,13 @@ public class AccountModel extends Observable {
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Log.d("shirin", "on response exception " + e.getMessage());
+                            Log.d("test", "on response exception " + e.getMessage());
                         }
                     }
 
                     @Override
                     public void onError(ANError error) {
-                        Log.i("shirin" , "on error " + error.getErrorDetail());
+                        Log.i("test" , "on error2 " + error.getErrorDetail());
                     }
                 });
     }

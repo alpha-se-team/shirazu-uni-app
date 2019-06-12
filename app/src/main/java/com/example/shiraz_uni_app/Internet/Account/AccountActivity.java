@@ -137,12 +137,14 @@ public class AccountActivity extends AppCompatActivity implements Observer, View
             finish();
         }
 
-        updateData();
+        //updateData();
+        getDataFromServer();
 
     }
 
     private void updateData() {
 
+        Log.i("test" , "update");
         thread = new Thread() {
             @Override
             public void run() {
@@ -152,6 +154,7 @@ public class AccountActivity extends AppCompatActivity implements Observer, View
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                Log.i("test" , "tread");
                                 if (MainActivity.checkInternetConnection(AccountActivity.this)){
                                     mModel.mProfileReadApi(mUserName);
                                 }
@@ -166,9 +169,40 @@ public class AccountActivity extends AppCompatActivity implements Observer, View
         thread.start();
     }
 
+    private void getDataFromServer() {
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                Log.i("test" , "sag");
+                if (MainActivity.checkInternetConnection(AccountActivity.this)){
+                    mModel.mProfileReadApi(mUserName);
+                }
+                else {
+
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(AccountActivity.this);
+                    View dialogView = getLayoutInflater().inflate(R.layout.no_internet_connection_dialog, null);
+                    TextView close = dialogView.findViewById(R.id.close);
+                    builder.setView(dialogView);
+                    final AlertDialog dialog = builder.create();
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    dialog.show();
+                    close.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.cancel();
+                            getDataFromServer();
+                        }
+                    });
+                }
+            }
+        }, 5000);
+    }
+
     @Override
     public void update(Observable o, Object arg) {
         mGetData();
+        getDataFromServer();
     }
 
     public void mSetData(){

@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.shiraz_uni_app.Internet.Account.AccountActivity;
 import com.example.shiraz_uni_app.MainActivity;
 import com.example.shiraz_uni_app.R;
+import com.orhanobut.hawk.Hawk;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -57,7 +58,14 @@ public class ChangePasswordActivity extends AppCompatActivity implements Observe
 
                     if (mNewPassword.equals(mConfirmNewPassword)){
                         mOldPassword = mOldPasswordEditText.getText().toString();
-                        mModel.changePassword(mOldPassword , mNewPassword);
+                        if (mOldPassword.equals(Hawk.get("password"))){
+
+                            mModel.changePassword( mNewPassword);
+                        }
+
+                        else {
+                            Toast.makeText(ChangePasswordActivity.this, "old password is not correct", Toast.LENGTH_SHORT).show();
+                        }
 
                     }
 
