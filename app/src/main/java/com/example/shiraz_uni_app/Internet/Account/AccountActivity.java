@@ -31,6 +31,7 @@ import com.example.shiraz_uni_app.Internet.ConnectionReportActivity;
 import com.example.shiraz_uni_app.Login.LoginActivity;
 import com.example.shiraz_uni_app.MainActivity;
 import com.example.shiraz_uni_app.R;
+import com.example.shiraz_uni_app.Splash.SplashActivity;
 import com.orhanobut.hawk.Hawk;
 
 import java.util.Observable;
@@ -106,7 +107,7 @@ public class AccountActivity extends AppCompatActivity implements Observer, View
             }
         }); */
 
-
+        Hawk.init(AccountActivity.this).build();
 
         mUserName = Hawk.get("user_name");
 

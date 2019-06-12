@@ -41,7 +41,7 @@ public class ChangePasswordModel extends Observable {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.d("shirintest", "json sent : " + jsonObjectUser.toString() + "token ; " + token);
+        Log.i("fogetpasstest", "json sent : " + jsonObjectUser.toString() + "token ; " + token);
 
 
         AndroidNetworking.patch("https://young-castle-19921.herokuapp.com/apiv1/user/")
@@ -53,7 +53,7 @@ public class ChangePasswordModel extends Observable {
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("shirintest", "on response" + response.toString());
+                        Log.i("fogetpasstest", "on response" + response.toString());
                         setmSuccess(true);
                         setChanged();
                         notifyObservers();
@@ -61,7 +61,7 @@ public class ChangePasswordModel extends Observable {
 
                     @Override
                     public void onError(ANError error) {
-                        Log.d("fogetpasstest", "on error" + error.getErrorDetail());
+                        Log.i("fogetpasstest", "on error" + error.getErrorDetail());
                         setmSuccess(false);
                         setChanged();
                         notifyObservers();
