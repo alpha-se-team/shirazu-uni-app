@@ -30,24 +30,22 @@ public class ChangePasswordModel extends Observable {
 
         JSONObject jsonObject = new JSONObject();
         JSONObject jsonObjectUser = new JSONObject();
+        String token = Hawk.get("token");
+
         try {
 
-            String username = Hawk.get("user_name");
-            String token = Hawk.get("token");
-
             jsonObject.put("password", mNewPassword);
-            jsonObject.put("token", token);
-            jsonObject.put("username" , username);
 
             jsonObjectUser.put("user" , jsonObject);
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.d("shirintest", "json sent : " + jsonObjectUser.toString());
+        Log.d("shirintest", "json sent : " + jsonObjectUser.toString() + "token ; " + token);
 
-        AndroidNetworking.post("") //todo : get url from server.
-                .addHeaders("X-HTTP-Method-Override", "PATCH")
+
+        AndroidNetworking.patch("https://young-castle-19921.herokuapp.com/apiv1/user/")
+                .addHeaders("Authorization", "Bearer " + token)
                 .addJSONObjectBody(jsonObjectUser)
                 .setTag("test")
                 .setPriority(Priority.MEDIUM)
@@ -63,7 +61,7 @@ public class ChangePasswordModel extends Observable {
 
                     @Override
                     public void onError(ANError error) {
-
+                        Log.d("fogetpasstest", "on error" + error.getErrorDetail());
                         setmSuccess(false);
                         setChanged();
                         notifyObservers();

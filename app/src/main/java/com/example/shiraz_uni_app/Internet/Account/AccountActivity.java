@@ -1,6 +1,7 @@
 package com.example.shiraz_uni_app.Internet.Account;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Color;
@@ -59,7 +60,7 @@ public class AccountActivity extends AppCompatActivity implements Observer, View
     private TextView mLogOutTextView;
     private ImageView mLogOutImageView;
     private ImageView mNavigation;
-    private Thread thread;
+    private ProgressDialog progressDialog;
     private RoundCornerProgressBar mRemainingTrafficProgressBar;
 
     @Override
@@ -69,6 +70,7 @@ public class AccountActivity extends AppCompatActivity implements Observer, View
 
         mModel = new AccountModel();
         mModel.addObserver(this);
+
 
         mMenuImageView = findViewById(R.id.menu_icon);
         mDateTextView = findViewById(R.id.date_view);
@@ -111,6 +113,9 @@ public class AccountActivity extends AppCompatActivity implements Observer, View
         if (mUserName != null){
 
             if (MainActivity.checkInternetConnection(AccountActivity.this) ){
+                progressDialog = new ProgressDialog(this , R.style.MyAlertDialogStyle);
+                progressDialog.setMessage("Please wait ...");
+                progressDialog.show();
                 mModel.mProfileReadApi(mUserName);
             }
 
@@ -137,37 +142,12 @@ public class AccountActivity extends AppCompatActivity implements Observer, View
             finish();
         }
 
-        //updateData();
+
         getDataFromServer();
 
     }
 
-    private void updateData() {
 
-        Log.i("test" , "update");
-        thread = new Thread() {
-            @Override
-            public void run() {
-                try {
-                    while (!thread.isInterrupted()) {
-                        Thread.sleep(60000);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Log.i("test" , "tread");
-                                if (MainActivity.checkInternetConnection(AccountActivity.this)){
-                                    mModel.mProfileReadApi(mUserName);
-                                }
-                            }
-                        });
-                    }
-                } catch (InterruptedException e) {
-                }
-            }
-        };
-
-        thread.start();
-    }
 
     private void getDataFromServer() {
 
@@ -196,11 +176,12 @@ public class AccountActivity extends AppCompatActivity implements Observer, View
                     });
                 }
             }
-        }, 5000);
+        }, 60000);
     }
 
     @Override
     public void update(Observable o, Object arg) {
+        progressDialog.cancel();
         mGetData();
         getDataFromServer();
     }
@@ -223,6 +204,7 @@ public class AccountActivity extends AppCompatActivity implements Observer, View
 
     }
     public void mGetData(){
+        Log.i("check" , "total : " + mModel.getmPlanTotalBW() + " consumed: "+ mModel.getmAmountConsumed());
         mRemainingTraffic = mModel.getmPlanTotalBW() - mModel.getmAmountConsumed();
         mRemainingDays = mModel.setRemainingTime();
         mExpirationDate = mModel.getmExpirationDate();
