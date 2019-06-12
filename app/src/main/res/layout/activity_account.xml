@@ -9,53 +9,6 @@
     tools:openDrawer="end">
 
 
-    <android.support.design.widget.NavigationView
-        android:id="@+id/nav_view"
-        android:gravity="end"
-        android:layoutDirection="rtl"
-        android:layout_width="290dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="end"
-        android:background="@color/white"
-        android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_account_info"
-        app:menu="@menu/account_info"
-        app:itemTextColor="@color/dark_blue"
-        android:theme="@style/NavigationView"
-
-        >
-        <LinearLayout
-            android:id="@+id/logout_layout"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="bottom"
-            android:background="@color/red">
-
-            <ImageView
-                android:id="@+id/logout_image_view"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:padding="10dp"
-                android:src="@drawable/logout"/>
-
-            <TextView
-                android:id="@+id/logout_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="16dp"
-                android:text="خروج"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:layout_gravity="center_vertical"
-                />
-
-
-
-        </LinearLayout>
-
-    </android.support.design.widget.NavigationView>
-
-
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
@@ -322,6 +275,53 @@
         </FrameLayout>
 
     </android.support.constraint.ConstraintLayout>
+
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:gravity="end"
+        android:layoutDirection="rtl"
+        android:layout_width="290dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:background="@color/white"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header_account_info"
+        app:menu="@menu/account_info"
+        app:itemTextColor="@color/dark_blue"
+        android:theme="@style/NavigationView"
+        >
+
+        <LinearLayout
+            android:id="@+id/logout_layout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom"
+            android:background="@color/red">
+
+            <ImageView
+                android:id="@+id/logout_image_view"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="10dp"
+                android:src="@drawable/logout"/>
+
+            <TextView
+                android:id="@+id/logout_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:text="خروج"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:layout_gravity="center_vertical"
+                />
+
+
+
+        </LinearLayout>
+
+    </android.support.design.widget.NavigationView>
 
 
 </android.support.v4.widget.DrawerLayout>
