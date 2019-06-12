@@ -1,21 +1,32 @@
 package com.example.shiraz_uni_app.Internet.Account;
 
 import android.app.AlertDialog;
+import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
+import com.anychart.ui.contextmenu.Item;
+import com.example.shiraz_uni_app.Internet.BuyTrafficActivity;
+import com.example.shiraz_uni_app.Internet.ChangePassword.ChangePasswordActivity;
+import com.example.shiraz_uni_app.Internet.ConnectionReportActivity;
 import com.example.shiraz_uni_app.Login.LoginActivity;
 import com.example.shiraz_uni_app.MainActivity;
 import com.example.shiraz_uni_app.R;
@@ -24,7 +35,7 @@ import com.orhanobut.hawk.Hawk;
 import java.util.Observable;
 import java.util.Observer;
 
-public class AccountActivity extends AppCompatActivity implements Observer {
+public class AccountActivity extends AppCompatActivity implements Observer, View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 
     private String mUserName;
     private AccountModel mModel;
@@ -43,8 +54,14 @@ public class AccountActivity extends AppCompatActivity implements Observer {
     private TextView mExpirationDateTextView;
     private String mExpirationDate;
     private DrawerLayout mAccountInfoDrawerLayout;
-    Thread thread;
-    com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar mRemainingTrafficProgressBar;
+    private NavigationView navigationView;
+    private LinearLayout mLogOut;
+    private TextView mLogOutTextView;
+    private ImageView mLogOutImageView;
+    private ImageView mNavigation;
+    private Thread thread;
+    private RoundCornerProgressBar mRemainingTrafficProgressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +80,20 @@ public class AccountActivity extends AppCompatActivity implements Observer {
         mRechargeDateTextView = findViewById(R.id.recharge_date);
         mExpirationDateTextView = findViewById(R.id.expiration_date);
         mAccountInfoDrawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
+
+        navigationView.setNavigationItemSelectedListener(this);
+
+        mNavigation = findViewById(R.id.menu_icon);
+        mNavigation.setOnClickListener(this);
+
+        mLogOutTextView = findViewById(R.id.logout_text_view);
+        mLogOutImageView = findViewById(R.id.logout_image_view);
+        mLogOutImageView.setClickable(false);
+        mLogOutTextView.setClickable(false);
+
+        mLogOut = findViewById(R.id.logout_layout);
+        mLogOut.setOnClickListener(this);
 
         /*mMenuImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,9 +131,8 @@ public class AccountActivity extends AppCompatActivity implements Observer {
             }
         }
 
-        else { //username paride , bayad az aval login kone
+        else {
             Intent intent = new Intent(AccountActivity.this , LoginActivity.class);
-            Toast.makeText(this, "error , plz login again", Toast.LENGTH_SHORT).show();
             startActivity(intent);
             finish();
         }
@@ -138,12 +168,10 @@ public class AccountActivity extends AppCompatActivity implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        Log.i("shirintest" , "update");
         mGetData();
     }
 
     public void mSetData(){
-        Log.i("shirintest" , "set");
         mDateTextView.setText(date);
 
         mRemainingDaysTextView.setText(mRemainingDays + " روز ");
@@ -161,7 +189,6 @@ public class AccountActivity extends AppCompatActivity implements Observer {
 
     }
     public void mGetData(){
-        Log.i("shirintest" , "get");
         mRemainingTraffic = mModel.getmPlanTotalBW() - mModel.getmAmountConsumed();
         mRemainingDays = mModel.setRemainingTime();
         mExpirationDate = mModel.getmExpirationDate();
@@ -173,4 +200,40 @@ public class AccountActivity extends AppCompatActivity implements Observer {
 
     }
 
+    @Override
+    public boolean onNavigationItemSelected(MenuItem menuItem) {
+        switch (menuItem.getItemId()){
+            case R.id.nav_buy_traffic:
+                Intent mBuyTraffic = new Intent(AccountActivity.this, BuyTrafficActivity.class);
+                startActivity(mBuyTraffic);
+                break;
+
+            case R.id.nav_change_password:
+                Intent mChangePassword = new Intent(AccountActivity.this, ChangePasswordActivity.class);
+                startActivity(mChangePassword);
+                break;
+
+            case R.id.nav_connections:
+                Intent mConnection = new Intent(AccountActivity.this, ConnectionReportActivity.class);
+                startActivity(mConnection);
+                break;
+        }
+        return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+
+            case R.id.logout_layout:
+                Hawk.delete("token");
+                Intent mLogin = new Intent (AccountActivity.this, LoginActivity.class);
+                finish();
+                startActivity(mLogin);
+                break;
+
+            case R.id.menu_icon:
+                mAccountInfoDrawerLayout.openDrawer(Gravity.END);
+        }
+    }
 }

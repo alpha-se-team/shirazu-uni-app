@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,7 +19,9 @@ import com.example.shiraz_uni_app.R;
 import java.util.Observable;
 import java.util.Observer;
 
-public class ChangePasswordActivity extends AppCompatActivity implements Observer {
+public class ChangePasswordActivity extends AppCompatActivity implements Observer, View.OnClickListener {
+
+    private ImageView mBack;
 
     EditText mOldPasswordEditText;
     String mOldPassword;
@@ -34,6 +37,8 @@ public class ChangePasswordActivity extends AppCompatActivity implements Observe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
 
+        mBack = findViewById(R.id.change_password_back_Button);
+        mBack.setOnClickListener(this);
 
         mOldPasswordEditText = findViewById(R.id.old_password_edit_text);
         mNewPasswordEditText1 = findViewById(R.id.new_password_edit_text);
@@ -90,6 +95,14 @@ public class ChangePasswordActivity extends AppCompatActivity implements Observe
 
         else {
             Toast.makeText(this, "unsuccessful , plz try again", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.change_password_back_Button:
+                finish();
         }
     }
 }

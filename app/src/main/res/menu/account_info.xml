@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_gravity="end"
     android:gravity="end"
     android:layoutDirection="rtl">
@@ -9,8 +8,10 @@
         android:layout_gravity="end"
         android:checkableBehavior="single"
         android:gravity="end">
+
+
         <item
-            android:id="@+id/nav_buy_trafic"
+            android:id="@+id/nav_buy_traffic"
             android:layout_gravity="end"
             android:gravity="end"
             android:icon="@drawable/buy"

@@ -3,6 +3,7 @@ package com.example.shiraz_uni_app.Internet;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.anychart.AnyChart;
 import com.anychart.AnyChartView;
@@ -22,12 +23,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class ConnectionReportActivity extends AppCompatActivity {
+public class ConnectionReportActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private ImageView mBack;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connection_report);
 
+        mBack = findViewById(R.id.connection_report_back_button);
+        mBack.setOnClickListener(this);
 
         final AnyChartView connection_report_chart = findViewById(R.id.connection_report_chart);
         connection_report_chart.setVisibility(View.GONE);
@@ -121,6 +127,14 @@ public class ConnectionReportActivity extends AppCompatActivity {
         cartesian.legend().padding(0d, 0d, 10d, 0d);
 
         chartView.setChart(cartesian);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.connection_report_back_button:
+                finish();
+        }
     }
 
 
