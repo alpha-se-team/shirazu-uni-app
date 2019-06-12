@@ -1,8 +1,11 @@
 package com.example.shiraz_uni_app.Event.SingleEvent;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -14,14 +17,15 @@ import com.google.gson.Gson;
 import com.orhanobut.hawk.Hawk;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Observable;
+import java.util.Observer;
 
-public class SingleEventActivity extends AppCompatActivity implements View.OnClickListener {
+public class SingleEventActivity extends AppCompatActivity implements View.OnClickListener, Observer {
 
     private int mId = 0;
     private String mContext = "";
     private Date mDate;
     private String mImageAddress;
-    private boolean add_state = false; // add or remove event from favorites ... default= not added yet
     private ImageButton add_remove;
     private Event mEvent;
     private boolean mSaved;
@@ -33,6 +37,8 @@ public class SingleEventActivity extends AppCompatActivity implements View.OnCli
     private TextView mEventText;
     private TextView mEventDate;
     private ArrayList<Integer> mSavedEventsId = new ArrayList<>();
+    private Bitmap mPhotoBitmap;
+    private SingleEventModel mModel = new SingleEventModel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +54,8 @@ public class SingleEventActivity extends AppCompatActivity implements View.OnCli
 
         mSavedEventsId = Hawk.get("Saved");
 
+        mModel.addObserver(this);
+
         mTitle = mEvent.getmTitle();
         mId = mEvent.getmId();
         mSaved = mSavedEventsId.contains(mId);
@@ -55,14 +63,14 @@ public class SingleEventActivity extends AppCompatActivity implements View.OnCli
         mImageAddress = mEvent.getmImageAddress();
         mDate = mEvent.getDate();
 
+        mModel.getEventImage(mId);
+
         add_remove = findViewById(R.id.add_remove);
         add_remove.setImageResource(mSaved ? R.drawable.remove_animation : R.drawable.add_animation);
-        System.out.println("saved: "+ String.valueOf(mSaved));
         add_remove.setOnClickListener(this);
         mEventTitle = findViewById(R.id.event_title);
         mEventTitle.setText(mTitle);
         mEventPhoto = findViewById(R.id.event_pic);
-//        mEventPhoto.setImageURI(Uri.parse(mImageAddress));
         mBack = findViewById(R.id.go_back_buttun);
         mBack.setOnClickListener(this);
         mEventText = findViewById(R.id.event_text);
@@ -105,5 +113,17 @@ public class SingleEventActivity extends AppCompatActivity implements View.OnCli
                 addFavorite(v, mEvent);
                 break;
         }
+    }
+    private Bitmap decodeBase64(String input)
+    {
+        byte[] decodedBytes = Base64.decode(input, 0);
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        String mPicString = mModel.getmImage();
+        mPhotoBitmap = decodeBase64(mPicString);
+        mEventPhoto.setImageBitmap(mPhotoBitmap);
     }
 }
