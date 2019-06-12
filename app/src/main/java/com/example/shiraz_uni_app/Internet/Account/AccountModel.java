@@ -77,8 +77,6 @@ public class AccountModel extends Observable {
 
 
     public void mProfileReadApi(String mUserName){
-        Log.i("shirintest2" , mUserName);
-        Log.i("test" , "get data api");
         AndroidNetworking.get("https://young-castle-19921.herokuapp.com/apiv1/profile/" + mUserName + "/")
                 .addHeaders("")
                 .setTag("test")
@@ -87,7 +85,6 @@ public class AccountModel extends Observable {
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.i("shirintest" , "response " + response.toString());
                         try {
                             JSONObject mProfile = response.getJSONObject("profile");
                             setmAmountConsumed(mProfile.getInt("amount_consumed"));
@@ -97,13 +94,11 @@ public class AccountModel extends Observable {
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Log.d("shirintest", "on response exception");
                         }
                     }
 
                     @Override
                     public void onError(ANError error) {
-                        Log.i("test" , "on error1 " + error.getErrorCode());
 
                     }
                 });
@@ -120,7 +115,6 @@ public class AccountModel extends Observable {
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.i("shirintest" ,  response.toString());
 
                         try {
                             JSONObject mPlan = response.getJSONObject("plan");
@@ -133,13 +127,11 @@ public class AccountModel extends Observable {
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Log.d("test", "on response exception " + e.getMessage());
                         }
                     }
 
                     @Override
                     public void onError(ANError error) {
-                        Log.i("test" , "on error2 " + error.getErrorDetail());
                     }
                 });
     }
@@ -150,7 +142,6 @@ public class AccountModel extends Observable {
         res += persianDate.getShDay() + " ";
         res += persianDate.monthName() + " ";
         res += persianDate.getShYear() + " ";
-        Log.i("shirintest" , res);
         return res;
     }
 

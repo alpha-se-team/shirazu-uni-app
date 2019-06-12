@@ -155,7 +155,6 @@ public class AccountActivity extends AppCompatActivity implements Observer, View
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                Log.i("test" , "sag");
                 if (MainActivity.checkInternetConnection(AccountActivity.this)){
                     mModel.mProfileReadApi(mUserName);
                 }

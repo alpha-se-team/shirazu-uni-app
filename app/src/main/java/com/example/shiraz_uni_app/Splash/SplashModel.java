@@ -32,7 +32,6 @@ public class SplashModel extends Observable {
 
                     @Override
                     public void onResponse(Response response) {
-                        Log.i("shirin" , "response ");
                         setmSuccess(true);
                         setChanged();
                         notifyObservers();
@@ -41,7 +40,6 @@ public class SplashModel extends Observable {
                     @Override
                     public void onError(ANError error) {
                         setmSuccess(false);
-                        Log.i("shirin" , "on error " + error.getErrorDetail());
                         // handle error
                     }
                 });

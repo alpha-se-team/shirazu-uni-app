@@ -72,7 +72,7 @@ public class LoginActivity extends AppCompatActivity implements Observer, View.O
     @Override
     public void update(Observable o, Object arg) {
         progressDialog.cancel();
-        
+
         if (mModel.isValidLogin()){
             Intent mAccount = new Intent(LoginActivity.this , AccountActivity.class);
             Hawk.put("token" ,mModel.getToken());
