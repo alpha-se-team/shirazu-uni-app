@@ -149,6 +149,7 @@
             app:rcReverse="true" />
 
         <FrameLayout
+            android:id="@+id/frameLayout"
             android:layout_width="350dp"
             android:layout_height="250dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -274,23 +275,35 @@
 
         </FrameLayout>
 
+        <Button
+            android:id="@+id/disconnect_button"
+            android:layout_width="130dp"
+            android:layout_height="60dp"
+            android:background="@drawable/round_button"
+            android:text="قطع ارتباط"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
+
     </android.support.constraint.ConstraintLayout>
 
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
-        android:gravity="end"
-        android:layoutDirection="rtl"
         android:layout_width="290dp"
         android:layout_height="match_parent"
         android:layout_gravity="end"
         android:background="@color/white"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/nav_header_account_info"
-        app:menu="@menu/account_info"
-        app:itemTextColor="@color/dark_blue"
+        android:gravity="end"
+        android:layoutDirection="rtl"
         android:theme="@style/NavigationView"
-        >
+        app:headerLayout="@layout/nav_header_account_info"
+        app:itemTextColor="@color/dark_blue"
+        app:menu="@menu/account_info">
 
         <LinearLayout
             android:id="@+id/logout_layout"
@@ -304,19 +317,17 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:padding="10dp"
-                android:src="@drawable/logout"/>
+                android:src="@drawable/logout" />
 
             <TextView
                 android:id="@+id/logout_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginRight="16dp"
                 android:text="خروج"
                 android:textColor="@color/white"
-                android:textSize="18sp"
-                android:layout_gravity="center_vertical"
-                />
-
+                android:textSize="18sp" />
 
 
         </LinearLayout>
