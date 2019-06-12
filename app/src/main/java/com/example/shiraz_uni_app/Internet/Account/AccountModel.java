@@ -10,6 +10,7 @@ import com.androidnetworking.interfaces.JSONArrayRequestListener;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.androidnetworking.interfaces.OkHttpResponseListener;
 import com.anychart.editor.Step;
+import com.orhanobut.hawk.Hawk;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,7 +30,42 @@ public class AccountModel extends Observable {
     private int mPlanTotalBW;
     private String mPlantitle;
     private String mPlaneDesc;
+    private boolean getPlanIdData;
+    private boolean getNameData;
+    private String mFullName;
+    private String mStdNum;
 
+    public String getmFullName() {
+        return mFullName;
+    }
+
+    public String getmStdNum() {
+        return mStdNum;
+    }
+
+    public void setmFullName(String mFullName) {
+        this.mFullName = mFullName;
+    }
+
+    public void setmStdNum(String mStdNum) {
+        this.mStdNum = mStdNum;
+    }
+
+    public boolean isGetPlanIdData() {
+        return getPlanIdData;
+    }
+
+    public boolean isGetNameData() {
+        return getNameData;
+    }
+
+    public void setGetPlanIdData(boolean getPlanIdData) {
+        this.getPlanIdData = getPlanIdData;
+    }
+
+    public void setGetNameData(boolean getNameData) {
+        this.getNameData = getNameData;
+    }
 
     private Date date = new Date();
     private PersianDate persianDate = new PersianDate(date);
@@ -93,20 +129,19 @@ public class AccountModel extends Observable {
                             mPlanReadApi();
 
                         } catch (JSONException e) {
+                            setGetPlanIdData(false);
                             e.printStackTrace();
                         }
                     }
 
                     @Override
                     public void onError(ANError error) {
-
+                        setGetPlanIdData(false);
                     }
                 });
     }
 
     private void mPlanReadApi() {
-        Log.i("test" , getmPlanId() + "");
-        Log.i("shirin" , "get data api");
         AndroidNetworking.get("https://young-castle-19921.herokuapp.com/apiv1/plan/" + getmPlanId() + "/")
                 .addHeaders("")
                 .setTag("test")
@@ -121,17 +156,54 @@ public class AccountModel extends Observable {
                             setmPlanTotalBW(mPlan.getInt("total_bandwidth"));
                             setmPlantitle(mPlan.getString("title"));
                             setmPlaneDesc(mPlan.getString("description"));
+                            setGetPlanIdData(true);
                             setChanged();
                             notifyObservers();
 
 
                         } catch (JSONException e) {
+                            setGetPlanIdData(false);
                             e.printStackTrace();
                         }
                     }
 
                     @Override
                     public void onError(ANError error) {
+                        setGetPlanIdData(false);
+                    }
+                });
+    }
+
+    public void mGetNameStudentNumApi() {
+        Log.i("shirin" , "get name called");
+        AndroidNetworking.get("https://young-castle-19921.herokuapp.com/apiv1/user/")
+                .addHeaders("Authorization", "Bearer "+ Hawk.get("token"))
+                .setTag("test")
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        try {
+
+                            JSONObject user = response.getJSONObject("user");
+                            setmFullName(user.getString("first_name") + " " + user.getString("last_name"));
+                            setmStdNum(user.getString("student_id"));
+
+                            setGetNameData(true);
+                            setChanged();
+                            notifyObservers();
+
+                        } catch (JSONException e) {
+                            setGetNameData(false);
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError error) {
+                        setGetNameData(false);
                     }
                 });
     }

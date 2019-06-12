@@ -42,7 +42,7 @@ public class LoginModel extends Observable{
                 public void onResponse(JSONObject response) {
                     setValidLogin(true);
                     try {
-
+                        Log.i("shirin" , response.toString());
                         JSONObject user = response.getJSONObject("user");
                         setToken(user.getString("token"));
 

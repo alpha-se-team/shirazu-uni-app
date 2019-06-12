@@ -63,6 +63,9 @@ public class AccountActivity extends AppCompatActivity implements Observer, View
     private ImageView mNavigation;
     private ProgressDialog progressDialog;
     private RoundCornerProgressBar mRemainingTrafficProgressBar;
+    private TextView mNameTextView;
+    private TextView mStudentNumTextView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +87,11 @@ public class AccountActivity extends AppCompatActivity implements Observer, View
         mExpirationDateTextView = findViewById(R.id.expiration_date);
         mAccountInfoDrawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
+
+        View header = navigationView.getHeaderView(0);
+        mNameTextView = header.findViewById(R.id.name_text_view);
+        mStudentNumTextView = header.findViewById(R.id.student_number_text_view);
+
 
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -117,6 +125,7 @@ public class AccountActivity extends AppCompatActivity implements Observer, View
                 progressDialog = new ProgressDialog(this , R.style.MyAlertDialogStyle);
                 progressDialog.setMessage("Please wait ...");
                 progressDialog.show();
+                mModel.mGetNameStudentNumApi();
                 mModel.mProfileReadApi(mUserName);
             }
 
@@ -182,8 +191,23 @@ public class AccountActivity extends AppCompatActivity implements Observer, View
     @Override
     public void update(Observable o, Object arg) {
         progressDialog.cancel();
-        mGetData();
-        getDataFromServer();
+        if (mModel.isGetPlanIdData()){
+            mGetData();
+            getDataFromServer();
+        }
+
+        if (mModel.isGetNameData()){
+
+            setName();
+        }
+
+    }
+
+    public void setName(){
+
+        mNameTextView.setText(mModel.getmFullName());
+        mStudentNumTextView.setText(mModel.getmStdNum());
+
     }
 
     public void mSetData(){
