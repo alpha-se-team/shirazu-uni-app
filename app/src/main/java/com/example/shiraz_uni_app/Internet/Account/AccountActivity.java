@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Handler;
@@ -13,6 +15,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -62,6 +65,8 @@ public class AccountActivity extends AppCompatActivity implements Observer, View
     private ImageView mLogOutImageView;
     private ImageView mNavigation;
     private ProgressDialog progressDialog;
+    private ImageView mProfile;
+    private Thread thread;
     private RoundCornerProgressBar mRemainingTrafficProgressBar;
     private TextView mNameTextView;
     private TextView mStudentNumTextView;
@@ -97,6 +102,9 @@ public class AccountActivity extends AppCompatActivity implements Observer, View
 
         mNavigation = findViewById(R.id.menu_icon);
         mNavigation.setOnClickListener(this);
+
+        View headerView = navigationView.getHeaderView(0);
+        mProfile = headerView.findViewById(R.id.profile_picture_image_view);
 
         mLogOutTextView = findViewById(R.id.logout_text_view);
         mLogOutImageView = findViewById(R.id.logout_image_view);
@@ -155,6 +163,11 @@ public class AccountActivity extends AppCompatActivity implements Observer, View
 
         getDataFromServer();
 
+        String mToken = Hawk.get("token");
+        mModel.getProfileImage(mToken);
+
+        updateData();
+
     }
 
 
@@ -190,6 +203,7 @@ public class AccountActivity extends AppCompatActivity implements Observer, View
 
     @Override
     public void update(Observable o, Object arg) {
+
         progressDialog.cancel();
         if (mModel.isGetPlanIdData()){
             mGetData();
@@ -208,6 +222,13 @@ public class AccountActivity extends AppCompatActivity implements Observer, View
         mNameTextView.setText(mModel.getmFullName());
         mStudentNumTextView.setText(mModel.getmStdNum());
 
+        mGetData();
+
+        if(mModel.ismImageValid()){
+            String mImage = mModel.getmImage();
+            Bitmap mImageBitmap = decodeBase64(mImage);
+            mProfile.setImageBitmap(mImageBitmap);
+        }
     }
 
     public void mSetData(){
@@ -275,5 +296,11 @@ public class AccountActivity extends AppCompatActivity implements Observer, View
             case R.id.menu_icon:
                 mAccountInfoDrawerLayout.openDrawer(Gravity.END);
         }
+    }
+
+    private Bitmap decodeBase64(String input)
+    {
+        byte[] decodedBytes = Base64.decode(input, 0);
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
     }
 }

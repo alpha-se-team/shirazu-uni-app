@@ -67,50 +67,39 @@ public class AccountModel extends Observable {
         this.getNameData = getNameData;
     }
 
+    private String mImage;
+    private boolean mImageValid = false;
+
+
     private Date date = new Date();
     private PersianDate persianDate = new PersianDate(date);
 
+    public void getProfileImage(String token){
+        AndroidNetworking.get("https://young-castle-19921.herokuapp.com/apiv1/user/image")
+                .addHeaders("Authorization", "Bearer "+ token)
+                .setTag("test")
+                .setPriority(Priority.MEDIUM)
+                .build()
+                .getAsJSONObject(new JSONObjectRequestListener() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONObject mProfileImageJsonObject = response.getJSONObject("img");
+                            mImage = mProfileImageJsonObject.getString("img");
+                            mImageValid = true;
+                            setChanged();
+                            notifyObservers();
+                        } catch (JSONException e) {
 
-    public int getmAmountConsumed() {
-        return mAmountConsumed;
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError error) {
+
+                    }
+                });
     }
-
-    public void setmPlanTotalBW(int mPlanTotalBW) {
-        this.mPlanTotalBW = mPlanTotalBW;
-    }
-
-    public void setmPlantitle(String mPlantitle) {
-        this.mPlantitle = mPlantitle;
-    }
-
-    public void setmPlaneDesc(String mPlaneDesc) {
-        this.mPlaneDesc = mPlaneDesc;
-    }
-
-    public int getmPlanTotalBW() {
-        return mPlanTotalBW;
-    }
-
-    public String getmPlantitle() {
-        return mPlantitle;
-    }
-
-    public String getmPlaneDesc() {
-        return mPlaneDesc;
-    }
-
-    public void setmAmountConsumed(int mAmountConsumed) {
-        this.mAmountConsumed = mAmountConsumed;
-    }
-
-    public void setmPlanId(int mPlanId) {
-        this.mPlanId = mPlanId;
-    }
-
-    public int getmPlanId() {
-        return mPlanId;
-    }
-
 
     public void mProfileReadApi(String mUserName){
         AndroidNetworking.get("https://young-castle-19921.herokuapp.com/apiv1/profile/" + mUserName + "/")
@@ -150,7 +139,6 @@ public class AccountModel extends Observable {
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
                     public void onResponse(JSONObject response) {
-
                         try {
                             JSONObject mPlan = response.getJSONObject("plan");
                             setmPlanTotalBW(mPlan.getInt("total_bandwidth"));
@@ -240,6 +228,47 @@ public class AccountModel extends Observable {
         return mYear + "/" + mNextMonth + "/1" ;
     }
 
+
+    public int getmAmountConsumed() {
+        return mAmountConsumed;
+    }
+
+    public void setmPlanTotalBW(int mPlanTotalBW) {
+        this.mPlanTotalBW = mPlanTotalBW;
+    }
+
+    public void setmPlantitle(String mPlantitle) {
+        this.mPlantitle = mPlantitle;
+    }
+
+    public void setmPlaneDesc(String mPlaneDesc) {
+        this.mPlaneDesc = mPlaneDesc;
+    }
+
+    public int getmPlanTotalBW() {
+        return mPlanTotalBW;
+    }
+
+    public String getmPlantitle() {
+        return mPlantitle;
+    }
+
+    public String getmPlaneDesc() {
+        return mPlaneDesc;
+    }
+
+    public void setmAmountConsumed(int mAmountConsumed) {
+        this.mAmountConsumed = mAmountConsumed;
+    }
+
+    public void setmPlanId(int mPlanId) {
+        this.mPlanId = mPlanId;
+    }
+
+    public int getmPlanId() {
+        return mPlanId;
+    }
+
     public String getmExpirationDate() {
         return "1401/6/17";
     }
@@ -248,5 +277,15 @@ public class AccountModel extends Observable {
         return persianDate.getMonthLength();
     }
 
+    public boolean ismImageValid() {
+        return mImageValid;
+    }
 
+    public void setmImageValid(boolean mImageValid) {
+        this.mImageValid = mImageValid;
+    }
+
+    public String getmImage() {
+        return mImage;
+    }
 }
