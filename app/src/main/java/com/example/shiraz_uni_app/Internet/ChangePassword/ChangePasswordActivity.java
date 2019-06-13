@@ -1,10 +1,12 @@
 package com.example.shiraz_uni_app.Internet.ChangePassword;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 import com.example.shiraz_uni_app.Internet.Account.AccountActivity;
 import com.example.shiraz_uni_app.MainActivity;
 import com.example.shiraz_uni_app.R;
+import com.orhanobut.hawk.Hawk;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -31,6 +34,7 @@ public class ChangePasswordActivity extends AppCompatActivity implements Observe
     String mConfirmNewPassword;
     Button mConfirmButton;
     ChangePasswordModel mModel;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,21 +52,34 @@ public class ChangePasswordActivity extends AppCompatActivity implements Observe
         mModel = new ChangePasswordModel();
         mModel.addObserver(this);
 
+
         mConfirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mOldPassword = mOldPasswordEditText.getText().toString();
                 mNewPassword = mNewPasswordEditText1.getText().toString();
                 mConfirmNewPassword = mConfirmNewPasswordEditText.getText().toString();
+                Log.i("fogetpasstest", "onclick : " + mOldPassword + " " + Hawk.get("password"));
                 if (MainActivity.checkInternetConnection(ChangePasswordActivity.this)){
 
-                    if (mNewPassword.equals(mConfirmNewPassword)){
-                        mOldPassword = mOldPasswordEditText.getText().toString();
-                        mModel.changePassword(mOldPassword , mNewPassword);
+                    if (! mOldPassword.equals(Hawk.get("password"))){
+                        Toast.makeText(ChangePasswordActivity.this, "old password is not correct", Toast.LENGTH_SHORT).show();
+                    }
 
+                    else if (mNewPassword.length() < 8){
+                        Toast.makeText(ChangePasswordActivity.this, "password length must be at least 8", Toast.LENGTH_SHORT).show();
+                    }
+
+                    else if (! mNewPassword.equals(mConfirmNewPassword)){
+                        Toast.makeText(ChangePasswordActivity.this, "new password does not match", Toast.LENGTH_SHORT).show();
                     }
 
                     else {
-                        Toast.makeText(ChangePasswordActivity.this, "new password does not match", Toast.LENGTH_SHORT).show();
+                        progressDialog = new ProgressDialog(ChangePasswordActivity.this , R.style.MyAlertDialogStyle);
+                        progressDialog.setMessage("Please wait ...");
+                        progressDialog.show();
+                        Log.i("fogetpasstest", "call api");
+                        mModel.changePassword( mNewPassword);
                     }
                 }
 
@@ -88,13 +105,15 @@ public class ChangePasswordActivity extends AppCompatActivity implements Observe
 
     @Override
     public void update(Observable observable, Object o) {
-
+        Log.i("fogetpasstest", "on response" + mModel.ismSuccess());
+        progressDialog.cancel();
         if (mModel.ismSuccess()){
-            Toast.makeText(this, "successful", Toast.LENGTH_SHORT).show();
+
+            finish();
         }
 
         else {
-            Toast.makeText(this, "unsuccessful , plz try again", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "sorry, not successful , plz try again", Toast.LENGTH_SHORT).show();
         }
     }
 

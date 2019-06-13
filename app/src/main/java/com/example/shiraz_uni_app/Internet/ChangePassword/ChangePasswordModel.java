@@ -6,6 +6,7 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.orhanobut.hawk.Hawk;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,20 +26,26 @@ public class ChangePasswordModel extends Observable {
     }
 
 
-    public void changePassword(String mOldPassword, String mNewPassword) {
+    public void changePassword(String mNewPassword) {
 
         JSONObject jsonObject = new JSONObject();
         JSONObject jsonObjectUser = new JSONObject();
+        String token = Hawk.get("token");
+
         try {
-            jsonObject.put("oldPassword", mOldPassword);
-            jsonObject.put("newPassword", mNewPassword);
+
+            jsonObject.put("password", mNewPassword);
 
             jsonObjectUser.put("user" , jsonObject);
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        Log.i("fogetpasstest", "json sent : " + jsonObjectUser.toString() + "token ; " + token);
 
-        AndroidNetworking.post("") //todo : get url from server
+
+        AndroidNetworking.patch("https://young-castle-19921.herokuapp.com/apiv1/user/")
+                .addHeaders("Authorization", "Bearer " + token)
                 .addJSONObjectBody(jsonObjectUser)
                 .setTag("test")
                 .setPriority(Priority.MEDIUM)
@@ -46,7 +53,7 @@ public class ChangePasswordModel extends Observable {
                 .getAsJSONObject(new JSONObjectRequestListener() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("shirin", "on response" + response.toString());
+                        Log.i("fogetpasstest", "on response" + response.toString());
                         setmSuccess(true);
                         setChanged();
                         notifyObservers();
@@ -54,7 +61,7 @@ public class ChangePasswordModel extends Observable {
 
                     @Override
                     public void onError(ANError error) {
-
+                        Log.i("fogetpasstest", "on error" + error.getErrorDetail());
                         setmSuccess(false);
                         setChanged();
                         notifyObservers();

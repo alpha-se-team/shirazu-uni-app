@@ -16,7 +16,6 @@ public class LoginModel extends Observable{
 
     public void login(String mUsername, String mPassword) {
 
-        Log.d("shirin", "login called" + mUsername + mPassword);
         JSONObject jsonObject = new JSONObject();
         JSONObject jsonObjectUser = new JSONObject();
         try {
@@ -33,9 +32,6 @@ public class LoginModel extends Observable{
     }
 
     private void loginApiCall(JSONObject jsonObject) {
-        Log.i("shirin" , "api called");
-        Log.i("shirin" , jsonObject.toString());
-
         AndroidNetworking.post("https://young-castle-19921.herokuapp.com/apiv1/users/login/")
             .addJSONObjectBody(jsonObject) // posting json
             .setTag("test")
@@ -44,20 +40,17 @@ public class LoginModel extends Observable{
             .getAsJSONObject(new JSONObjectRequestListener() {
                 @Override
                 public void onResponse(JSONObject response) {
-                    Log.d("shirin", "on response" + response.toString());
                     setValidLogin(true);
                     try {
-
+                        Log.i("shirin" , response.toString());
                         JSONObject user = response.getJSONObject("user");
                         setToken(user.getString("token"));
-                        Log.i("shirin" , mToken);
 
                         setChanged();
                         notifyObservers();
 
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        Log.d("shirin", "on response exception");
                     }
                 }
 
@@ -68,10 +61,7 @@ public class LoginModel extends Observable{
 
                     setChanged();
                     notifyObservers();
-
-                    Log.i("shirin" , error.getErrorCode()+"  error");
                     if (error.getErrorCode() == 404) {
-                        Log.i("shirin", "onError: 404");
                     }
 
                 }

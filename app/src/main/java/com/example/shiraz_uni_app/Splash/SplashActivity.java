@@ -26,7 +26,6 @@ public class SplashActivity extends Activity implements Observer {
     private SplashModel mSplashModel;
     private String token;
     private Intent intent;
-    Thread thread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +48,6 @@ public class SplashActivity extends Activity implements Observer {
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                Log.i("shirintest2" , "sag");
                 getState();
             }
         }, 5000);
@@ -58,14 +56,12 @@ public class SplashActivity extends Activity implements Observer {
     @Override
     public void update(Observable o, Object arg) {
 
-        Log.i("shirin" , "update called");
+
         if (mSplashModel.ismSuccess()) {
-            Log.i("shirin" , "update1");
 
             intent = new Intent(SplashActivity.this, AccountActivity.class);
 
         } else {
-            Log.i("shirin" , "update2");
             intent = new Intent(SplashActivity.this, LoginActivity.class);
         }
         finish();
@@ -76,13 +72,10 @@ public class SplashActivity extends Activity implements Observer {
 
         mConnectionStatus = MainActivity.checkInternetConnection(this);
         token = Hawk.get("token");
-        Log.i("shirin" , "get state called");
         if(mConnectionStatus){
             if(token != null){
-                Log.i("shirin" , "token not null  " + token);
                 mSplashModel.checkToken(token);
             }else{
-                Log.i("shirin" , "else");
                 intent = new Intent(SplashActivity.this, LoginActivity.class);
                 finish();
                 startActivity(intent);

@@ -1,6 +1,7 @@
 package com.example.shiraz_uni_app.Internet.Account;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -33,6 +34,7 @@ import com.example.shiraz_uni_app.Internet.ConnectionReportActivity;
 import com.example.shiraz_uni_app.Login.LoginActivity;
 import com.example.shiraz_uni_app.MainActivity;
 import com.example.shiraz_uni_app.R;
+import com.example.shiraz_uni_app.Splash.SplashActivity;
 import com.orhanobut.hawk.Hawk;
 
 import java.util.Observable;
@@ -62,9 +64,13 @@ public class AccountActivity extends AppCompatActivity implements Observer, View
     private TextView mLogOutTextView;
     private ImageView mLogOutImageView;
     private ImageView mNavigation;
+    private ProgressDialog progressDialog;
     private ImageView mProfile;
     private Thread thread;
     private RoundCornerProgressBar mRemainingTrafficProgressBar;
+    private TextView mNameTextView;
+    private TextView mStudentNumTextView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +79,7 @@ public class AccountActivity extends AppCompatActivity implements Observer, View
 
         mModel = new AccountModel();
         mModel.addObserver(this);
+
 
         mMenuImageView = findViewById(R.id.menu_icon);
         mDateTextView = findViewById(R.id.date_view);
@@ -85,6 +92,11 @@ public class AccountActivity extends AppCompatActivity implements Observer, View
         mExpirationDateTextView = findViewById(R.id.expiration_date);
         mAccountInfoDrawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
+
+        View header = navigationView.getHeaderView(0);
+        mNameTextView = header.findViewById(R.id.name_text_view);
+        mStudentNumTextView = header.findViewById(R.id.student_number_text_view);
+
 
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -111,13 +123,17 @@ public class AccountActivity extends AppCompatActivity implements Observer, View
             }
         }); */
 
-
+        Hawk.init(AccountActivity.this).build();
 
         mUserName = Hawk.get("user_name");
 
         if (mUserName != null){
 
             if (MainActivity.checkInternetConnection(AccountActivity.this) ){
+                progressDialog = new ProgressDialog(this , R.style.MyAlertDialogStyle);
+                progressDialog.setMessage("Please wait ...");
+                progressDialog.show();
+                mModel.mGetNameStudentNumApi();
                 mModel.mProfileReadApi(mUserName);
             }
 
@@ -144,6 +160,9 @@ public class AccountActivity extends AppCompatActivity implements Observer, View
             finish();
         }
 
+
+        getDataFromServer();
+
         String mToken = Hawk.get("token");
         mModel.getProfileImage(mToken);
 
@@ -151,33 +170,58 @@ public class AccountActivity extends AppCompatActivity implements Observer, View
 
     }
 
-    private void updateData() {
 
-        thread = new Thread() {
-            @Override
+
+    private void getDataFromServer() {
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
             public void run() {
-                try {
-                    while (!thread.isInterrupted()) {
-                        Thread.sleep(60000);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (MainActivity.checkInternetConnection(AccountActivity.this)){
-                                    mModel.mProfileReadApi(mUserName);
-                                }
-                            }
-                        });
-                    }
-                } catch (InterruptedException e) {
+                if (MainActivity.checkInternetConnection(AccountActivity.this)){
+                    mModel.mProfileReadApi(mUserName);
+                }
+                else {
+
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(AccountActivity.this);
+                    View dialogView = getLayoutInflater().inflate(R.layout.no_internet_connection_dialog, null);
+                    TextView close = dialogView.findViewById(R.id.close);
+                    builder.setView(dialogView);
+                    final AlertDialog dialog = builder.create();
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    dialog.show();
+                    close.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.cancel();
+                            getDataFromServer();
+                        }
+                    });
                 }
             }
-        };
-
-        thread.start();
+        }, 60000);
     }
 
     @Override
     public void update(Observable o, Object arg) {
+
+        progressDialog.cancel();
+        if (mModel.isGetPlanIdData()){
+            mGetData();
+            getDataFromServer();
+        }
+
+        if (mModel.isGetNameData()){
+
+            setName();
+        }
+
+    }
+
+    public void setName(){
+
+        mNameTextView.setText(mModel.getmFullName());
+        mStudentNumTextView.setText(mModel.getmStdNum());
+
         mGetData();
 
         if(mModel.ismImageValid()){
@@ -205,6 +249,7 @@ public class AccountActivity extends AppCompatActivity implements Observer, View
 
     }
     public void mGetData(){
+        Log.i("check" , "total : " + mModel.getmPlanTotalBW() + " consumed: "+ mModel.getmAmountConsumed());
         mRemainingTraffic = mModel.getmPlanTotalBW() - mModel.getmAmountConsumed();
         mRemainingDays = mModel.setRemainingTime();
         mExpirationDate = mModel.getmExpirationDate();
