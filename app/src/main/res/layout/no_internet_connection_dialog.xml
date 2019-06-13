@@ -40,7 +40,7 @@
             android:layout_marginBottom="32dp"
             android:text="دسترسی به اینترنت مقدور نمی باشد"
             android:textColor="@color/dark_blue"
-            android:textSize="18sp" />
+            android:textSize="18dp" />
 
         <TextView
             android:id="@+id/close"
@@ -49,7 +49,7 @@
             android:background="@drawable/back_dialog_blue"
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
-            android:text="بستن"
+            android:text="تلاش مجدد"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="18sp"

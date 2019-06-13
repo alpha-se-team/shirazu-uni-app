@@ -17,6 +17,8 @@ import com.example.shiraz_uni_app.Login.LoginActivity;
 import com.example.shiraz_uni_app.MainActivity;
 import com.example.shiraz_uni_app.R;
 import com.orhanobut.hawk.Hawk;
+
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -37,7 +39,6 @@ public class SplashActivity extends Activity implements Observer {
 
         AndroidNetworking.initialize(getApplicationContext());
         Hawk.init(SplashActivity.this).build();
-        //getState();
 
         tryToInter();
     }

@@ -30,6 +30,7 @@ public class SingleEventModel extends Observable {
                         try {
                             JSONObject mEventImageJsonObject = response.getJSONObject("img");
                             mImage = mEventImageJsonObject.getString("img");
+                            System.out.println(mImage.length());
                             setChanged();
                             notifyObservers();
                         } catch (JSONException e) {

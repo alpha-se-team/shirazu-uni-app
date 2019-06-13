@@ -1,8 +1,12 @@
 package com.example.shiraz_uni_app.Event.SingleEvent;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.AnimatedVectorDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
@@ -11,8 +15,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.ablanco.zoomy.Zoomy;
+import com.example.shiraz_uni_app.Event.AllEvents.EventsActivity;
 import com.example.shiraz_uni_app.Event.Event;
+import com.example.shiraz_uni_app.Login.LoginActivity;
+import com.example.shiraz_uni_app.MainActivity;
 import com.example.shiraz_uni_app.R;
+import com.example.shiraz_uni_app.Utility.JalaliCalendar;
 import com.google.gson.Gson;
 import com.orhanobut.hawk.Hawk;
 import java.util.ArrayList;
@@ -37,8 +45,10 @@ public class SingleEventActivity extends AppCompatActivity implements View.OnCli
     private TextView mEventText;
     private TextView mEventDate;
     private ArrayList<Integer> mSavedEventsId = new ArrayList<>();
+    private ProgressDialog progressDialog;
     private Bitmap mPhotoBitmap;
     private SingleEventModel mModel = new SingleEventModel();
+    private boolean mConnectionStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +73,28 @@ public class SingleEventActivity extends AppCompatActivity implements View.OnCli
         mImageAddress = mEvent.getmImageAddress();
         mDate = mEvent.getDate();
 
+        mConnectionStatus = MainActivity.checkInternetConnection(this);
+
+        if(mConnectionStatus) {
+            progressDialog = new ProgressDialog(SingleEventActivity.this, R.style.MyAlertDialogStyle);
+            progressDialog.setMessage("لطفا صبر کنید ...");
+            progressDialog.show();
+            mModel.getEventImage(mId);
+        }else {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(SingleEventActivity.this); //the current class
+            View dialogView = getLayoutInflater().inflate(R.layout.no_internet_connection_dialog, null);
+            TextView close = dialogView.findViewById(R.id.close);
+            builder.setView(dialogView);
+            final AlertDialog dialog = builder.create();
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.show();
+            close.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.cancel();
+                }
+            });
+        }
         mModel.getEventImage(mId);
 
         add_remove = findViewById(R.id.add_remove);
@@ -76,7 +108,14 @@ public class SingleEventActivity extends AppCompatActivity implements View.OnCli
         mEventText = findViewById(R.id.event_text);
         mEventText.setText(mContext);
         mEventDate = findViewById(R.id.event_date);
-        mEventDate.setText(mDate.toString());
+
+        JalaliCalendar.YearMonthDate yearMonthDate = JalaliCalendar.gregorianToJalali(new JalaliCalendar.YearMonthDate(
+                mDate.getYear(),
+                mDate.getMonth(),
+                mDate.getDay()
+        ));
+
+        mEventDate.setText("تاریخ برگزاری: " + yearMonthDate.toString());
 
         /*Zoom Feature*/
         ImageView event_view = findViewById(R.id.event_pic);
@@ -122,8 +161,10 @@ public class SingleEventActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void update(Observable o, Object arg) {
+        progressDialog.cancel();
         String mPicString = mModel.getmImage();
         mPhotoBitmap = decodeBase64(mPicString);
         mEventPhoto.setImageBitmap(mPhotoBitmap);
+
     }
 }

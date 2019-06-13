@@ -160,13 +160,10 @@ public class AccountActivity extends AppCompatActivity implements Observer, View
             finish();
         }
 
-
         getDataFromServer();
 
         String mToken = Hawk.get("token");
         mModel.getProfileImage(mToken);
-
-        updateData();
 
     }
 
@@ -203,18 +200,14 @@ public class AccountActivity extends AppCompatActivity implements Observer, View
 
     @Override
     public void update(Observable o, Object arg) {
-
-        progressDialog.cancel();
         if (mModel.isGetPlanIdData()){
             mGetData();
             getDataFromServer();
         }
 
         if (mModel.isGetNameData()){
-
             setName();
         }
-
     }
 
     public void setName(){
@@ -246,6 +239,7 @@ public class AccountActivity extends AppCompatActivity implements Observer, View
         mRechargeDateTextView.setText(mRechargeDate);
         mChargeAmountPerMonthTextView.setText(mChargeAmountPerMonth + " گیگابایت ");
 
+        progressDialog.cancel();
 
     }
     public void mGetData(){
