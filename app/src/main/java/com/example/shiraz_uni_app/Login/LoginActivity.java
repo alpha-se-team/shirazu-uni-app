@@ -95,7 +95,7 @@ public class LoginActivity extends AppCompatActivity implements Observer, View.O
 
                 if(mConnectionStatus){
                     progressDialog = new ProgressDialog(LoginActivity.this , R.style.MyAlertDialogStyle);
-                    progressDialog.setMessage("Please wait ...");
+                    progressDialog.setMessage("لطفا صبر کنید ...");
                     progressDialog.show();
                     mModel.login(mUsername.getText().toString(), mPassword.getText().toString());
                 }

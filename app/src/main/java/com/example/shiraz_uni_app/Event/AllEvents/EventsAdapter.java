@@ -3,6 +3,7 @@ package com.example.shiraz_uni_app.Event.AllEvents;
 import android.content.Intent;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.provider.CalendarContract;
+import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,13 +63,19 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
     @Override
     public void onBindViewHolder(EventViewHolder eventViewHolder, final int i) {
 
-        mSavedEventsId = Hawk.get("Saved");
+        try {
+            mSavedEventsId = Hawk.get("Saved");
+            if(mSavedEventsId.equals(null)){
+                mSavedEventsId = new ArrayList<>();
+                Hawk.put("Saved", mSavedEventsId);
+            }
+        }catch (Exception e){
+            mSavedEventsId = new ArrayList<>();
+            Hawk.put("Saved", mSavedEventsId);
+        }
 
         Event currentItem = mEvents.get(i);
         eventViewHolder.mContext.setText(currentItem.getContext());
-        System.out.println(JalaliCalendar.gregorianToJalali(new JalaliCalendar.YearMonthDate(currentItem.getDate().getYear(),
-                                                                                                currentItem.getDate().getMonth(),
-                                                                                                    currentItem.getDate().getDay())));
 
         JalaliCalendar.YearMonthDate yearMonthDate = JalaliCalendar.gregorianToJalali(new JalaliCalendar.YearMonthDate(
                 currentItem.getDate().getYear(),
@@ -158,12 +165,16 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.EventViewH
             mSavedEventsId.add(event.getmId());
             Hawk.put("Saved", mSavedEventsId);
             mAddOrRemove.setImageResource(R.drawable.add_animation);
+            //AnimatedVectorDrawableCompat avdc = AnimatedVectorDrawableCompat.create(view.getContext(), R.drawable.add_animation);
+            //mAddOrRemove.setImageDrawable(avdc);
             ((AnimatedVectorDrawable) mAddOrRemove.getDrawable()).start();
         }
         else {
             mSavedEventsId.remove(mSavedEventsId.indexOf(event.getmId()));
             Hawk.put("Saved", mSavedEventsId);
             mAddOrRemove.setImageResource(R.drawable.remove_animation);
+            //AnimatedVectorDrawableCompat avdc = AnimatedVectorDrawableCompat.create(view.getContext(), R.drawable.remove_animation);
+            //mAddOrRemove.setImageDrawable(avdc);
             ((AnimatedVectorDrawable) mAddOrRemove.getDrawable()).start();
         }
     }

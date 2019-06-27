@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.shiraz_uni_app.Event.Event;
 import com.example.shiraz_uni_app.Event.SingleEvent.SingleEventActivity;
 import com.example.shiraz_uni_app.R;
+import com.example.shiraz_uni_app.Utility.Animations;
 import com.example.shiraz_uni_app.Utility.JalaliCalendar;
 import com.google.gson.Gson;
 import com.orhanobut.hawk.Hawk;
@@ -51,7 +52,7 @@ public class SavedEventsAdapter extends RecyclerView.Adapter<SavedEventsAdapter.
     }
 
     @Override
-    public void onBindViewHolder(SavedEventsAdapter.EventViewHolder savedEventViewHolder, final int i) {
+    public void onBindViewHolder(final SavedEventsAdapter.EventViewHolder savedEventViewHolder, final int i) {
         mSavedEventsId = Hawk.get("Saved");
 
         Event currentItem = mEvents.get(i);
@@ -73,7 +74,7 @@ public class SavedEventsAdapter extends RecyclerView.Adapter<SavedEventsAdapter.
             @Override
             public void onClick(View v) {
                 mEvents.get(i).setmSaved(!mEvents.get(i).ismSaved());
-                addFavorite(v, mEvents.get(i));
+                addFavorite(v, mEvents.get(i), savedEventViewHolder.itemView);
             }
         });
 
@@ -101,7 +102,7 @@ public class SavedEventsAdapter extends RecyclerView.Adapter<SavedEventsAdapter.
         return mEvents.size();
     }
 
-    public void addFavorite(View view, Event event){
+    public void addFavorite(View view, Event event, View itemView){
         mAddOrRemove = view.findViewById(R.id.event_add_image_button);
 
         try {
@@ -118,6 +119,10 @@ public class SavedEventsAdapter extends RecyclerView.Adapter<SavedEventsAdapter.
             ((AnimatedVectorDrawable) mAddOrRemove.getDrawable()).start();
         }
         else {
+            System.out.println("Animation");
+            Animation mFade = Animations.fade(itemView);
+            itemView.startAnimation(mFade);
+
             mSavedEventsId.remove(mSavedEventsId.indexOf(event.getmId()));
             mEvents.remove(mEvents.indexOf(event));
             mAddOrRemove.setImageResource(R.drawable.remove_animation);

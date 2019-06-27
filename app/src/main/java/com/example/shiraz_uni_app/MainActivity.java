@@ -17,10 +17,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        AndroidNetworking.initialize(getApplicationContext());
-
-        Hawk.init(MainActivity.this).build();
-
     }
 
     public static boolean checkInternetConnection(Context context) {

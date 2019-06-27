@@ -1,7 +1,11 @@
 package com.example.shiraz_uni_app.Event.AllEvents;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,9 +14,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.shiraz_uni_app.Event.Event;
 import com.example.shiraz_uni_app.Event.SavedEvents.SavedEventsActivity;
+import com.example.shiraz_uni_app.Login.LoginActivity;
+import com.example.shiraz_uni_app.MainActivity;
 import com.example.shiraz_uni_app.R;
 
 import java.util.ArrayList;
@@ -25,6 +32,8 @@ public class EventsActivity extends AppCompatActivity implements View.OnClickLis
     private RecyclerView.LayoutManager mLayoutManager;
     private ImageView mBack;
     private ImageView mSavedEvents;
+    private boolean mConnectionStatus;
+    private ProgressDialog progressDialog;
     private EventsModel mModel = new EventsModel();
     private static ArrayList<Event> mEvents = new ArrayList<>();
 
@@ -33,9 +42,47 @@ public class EventsActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_events);
         View myLayout = LayoutInflater.from(this).inflate(R.layout.activity_event_item,null);
+        mConnectionStatus = MainActivity.checkInternetConnection(this);
+
+        if(mConnectionStatus) {
+            progressDialog = new ProgressDialog(EventsActivity.this, R.style.MyAlertDialogStyle);
+            progressDialog.setMessage("لطفا صبر کنید ...");
+            progressDialog.show();
+        }else {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(EventsActivity.this); //the current class
+            View dialogView = getLayoutInflater().inflate(R.layout.no_internet_connection_dialog, null);
+            TextView close = dialogView.findViewById(R.id.close);
+            builder.setView(dialogView);
+            final AlertDialog dialog = builder.create();
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.show();
+            close.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialog.cancel();
+                }
+            });
+        }
 
         mModel.addObserver(this);
         mModel.getEvents();
+
+
+//        else {
+//            final AlertDialog.Builder builder = new AlertDialog.Builder(EventsActivity.this); //the current class
+//            View dialogView = getLayoutInflater().inflate(R.layout.no_internet_connection_dialog, null);
+//            TextView close = dialogView.findViewById(R.id.close);
+//            builder.setView(dialogView);
+//            final AlertDialog dialog = builder.create();
+//            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//            dialog.show();
+//            close.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    dialog.cancel();
+//                }
+//            });
+//        }
 
         mBack = findViewById(R.id.event_back);
         mBack.setOnClickListener(this);
@@ -48,7 +95,6 @@ public class EventsActivity extends AppCompatActivity implements View.OnClickLis
         mAdapter = new EventsAdapter(mEvents);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
-
     }
 
     public ArrayList<Event> getEvents() {
@@ -90,13 +136,9 @@ public class EventsActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public void update(Observable o, Object arg) {
-        LinearLayout linearLayout = findViewById(R.id.progress_bar_layout);
-        linearLayout.setVisibility(View.GONE);
+        System.out.println("hello this means that events have been downloaded");
+        progressDialog.cancel();
         mAdapter.notifyDataSetChanged();
-    }
-
-    public  void startIntentActivity(Intent intent , Context context){
-        context.startActivity(intent);
     }
 
 }
