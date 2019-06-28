@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.shiraz_uni_app.Internet.Account.AccountActivity;
+import com.example.shiraz_uni_app.Internet.ShowDialog;
 import com.example.shiraz_uni_app.MainActivity;
 import com.example.shiraz_uni_app.R;
 import com.orhanobut.hawk.Hawk;
@@ -59,26 +60,29 @@ public class ChangePasswordActivity extends AppCompatActivity implements Observe
                 mOldPassword = mOldPasswordEditText.getText().toString();
                 mNewPassword = mNewPasswordEditText1.getText().toString();
                 mConfirmNewPassword = mConfirmNewPasswordEditText.getText().toString();
-                Log.i("fogetpasstest", "onclick : " + mOldPassword + " " + Hawk.get("password"));
+                TextView textView = findViewById(R.id.failed_attempt_dialog);
                 if (MainActivity.checkInternetConnection(ChangePasswordActivity.this)){
 
                     if (! mOldPassword.equals(Hawk.get("password"))){
-                        Toast.makeText(ChangePasswordActivity.this, "old password is not correct", Toast.LENGTH_SHORT).show();
+                        textView.setVisibility(View.VISIBLE);
+                        textView.setText("رمزعبور قبلی درست نمیباشد");
                     }
 
                     else if (mNewPassword.length() < 8){
-                        Toast.makeText(ChangePasswordActivity.this, "password length must be at least 8", Toast.LENGTH_SHORT).show();
+                        textView.setVisibility(View.VISIBLE);
+                        textView.setText("طول رمزعبور حداقل باید 8 کاراکتر باشد");
                     }
 
                     else if (! mNewPassword.equals(mConfirmNewPassword)){
-                        Toast.makeText(ChangePasswordActivity.this, "new password does not match", Toast.LENGTH_SHORT).show();
+                        textView.setVisibility(View.VISIBLE);
+                        textView.setText("رمزعبور جدید مطابقت ندارد");
                     }
 
                     else {
+                        textView.setVisibility(View.INVISIBLE);
                         progressDialog = new ProgressDialog(ChangePasswordActivity.this , R.style.MyAlertDialogStyle);
                         progressDialog.setMessage("Please wait ...");
                         progressDialog.show();
-                        Log.i("fogetpasstest", "call api");
                         mModel.changePassword( mNewPassword);
                     }
                 }
@@ -105,15 +109,13 @@ public class ChangePasswordActivity extends AppCompatActivity implements Observe
 
     @Override
     public void update(Observable observable, Object o) {
-        Log.i("fogetpasstest", "on response" + mModel.ismSuccess());
         progressDialog.cancel();
         if (mModel.ismSuccess()){
-
-            finish();
+            ShowDialog.changePasswordDialog(this);
         }
 
         else {
-            Toast.makeText(this, "sorry, not successful , plz try again", Toast.LENGTH_SHORT).show();
+            ShowDialog.wrongPasswordDialog(this);
         }
     }
 
