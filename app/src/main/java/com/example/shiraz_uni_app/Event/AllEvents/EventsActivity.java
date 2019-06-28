@@ -35,17 +35,19 @@ public class EventsActivity extends AppCompatActivity implements View.OnClickLis
     private boolean mConnectionStatus;
     private ProgressDialog progressDialog;
     private EventsModel mModel = new EventsModel();
-    private static ArrayList<Event> mEvents = new ArrayList<>();
+    public static ArrayList<Event> mEvents = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_events);
         View myLayout = LayoutInflater.from(this).inflate(R.layout.activity_event_item,null);
+
         mConnectionStatus = MainActivity.checkInternetConnection(this);
 
         if(mConnectionStatus) {
             progressDialog = new ProgressDialog(EventsActivity.this, R.style.MyAlertDialogStyle);
+            LoginActivity.progressDialog.cancel();
             progressDialog.setMessage("لطفا صبر کنید ...");
             progressDialog.show();
         }else {

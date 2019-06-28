@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity implements Observer, View.O
     private TextView mForgetPassword;
     private ImageView mEventsImage;
     private TextView mValidLogin;
-    private ProgressDialog progressDialog;
+    public static ProgressDialog progressDialog;
     private boolean mConnectionStatus;
 
     @Override
@@ -124,13 +124,62 @@ public class LoginActivity extends AppCompatActivity implements Observer, View.O
                 break;
 
             case (R.id.go_to_events_image_view):
-                Intent mEventIntent = new Intent(LoginActivity.this, EventsActivity.class);
-                startActivity(mEventIntent);
+                mConnectionStatus = MainActivity.checkInternetConnection(this);
+
+                if(mConnectionStatus){
+                    progressDialog = new ProgressDialog(LoginActivity.this , R.style.MyAlertDialogStyle);
+                    progressDialog.setMessage("لطفا صبر کنید ...");
+                    progressDialog.show();
+                    Intent mEventIntent = new Intent(LoginActivity.this, EventsActivity.class);
+                    startActivity(mEventIntent);
+                }
+
+                else {
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this); //the current class
+                    View dialogView = getLayoutInflater().inflate(R.layout.no_internet_connection_dialog, null);
+                    TextView close = dialogView.findViewById(R.id.close);
+                    builder.setView(dialogView);
+                    final AlertDialog dialog = builder.create();
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    dialog.show();
+                    close.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.cancel();
+                        }
+                    });
+                }
+
                 break;
 
             case (R.id.go_to_events_text_view):
-                Intent mEventIntent2 = new Intent(LoginActivity.this, EventsActivity.class);
-                startActivity(mEventIntent2);
+
+                mConnectionStatus = MainActivity.checkInternetConnection(this);
+
+                if(mConnectionStatus){
+                    progressDialog = new ProgressDialog(LoginActivity.this , R.style.MyAlertDialogStyle);
+                    progressDialog.setMessage("لطفا صبر کنید ...");
+                    progressDialog.show();
+                    Intent mEventIntent2 = new Intent(LoginActivity.this, EventsActivity.class);
+                    startActivity(mEventIntent2);
+                }
+
+                else {
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this); //the current class
+                    View dialogView = getLayoutInflater().inflate(R.layout.no_internet_connection_dialog, null);
+                    TextView close = dialogView.findViewById(R.id.close);
+                    builder.setView(dialogView);
+                    final AlertDialog dialog = builder.create();
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    dialog.show();
+                    close.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.cancel();
+                        }
+                    });
+                }
+
                 break;
         }
 

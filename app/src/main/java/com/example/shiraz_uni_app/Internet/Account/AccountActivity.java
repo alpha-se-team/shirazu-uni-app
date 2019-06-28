@@ -1,5 +1,6 @@
 package com.example.shiraz_uni_app.Internet.Account;
 
+import android.accounts.Account;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ClipData;
@@ -28,9 +29,11 @@ import android.widget.Toast;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.anychart.ui.contextmenu.Item;
+import com.example.shiraz_uni_app.Event.AllEvents.EventsActivity;
 import com.example.shiraz_uni_app.Internet.BuyTrafficActivity;
 import com.example.shiraz_uni_app.Internet.ChangePassword.ChangePasswordActivity;
 import com.example.shiraz_uni_app.Internet.ConnectionReportActivity;
+import com.example.shiraz_uni_app.Internet.ShowDialog;
 import com.example.shiraz_uni_app.Login.LoginActivity;
 import com.example.shiraz_uni_app.MainActivity;
 import com.example.shiraz_uni_app.R;
@@ -70,6 +73,8 @@ public class AccountActivity extends AppCompatActivity implements Observer, View
     private RoundCornerProgressBar mRemainingTrafficProgressBar;
     private TextView mNameTextView;
     private TextView mStudentNumTextView;
+    private Button mDisconnect;
+    private boolean mConnectionStatus;
 
 
     @Override
@@ -92,6 +97,8 @@ public class AccountActivity extends AppCompatActivity implements Observer, View
         mExpirationDateTextView = findViewById(R.id.expiration_date);
         mAccountInfoDrawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
+        mDisconnect = findViewById(R.id.disconnect_button);
+        mDisconnect.setOnClickListener(this);
 
         View header = navigationView.getHeaderView(0);
         mNameTextView = header.findViewById(R.id.name_text_view);
@@ -204,9 +211,13 @@ public class AccountActivity extends AppCompatActivity implements Observer, View
             mGetData();
             getDataFromServer();
         }
-
         if (mModel.isGetNameData()){
             setName();
+        }
+        if(mModel.ismDisconnected()){
+            progressDialog.cancel();
+            ShowDialog showDialog = new ShowDialog();
+            showDialog.SuccessDialog(this);
         }
     }
 
@@ -289,6 +300,35 @@ public class AccountActivity extends AppCompatActivity implements Observer, View
 
             case R.id.menu_icon:
                 mAccountInfoDrawerLayout.openDrawer(Gravity.END);
+                break;
+
+            case R.id.disconnect_button:
+                mConnectionStatus = MainActivity.checkInternetConnection(this);
+
+                if(mConnectionStatus){
+                    progressDialog = new ProgressDialog(AccountActivity.this , R.style.MyAlertDialogStyle);
+                    progressDialog.setMessage("لطفا صبر کنید ...");
+                    progressDialog.show();
+                    mModel.disconnect();
+                }
+
+                else {
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(AccountActivity.this); //the current class
+                    View dialogView = getLayoutInflater().inflate(R.layout.no_internet_connection_dialog, null);
+                    TextView close = dialogView.findViewById(R.id.close);
+                    builder.setView(dialogView);
+                    final AlertDialog dialog = builder.create();
+                    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    dialog.show();
+                    close.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.cancel();
+                        }
+                    });
+                }
+
+                break;
         }
     }
 

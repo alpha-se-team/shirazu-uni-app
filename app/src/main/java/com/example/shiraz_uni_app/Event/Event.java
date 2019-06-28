@@ -1,5 +1,7 @@
 package com.example.shiraz_uni_app.Event;
 
+import android.graphics.Bitmap;
+
 import java.util.Date;
 
 public class Event {
@@ -7,7 +9,7 @@ public class Event {
     private String mContext ;
     private Date mDate ;
     private int mId;
-    private String mImageAddress;
+    private Bitmap mImageAddress;
     private boolean mSaved;
     private String mTitle;
 
@@ -31,11 +33,11 @@ public class Event {
 
     public void setmSaved(boolean mSaved) { this.mSaved = mSaved; }
 
-    public String getmImageAddress() {
+    public Bitmap getmImageAddress() {
         return mImageAddress;
     }
 
-    public void setmImageAddress(String mImageAddress) {
+    public void setmImageAddress(Bitmap mImageAddress) {
         this.mImageAddress = mImageAddress;
     }
 
