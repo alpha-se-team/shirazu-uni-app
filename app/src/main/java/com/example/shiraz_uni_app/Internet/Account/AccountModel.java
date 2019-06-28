@@ -34,6 +34,7 @@ public class AccountModel extends Observable {
     private boolean getNameData;
     private String mFullName;
     private String mStdNum;
+    private boolean mDisconnected;
 
     public String getmFullName() {
         return mFullName;
@@ -145,6 +146,7 @@ public class AccountModel extends Observable {
                             setmPlantitle(mPlan.getString("title"));
                             setmPlaneDesc(mPlan.getString("description"));
                             setGetPlanIdData(true);
+                            setmDisconnected(false);
                             setChanged();
                             notifyObservers();
 
@@ -228,6 +230,14 @@ public class AccountModel extends Observable {
         return mYear + "/" + mNextMonth + "/1" ;
     }
 
+    public void disconnect() {
+        // TODO: 2019-06-28 call api and disconnect user sessions and set disconnected boolean variable to true in case success
+        getNameData = false;
+        getPlanIdData = false;
+        mDisconnected = true;
+        setChanged();
+        notifyObservers();
+    }
 
     public int getmAmountConsumed() {
         return mAmountConsumed;
@@ -287,5 +297,13 @@ public class AccountModel extends Observable {
 
     public String getmImage() {
         return mImage;
+    }
+
+    public boolean ismDisconnected() {
+        return mDisconnected;
+    }
+
+    public void setmDisconnected(boolean mDisconnected) {
+        this.mDisconnected = mDisconnected;
     }
 }

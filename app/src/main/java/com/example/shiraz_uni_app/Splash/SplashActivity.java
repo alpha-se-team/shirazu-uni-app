@@ -9,6 +9,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.androidnetworking.AndroidNetworking;
@@ -28,6 +32,7 @@ public class SplashActivity extends Activity implements Observer {
     private SplashModel mSplashModel;
     private String token;
     private Intent intent;
+    private ImageView mLogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +45,13 @@ public class SplashActivity extends Activity implements Observer {
         AndroidNetworking.initialize(getApplicationContext());
         Hawk.init(SplashActivity.this).build();
 
+        mLogo = findViewById(R.id.university_logo);
+
+        Animation fadeIn = new AlphaAnimation(0, 1);
+        fadeIn.setInterpolator(new DecelerateInterpolator()); //add this
+        fadeIn.setDuration(5000);
+
+        mLogo.setAnimation(fadeIn);
         tryToInter();
     }
 
@@ -51,7 +63,7 @@ public class SplashActivity extends Activity implements Observer {
             public void run() {
                 getState();
             }
-        }, 5000);
+        }, 3000);
     }
 
     @Override

@@ -33,7 +33,7 @@ public class SingleEventActivity extends AppCompatActivity implements View.OnCli
     private int mId = 0;
     private String mContext = "";
     private Date mDate;
-    private String mImageAddress;
+    private Bitmap mImageAddress;
     private ImageButton add_remove;
     private Event mEvent;
     private boolean mSaved;
@@ -57,7 +57,7 @@ public class SingleEventActivity extends AppCompatActivity implements View.OnCli
 
         Bundle extras = getIntent().getExtras();
 
-        if (extras != null){
+        if (extras != null) {
             mJsonEvent = extras.getString("event");
         }
         mEvent = new Gson().fromJson(mJsonEvent, Event.class);
@@ -75,12 +75,12 @@ public class SingleEventActivity extends AppCompatActivity implements View.OnCli
 
         mConnectionStatus = MainActivity.checkInternetConnection(this);
 
-        if(mConnectionStatus) {
+        if (mConnectionStatus) {
             progressDialog = new ProgressDialog(SingleEventActivity.this, R.style.MyAlertDialogStyle);
             progressDialog.setMessage("لطفا صبر کنید ...");
             progressDialog.show();
             mModel.getEventImage(mId);
-        }else {
+        } else {
             final AlertDialog.Builder builder = new AlertDialog.Builder(SingleEventActivity.this); //the current class
             View dialogView = getLayoutInflater().inflate(R.layout.no_internet_connection_dialog, null);
             TextView close = dialogView.findViewById(R.id.close);
@@ -95,8 +95,13 @@ public class SingleEventActivity extends AppCompatActivity implements View.OnCli
                 }
             });
         }
-        mModel.getEventImage(mId);
-
+        if (mImageAddress == null){
+            mModel.getEventImage(mId);
+        }else{
+            System.out.println("image is here5 :)");
+            progressDialog.cancel();
+            mEventPhoto.setImageBitmap(mImageAddress);
+        }
         add_remove = findViewById(R.id.add_remove);
         add_remove.setImageResource(mSaved ? R.drawable.remove_animation : R.drawable.add_animation);
         add_remove.setOnClickListener(this);

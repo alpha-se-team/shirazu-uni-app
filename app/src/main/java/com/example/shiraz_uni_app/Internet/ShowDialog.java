@@ -11,7 +11,7 @@ import com.example.shiraz_uni_app.R;
 public class ShowDialog {
 
     // SuccessDialog(Activity.this,"خرید شما با موفقیت انجام شد")
-    // SuccessDialog(Activity.this,"ارتباط با موفقیت قطع شد")
+    //SuccessDialog(Activity.this,"ارتباط با موفقیت قطع شد")
 
     public void NoInternetDialog(Activity activity){
 
@@ -36,7 +36,7 @@ public class ShowDialog {
 
     }
 
-    public void SuccessDialog(Activity activity, String message){
+    public void SuccessDialog(Activity activity){
 
         final Dialog dialog = new Dialog(activity, android.R.style.Theme_Translucent_NoTitleBar_Fullscreen);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -44,7 +44,7 @@ public class ShowDialog {
         dialog.setContentView(R.layout.success_dialog);
 
         TextView mText = dialog.findViewById(R.id.success_text);
-        mText.setText(message);
+        mText.setText("ارتباط با موفقیت قطع شد");
 
         TextView close =  dialog.findViewById(R.id.close_text_view);
         close.setOnClickListener(new View.OnClickListener() {
