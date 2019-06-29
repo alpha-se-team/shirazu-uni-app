@@ -108,7 +108,7 @@ public class SingleEventActivity extends AppCompatActivity implements View.OnCli
         mEventTitle = findViewById(R.id.event_title);
         mEventTitle.setText(mTitle);
         mEventPhoto = findViewById(R.id.event_pic);
-        mBack = findViewById(R.id.go_back_buttun);
+        mBack = findViewById(R.id.go_back_button);
         mBack.setOnClickListener(this);
         mEventText = findViewById(R.id.event_text);
         mEventText.setText(mContext);
@@ -149,7 +149,7 @@ public class SingleEventActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case (R.id.go_back_buttun):
+            case (R.id.go_back_button):
                 finish();
                 break;
 

@@ -41,8 +41,6 @@ public class ChangePasswordModel extends Observable {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.i("fogetpasstest", "json sent : " + jsonObjectUser.toString() + "token ; " + token);
-
 
         AndroidNetworking.patch("https://young-castle-19921.herokuapp.com/apiv1/user/")
                 .addHeaders("Authorization", "Bearer " + token)

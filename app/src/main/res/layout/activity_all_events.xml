@@ -10,17 +10,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:weightSum="1"
         android:background="@color/dark_blue"
         android:orientation="horizontal"
-        android:gravity="center">
+        >
 
         <ImageView
             android:id="@+id/event_back"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_weight="0.1"
-            android:src="@drawable/left_arrow"
+            android:src="@drawable/back"
             android:foregroundGravity="center_vertical"
             android:padding="15dp"
             />
@@ -29,9 +27,9 @@
             android:id="@+id/events"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.8"
             android:layout_gravity="center"
-            android:gravity="center_horizontal"
+            android:gravity="center"
+            android:layout_weight="0.8"
             android:text="رویدادها"
             android:textAlignment="center"
             android:textColor="@color/white"
@@ -41,8 +39,7 @@
             android:id="@+id/saved_events_image_view"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_weight="0.1"
-            android:padding="15dp"
+            android:padding="20dp"
             android:src="@drawable/archive"/>
 
 
