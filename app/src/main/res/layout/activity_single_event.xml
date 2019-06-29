@@ -21,10 +21,11 @@
 
 
         <ImageView
-            android:id="@+id/go_back_buttun"
+            android:id="@+id/go_back_button"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_weight="0.1"
+            android:src="@drawable/back"
+            android:foregroundGravity="center_vertical"
             android:padding="15dp"
             android:src="@drawable/back" />
 
@@ -77,8 +78,8 @@
 
             <FrameLayout
                 android:id="@+id/event"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:padding="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -88,8 +89,9 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center">
 
                     <TextView
                         android:id="@+id/event_pic_title"
@@ -108,7 +110,7 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/margin_blue"
                         android:scaleType="fitXY"
-                        android:src="@drawable/event_pic" />
+                        />
 
                     <TextView
                         android:id="@+id/event_date"
