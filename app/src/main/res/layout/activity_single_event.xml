@@ -27,7 +27,7 @@
             android:src="@drawable/back"
             android:foregroundGravity="center_vertical"
             android:padding="15dp"
-            />
+            android:src="@drawable/back" />
 
         <TextView
             android:id="@+id/event_title"
